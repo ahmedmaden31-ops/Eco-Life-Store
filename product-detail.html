@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Eco Life Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --deep: #0a1a0f;
+            --forest: #1a3a2a;
+            --moss: #2d5a3d;
+            --sage: #4e8c62;
+            --mint: #7bbf8a;
+            --lime: #a8d5b5;
+            --cream: #f5f0e8;
+            --sand: #e8dfc8;
+            --warm: #f9f6f0;
+            --text: #1a2e1e;
+            --muted: #5a7060;
+            --gold: #c8a84b;
+            --shadow-sm: 0 4px 16px rgba(26, 58, 42, .10);
+            --shadow-md: 0 8px 32px rgba(26, 58, 42, .14);
+            --shadow-lg: 0 20px 60px rgba(26, 58, 42, .18);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-blur: blur(20px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 26, 15, 0.92);
+            backdrop-filter: blur(24px);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--cream) !important;
+            text-decoration: none;
+        }
+
+        .navbar-brand .gold-line {
+            color: var(--gold);
+        }
+
+        .nav-link {
+            color: rgba(245, 240, 232, 0.85) !important;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0.75rem;
+            width: 0;
+            height: 2px;
+            background: var(--mint);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--cream) !important;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: calc(100% - 1.5rem);
+        }
+
+        .cart-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--cream) !important;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--deep);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .translate-btn {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            color: var(--cream) !important;
+            transition: all 0.3s;
+        }
+
+        .translate-btn:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: var(--cream) !important;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--deep) 0%, var(--forest) 100%);
+            color: var(--cream);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(78, 140, 98, 0.28) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(200, 168, 75, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .page-header .container {
+            position: relative;
+        }
+
+        .page-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(123, 191, 138, 0.15);
+            border: 1px solid rgba(123, 191, 138, 0.3);
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--mint);
+            margin-bottom: 1.25rem;
+        }
+
+        .page-title {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 560px;
+            margin: 0 auto;
+            opacity: 0.82;
+            line-height: 1.6;
+        }
+
+        .product-detail-section {
+            padding: 4rem 0 3rem;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--sand);
+        }
+
+        .detail-image {
+            min-height: 420px;
+            background: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.4s ease;
+        }
+
+        .detail-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .detail-content {
+            padding: 2rem;
+        }
+
+        .detail-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--cream);
+            color: var(--text);
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .detail-title {
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-pricing {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .detail-price {
+            color: var(--sage);
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .detail-old-price {
+            text-decoration: line-through;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--mint);
+            color: var(--deep);
+            border-radius: 999px;
+            padding: 0.45rem 0.85rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-tag {
+            background: var(--lime);
+            color: var(--moss);
+            padding: 0.45rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .detail-description {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary-fill {
+            background: var(--sage);
+            border: none;
+            color: var(--cream);
+            padding: 0.95rem 1.2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .btn-primary-fill:hover {
+            background: var(--moss);
+        }
+
+        .btn-outline-dark {
+            border-color: var(--sage);
+            color: var(--text);
+            border-radius: 50px;
+            padding: 0.95rem 1.2rem;
+            font-weight: 700;
+        }
+
+        .btn-outline-dark:hover {
+            background: rgba(78, 140, 98, 0.1);
+        }
+
+        .detail-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .detail-footer span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .related-products {
+            padding: 2rem 0 0;
+        }
+
+        .related-title {
+            margin-bottom: 1.5rem;
+            font-size: 1.65rem;
+        }
+
+        .related-card {
+            background: white;
+            border: 1px solid var(--sand);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .related-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .related-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .related-body {
+            padding: 1rem;
+        }
+
+        .related-body h6 {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .related-body .price {
+            font-weight: 700;
+            color: var(--sage);
+        }
+
+        .not-found {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .not-found h3 {
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--deep) 100%);
+            color: var(--cream);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .gold-line {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--deep);
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+
+        .footer h5 {
+            color: var(--cream);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(245, 240, 232, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--mint);
+        }
+
+        .footer-contact p {
+            color: rgba(245, 240, 232, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-copyright {
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(245, 240, 232, 0.5);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 1399px) {
+            .product-detail-grid {
+                gap: 2rem;
+            }
+
+            .detail-gallery {
+                min-height: 440px;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .page-header {
+                padding: 6rem 0 2.5rem;
+            }
+
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 1.75rem;
+            }
+
+            .detail-gallery {
+                min-height: 360px;
+            }
+
+            .product-card {
+                padding: 1.25rem;
+            }
+
+            .detail-actions {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .product-info {
+                padding: 1.5rem;
+            }
+
+            .detail-meta {
+                gap: 0.75rem;
+            }
+
+            .product-price {
+                font-size: clamp(1.5rem, 3vw, 1.8rem);
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 5rem 0 2rem;
+            }
+
+            .product-detail-grid {
+                gap: 1.25rem;
+            }
+
+            .detail-gallery {
+                min-height: 320px;
+            }
+
+            .product-info {
+                padding: 1.25rem;
+            }
+
+            .product-title {
+                font-size: clamp(1.6rem, 4vw, 2rem);
+            }
+
+            .product-price {
+                font-size: clamp(1.3rem, 3vw, 1.5rem);
+            }
+
+            .detail-actions {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .detail-actions .btn {
+                width: 100%;
+            }
+
+            .product-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .product-gallery img {
+                height: 90px;
+            }
+
+            .related-products {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-header {
+                padding: 4.5rem 0 1.75rem;
+            }
+
+            .product-detail-grid {
+                gap: 1rem;
+            }
+
+            .detail-gallery {
+                min-height: 280px;
+            }
+
+            .product-info,
+            .product-card {
+                padding: 1rem;
+            }
+
+            .product-title {
+                font-size: clamp(1.4rem, 4vw, 1.8rem);
+            }
+
+            .product-meta {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .detail-actions {
+                gap: 0.75rem;
+            }
+
+            .product-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .product-gallery img {
+                height: 75px;
+            }
+
+            .related-products {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .product-description,
+            .product-reviews {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 4rem 0 1.25rem;
+            }
+
+            .product-info {
+                padding: 0.85rem;
+            }
+
+            .product-title {
+                font-size: 1.3rem;
+            }
+
+            .product-price {
+                font-size: 1.2rem;
+            }
+
+            .product-meta {
+                gap: 0.6rem;
+            }
+
+            .detail-actions {
+                gap: 0.65rem;
+            }
+
+            .product-gallery {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .product-gallery img {
+                height: 60px;
+            }
+
+            .product-tags {
+                gap: 0.4rem;
+            }
+
+            .tag {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.6rem;
+            }
+
+            .product-description,
+            .product-reviews {
+                padding: 0.85rem;
+            }
+
+            .related-products {
+                grid-template-columns: 1fr;
+            }
+
+            .related-product-card {
+                padding: 0.85rem;
+            }
+        }
+
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+
+            .btn,
+            .detail-actions .btn,
+            .product-gallery img,
+            .related-product-card {
+                min-height: 48px;
+            }
+
+            .product-card,
+            .product-info {
+                min-height: 220px;
+            }
+        }
+
+        /* Landscape mode optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .page-header {
+                padding: 3.5rem 0 1rem;
+            }
+
+            .detail-gallery {
+                min-height: 220px;
+            }
+
+            .product-gallery {
+                gap: 0.5rem;
+            }
+
+            .related-products {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.65rem;
+            }
+        }
+    </style>
+<style id="eco-marketplace-style">
+/* Marketplace additions — deliberately reuse the original Eco Life palette */
+.market-search-wrap{width:min(1180px,calc(100% - 32px));margin:92px auto 18px;position:relative;z-index:20}
+.market-search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand,#e8dfc8);border-radius:999px;padding:8px 10px 8px 18px;box-shadow:var(--shadow-sm);}
+.market-search input{border:0;outline:0;min-width:0;flex:1;padding:10px 4px;color:var(--text);background:transparent;font:inherit}
+.market-search button{border:0;border-radius:999px;background:var(--sage);color:var(--cream);font-weight:700;padding:11px 22px;white-space:nowrap}
+.market-search button:hover{background:var(--moss)}
+.market-trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.82rem;margin:10px 0 0}
+.market-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 22px;padding:14px;background:#fff;border:1px solid var(--sand);border-radius:var(--r2)}
+.market-tools input,.market-tools select{border:1px solid var(--sand);border-radius:10px;padding:10px 12px;background:var(--warm);color:var(--text);min-width:170px}
+.market-tools input{flex:1}
+.market-tools .market-count{color:var(--muted);font-size:.9rem;margin-inline-start:auto}
+.market-extra-card .product-image{height:220px;background:linear-gradient(135deg,var(--lime),var(--mint));}
+.market-extra-card .product-image img{width:100%;height:100%;object-fit:cover}
+.market-extra-card .product-info{padding:1.25rem;display:flex;flex-direction:column;flex:1}
+.market-extra-card .product-title{min-height:48px}
+.market-extra-card .product-price{color:var(--sage);font-weight:800;font-size:1.15rem}
+.market-extra-card .market-rating{color:var(--gold);font-size:.9rem;margin:4px 0 10px}
+.market-extra-card .product-actions{margin-top:auto;padding-top:12px}
+.market-extra-card .btn-add-cart{border:0;border-radius:10px;padding:10px 12px;background:var(--sage);color:white;font-weight:700;width:100%}
+.market-extra-card .market-tag{display:inline-block;background:var(--lime);color:var(--moss);border-radius:30px;padding:4px 9px;font-size:.72rem;margin:2px}
+.market-no-results{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+@media(max-width:600px){.market-search-wrap{margin-top:82px}.market-search{border-radius:16px;padding:7px}.market-search button{padding:10px 14px}.market-tools>*{width:100%;min-width:0!important}.market-tools .market-count{margin:0}}
+</style>
+
+<style id="eco-amazon-sections-style">
+.eco-category-strip{background:var(--deep,#0a1a0f);border-top:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.12);width:100%;position:relative;z-index:20}
+.eco-category-inner{max-width:1320px;margin:auto;padding:0 18px;display:flex;align-items:center;gap:5px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.eco-cat-link{display:inline-flex;align-items:center;gap:7px;padding:12px 13px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;border:1px solid transparent;border-radius:5px;transition:background .2s,border-color .2s}
+.eco-cat-link:hover,.eco-cat-link:focus{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.eco-deal-link{color:#d9efb5}
+.eco-deals-section{padding:34px 0 12px}
+.eco-deals-banner{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:25px 30px;border-radius:14px;background:linear-gradient(110deg,var(--deep,#0a1a0f),var(--moss,#315b3d));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.eco-deals-banner h2{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;margin:0 0 7px}
+.eco-deals-banner p{margin:0;color:rgba(255,255,255,.83)}
+.eco-deals-banner .eco-deal-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;background:#fff;color:var(--deep,#0a1a0f);font-weight:800;text-decoration:none;white-space:nowrap}
+.eco-deals-banner .eco-deal-cta:hover{transform:translateY(-2px)}
+.eco-mini-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+.eco-mini-card{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.eco-mini-card:hover{transform:translateY(-4px);box-shadow:0 9px 24px rgba(0,0,0,.12);color:inherit}
+.eco-mini-card img{width:100%;height:150px;object-fit:cover;display:block;background:#eef3ec}
+.eco-mini-card .eco-mini-info{padding:12px}
+.eco-mini-card h3{font-size:.96rem;font-weight:700;margin:0 0 7px}
+.eco-mini-card .eco-mini-price{font-weight:800;color:var(--sage,#4e8c62)}
+.eco-mini-label{display:inline-block;font-size:.7rem;font-weight:800;background:rgba(78,140,98,.13);color:var(--moss,#315b3d);padding:4px 7px;border-radius:20px;margin-bottom:7px}
+.eco-best-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:30px 0 15px}
+.eco-best-heading h2{font-size:1.55rem;font-weight:800;margin:0;color:var(--text,#203126)}
+.eco-best-heading a{color:var(--sage,#4e8c62);font-weight:700;text-decoration:none}
+@media(max-width:767px){.eco-category-inner{padding:0 10px}.eco-cat-link{padding:10px 11px;font-size:.82rem}.eco-deals-banner{align-items:flex-start;flex-direction:column;padding:22px}.eco-mini-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.eco-mini-card img{height:125px}.eco-best-heading h2{font-size:1.25rem}}
+</style>
+
+
+<style id="eco-amazon-mobile-layout">
+/* Amazon-inspired shopping layout, retaining Eco Life Store colors */
+.eco-delivery-bar{min-height:42px;background:#20382b;color:#f5f0e8;display:flex;align-items:center;gap:9px;padding:8px max(16px,calc((100% - 1280px)/2));font-size:.88rem;position:relative;z-index:15}
+.eco-delivery-bar>i{font-size:1.12rem;color:var(--mint,#7bbf8a)}
+.eco-delivery-bar strong{font-weight:700}
+.eco-delivery-bar a{margin-inline-start:auto;color:#d8eadb;text-decoration:none;font-size:.8rem;white-space:nowrap}
+.eco-delivery-bar a:hover{color:#fff;text-decoration:underline}
+.eco-category-strip{z-index:16}
+.navbar{z-index:1050}
+.eco-smart-search{box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.eco-smart-search:focus-within{outline:2px solid var(--mint,#7bbf8a);outline-offset:1px}
+.eco-smart-search button{font-size:1.08rem}
+.eco-amazon-promo{width:100%;padding:16px 0 4px;background:var(--warm,#f9f6f0);overflow:hidden}
+.eco-promo-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px 12px}
+.eco-promo-track::-webkit-scrollbar{display:none}
+.eco-promo-card{position:relative;flex:0 0 min(78vw,440px);min-height:310px;border-radius:18px;overflow:hidden;scroll-snap-align:center;background:linear-gradient(135deg,#dcebdc,#a8c8ad);color:#173322;text-decoration:none;display:flex;align-items:center;box-shadow:0 7px 22px rgba(18,48,29,.13)}
+.eco-promo-card:nth-child(2){background:linear-gradient(135deg,#efe8d5,#d6c49a)}
+.eco-promo-card:nth-child(3){background:linear-gradient(135deg,#d9e9df,#9cbca4)}
+.eco-promo-copy{position:relative;z-index:2;padding:25px;width:56%}
+.eco-promo-copy small{display:block;font-weight:700;letter-spacing:.04em;margin-bottom:10px;color:#365d43}
+.eco-promo-copy h2{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.15;margin:0 0 12px;color:#173322}
+.eco-promo-copy span{display:inline-block;background:#173322;color:#fff;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.85rem}
+.eco-promo-card img{position:absolute;right:0;bottom:0;width:53%;height:88%;object-fit:contain;mix-blend-mode:multiply}
+.eco-promo-dots{display:flex;justify-content:center;gap:7px;padding:0 0 8px}
+.eco-promo-dots button{width:7px;height:7px;border:0;border-radius:50%;background:#b8c8ba;padding:0}
+.eco-promo-dots button.active{width:22px;border-radius:8px;background:var(--sage,#4e8c62)}
+@media(max-width:991.98px){
+ .navbar{padding:8px 0!important}
+ .navbar>.container{display:flex;align-items:center;gap:8px}
+ .navbar-brand{font-size:1.15rem;order:1;margin:0;white-space:nowrap}
+ .navbar-toggler{order:2;margin-inline-start:auto}
+ .eco-smart-search{order:3;flex:1 0 100%;width:100%;margin:5px 0 2px;height:46px;border:0;border-radius:9px}
+ .eco-smart-search select{display:none}
+ .eco-smart-search input{padding-inline:14px;font-size:1rem}
+ .eco-smart-search button{width:52px;flex-basis:52px;background:var(--gold,#c8a84b);color:var(--deep,#0a1a0f);border-radius:0 8px 8px 0}
+ .navbar .navbar-collapse{order:4;flex-basis:100%;background:var(--deep,#0a1a0f);padding:8px 12px 12px;border-radius:0 0 12px 12px}
+ .navbar .navbar-nav{gap:2px}
+ .eco-promo-card{flex-basis:84vw;min-height:300px}
+}
+@media(max-width:480px){
+ .eco-delivery-bar{font-size:.82rem;min-height:40px;padding:8px 13px}
+ .eco-delivery-bar a{font-size:.72rem}
+ .eco-amazon-promo{padding-top:12px}
+ .eco-promo-track{gap:10px;padding-inline:12px}
+ .eco-promo-card{flex-basis:86vw;min-height:285px;border-radius:15px}
+ .eco-promo-copy{padding:17px;width:59%}
+ .eco-promo-copy h2{font-size:1.45rem}
+ .eco-promo-copy small{font-size:.73rem}
+ .eco-promo-copy span{font-size:.75rem;padding:8px 11px}
+ .eco-promo-card img{width:53%;height:82%}
+}
+</style>
+
+
+<style id="eco-global-header-search-fix">
+/* Keep the complete header in normal document flow so category/navigation bars sit below it */
+.navbar{position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:1050!important;width:100%}
+.eco-category-strip{position:relative!important;z-index:20!important;clear:both}
+.eco-delivery-bar{position:relative!important;z-index:10!important;clear:both}
+.navbar .eco-global-search{position:relative;display:flex;align-items:stretch;flex:0 1 360px;width:min(360px,32vw);min-width:190px;height:42px;margin:0 14px;border:2px solid var(--sage,#4e8c62);border-radius:9px;background:#fff;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.navbar .eco-global-search input{flex:1;min-width:0;width:100%;border:0;outline:0;background:#fff;color:#26352a;padding:0 13px;font-size:.9rem}
+.navbar .eco-global-search input::placeholder{color:#858585}
+.navbar .eco-global-search button{width:48px;flex:0 0 48px;border:0;border-radius:0;background:var(--sage,#4e8c62);color:#fff;font-size:1.05rem}
+.navbar .eco-global-search button:hover{background:var(--moss,#315b3d)}
+@media(min-width:992px){
+ .navbar .container,.navbar .navbar-inner{display:flex;align-items:center;flex-wrap:nowrap;gap:8px}
+ .navbar .eco-global-search{order:2}
+ .navbar .navbar-collapse{flex:1 1 auto;min-width:0}
+}
+@media(max-width:991.98px){
+ .navbar .container,.navbar .navbar-inner{display:flex;flex-wrap:wrap;align-items:center}
+ .navbar .eco-global-search{order:5;flex:1 0 100%;width:100%;max-width:none;min-width:0;margin:7px 0 2px;height:44px}
+ .navbar .eco-global-search button{width:52px;flex-basis:52px}
+ .navbar .navbar-collapse{order:6;flex-basis:100%}
+}
+@media(max-width:480px){
+ .navbar .eco-global-search{height:43px}
+ .navbar .eco-global-search input{font-size:.86rem}
+}
+</style>
+<script id="eco-global-search-handler">
+(function(){
+ const form=document.getElementById('ecoMarketSearchForm');
+ const input=document.getElementById('ecoMarketSearchInput');
+ if(!form||!input)return;
+ const params=new URLSearchParams(location.search);
+ input.value=params.get('q')||'';
+ form.addEventListener('submit',function(e){
+   e.preventDefault();
+   const q=input.value.trim();
+   location.href='products.html'+(q?'?q='+encodeURIComponent(q):'');
+ });
+})();
+</script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌿 Eco<span class="gold-line">_Life</span> Store</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-en="Home"
+                            data-ar="الرئيسية">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html" data-en="Products"
+                            data-ar="المنتجات">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html" data-en="About" data-ar="حول">About</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html" data-en="Contact"
+                            data-ar="اتصل">Contact</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <a href="wishlist.html" class="btn btn-link text-white p-0" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light rounded-pill dropdown-toggle translate-btn" type="button"
+                            id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="accountBtnLabel">Account</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="account.html" id="accountLink" style="display:none;"><i
+                                        class="fas fa-user me-2"></i>My Account</a></li>
+                            <li><a class="dropdown-item" href="login.html" id="loginLink"><i
+                                        class="fas fa-sign-in-alt me-2"></i>Login</a></li>
+                            <li><a class="dropdown-item" href="register.html" id="registerLink"><i
+                                        class="fas fa-user-plus me-2"></i>Register</a></li>
+                            <li>
+                                <hr class="dropdown-divider" id="logoutDivider" style="display:none;">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="#" id="logoutLink" style="display:none;"
+                                    onclick="logout(event)"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn rounded-pill translate-btn" id="translateBtn">
+                        <i class="fas fa-language"></i>
+                        <span id="translateBtnText">EN</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div class="eco-category-strip" aria-label="Shop categories">
+  <div class="eco-category-inner">
+    <a href="products.html" class="eco-cat-link"><i class="fas fa-th-large"></i> All products</a>
+    <a href="products.html?category=home" class="eco-cat-link">Home & Kitchen</a>
+    <a href="products.html?category=personal" class="eco-cat-link">Personal Care</a>
+    <a href="products.html?category=fashion" class="eco-cat-link">Fashion</a>
+    <a href="products.html?category=energy" class="eco-cat-link">Solar & Energy</a>
+    <a href="products.html?category=food" class="eco-cat-link">Organic Food</a>
+    <a href="products.html?category=garden" class="eco-cat-link">Garden</a>
+    <a href="products.html?category=cleaning" class="eco-cat-link">Cleaning</a>
+    <a href="index.html#daily-deals" class="eco-cat-link eco-deal-link"><i class="fas fa-tags"></i> Today's deals</a>
+  </div>
+</div>
+<div class="market-search-wrap" id="ecoMarketSearch">
+<form class="eco-smart-search eco-global-search" id="ecoMarketSearchForm" role="search" autocomplete="off">
+  <label class="visually-hidden" for="ecoMarketSearchInput">Search Eco Life Store</label>
+  <input id="ecoMarketSearchInput" type="search" placeholder="Search Eco Life Store..." aria-label="Search Eco Life Store">
+  <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+</form>
+<div class="market-trust"><span><i class="fas fa-leaf"></i> Sustainable choices</span><span><i class="fas fa-recycle"></i> Reusable & recyclable</span><span><i class="fas fa-truck"></i> Easy shopping</span></div></div>
+
+    
+<div class="eco-delivery-bar" aria-label="Delivery location">
+  <i class="fas fa-location-dot"></i>
+  <span><strong>التوصيل إلى</strong> <span class="eco-delivery-city">مصر</span></span>
+  <a href="contact.html" aria-label="تغيير موقع التوصيل">تغيير الموقع <i class="fas fa-chevron-down"></i></a>
+</div>
+
+<section class="page-header">
+        <div class="container">
+            <div class="page-header-badge"><i class="fas fa-leaf" style="font-size:11px;"></i> Product Details</div>
+            <h1 class="page-title" data-en="Product Details" data-ar="تفاصيل المنتج">Product Details</h1>
+            <p class="page-subtitle" data-en="Explore detailed information for the selected eco-friendly product."
+                data-ar="اكتشف معلومات مفصلة عن المنتج الصديق للبيئة.">Explore detailed information for the selected
+                eco-friendly product.</p>
+        </div>
+    </section>
+
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="row gx-5 gy-4" id="productDetailWrapper"></div>
+        </div>
+    </section>
+
+
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo">🌿 Eco<span class="gold-line">_Life</span> Store</div>
+                    <p class="footer-tagline">Sustainable living for a better planet</p>
+                    <div class="social-icons">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Shop</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">منتجات المنزل</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">العناية الشخصية</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">الغذاء العضوي</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">الأزياء المستدامة</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">الحديقة</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">About Us</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Our
+                                Mission</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">Sustainability</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">Careers</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Help</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">FAQ</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">Shipping</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">Returns</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');"
+                                title="Coming soon">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Contact</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Cairo, Egypt</p>
+                        <p><i class="fas fa-phone me-2"></i>+20 123 456 7890</p>
+                        <p><i class="fas fa-envelope me-2"></i>hello@ecolifestore.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="copyrightYear"></span> Eco Life Store. Made with 💚 for a better planet.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+        const productData = [
+            {
+                id: '1',
+                name: 'Bamboo Cutting Board',
+                category: 'Home',
+                price: 180,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 24,
+                badge: 'New',
+                image: 'photo_for_products/Bamboo Cutting Board.jfif',
+                description: 'A premium bamboo cutting board designed for healthy cooking and sustainable kitchens. It is durable, knife-friendly, and naturally antimicrobial.',
+                features: ['Premium bamboo material', 'Large working surface', 'Eco-friendly finish', 'Easy to clean'],
+                tags: ['Bamboo', 'Sustainable', 'Kitchen']
+            },
+            {
+                id: '2',
+                name: 'Natural Shampoo Bar',
+                category: 'Personal Care',
+                price: 95,
+                oldPrice: null,
+                rating: 5,
+                reviews: 156,
+                badge: null,
+                image: 'photo_for_products/Natural Shampoo Bar.png',
+                description: 'A rich natural shampoo bar made from gentle, biodegradable ingredients. Perfect for silky hair without plastic bottles.',
+                features: ['Vegan formula', 'Plastic-free packaging', 'Long-lasting bar', 'Suitable for all hair types'],
+                tags: ['Cruelty-Free', 'Vegan', 'Plastic-Free']
+            },
+            {
+                id: '3',
+                name: 'Organic Apple Juice',
+                category: 'Organic Food',
+                price: 35,
+                oldPrice: 45,
+                rating: 4.5,
+                reviews: 89,
+                badge: 'Sale',
+                image: 'photo_for_products/Eco Kitchen Essentials Bundle.jfif',
+                description: 'Fresh pressed organic apple juice with no added sugar. Nourishing, crisp, and packed with natural vitamins.',
+
+                features: ['100% organic', 'No added sugar', 'Cold-pressed', 'Reusable bottle'],
+                tags: ['Organic', 'No Added Sugar', 'Local']
+            },
+            {
+                id: '4',
+                name: 'Herb Garden Kit',
+                category: 'Garden',
+                price: 120,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 43,
+                badge: null,
+                image: 'photo_for_products/Herb Garden Kit.jfif',
+
+                description: 'Everything you need to grow fresh herbs indoors. Includes seeds, planters, and soil for a sustainable kitchen garden.',
+                features: ['Indoor gardening kit', 'Organic seed packs', 'Beginner-friendly', 'Reusable planters'],
+                tags: ['DIY', 'Organic Seeds', 'Educational']
+            },
+            {
+                id: '5',
+                name: 'Bamboo Dental Care Kit',
+                category: 'Personal Care',
+                price: 75,
+                oldPrice: null,
+                rating: 5,
+                reviews: 98,
+                badge: null,
+                image: 'photo_for_products/Bamboo Dental Care Kit.jfif',
+                description: 'A sustainable dental care kit with bamboo toothbrushes and eco-friendly essentials for an earth-friendly oral routine.',
+                features: ['Biodegradable handles', 'Soft bristles', 'Traveler-friendly case', 'Zero-waste design'],
+                tags: ['Biodegradable', 'Organic Bristles', 'Zero-Waste']
+            },
+            {
+                id: '6',
+                name: 'Eco Kitchen Essentials Bundle',
+                category: 'Home',
+                price: 245,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 32,
+                badge: 'New',
+                image: 'photo_for_products/Eco Kitchen Essentials Bundle.jfif',
+                description: 'A complete eco-friendly kitchen set with reusable utensils, storage options, and sustainable tools for everyday cooking.',
+                features: ['5-piece set', 'Reusable materials', 'Stylish design', 'Perfect for gifting'],
+                tags: ['Bundle Deal', 'Eco-Friendly', '5 Pieces']
+            },
+            {
+                id: '7',
+                name: 'Premium Reusable Water Bottles Set',
+                category: 'Home',
+                price: 320,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 67,
+                badge: null,
+                image: 'photo_for_products/Premium Reusable Water Bottles Set.jfif',
+                description: 'A premium set of reusable water bottles designed for durability and eco-conscious everyday hydration on the go.',
+                features: ['BPA-free', 'Leakproof lids', 'Easy to clean', 'Set of 3'],
+                tags: ['BPA-Free', 'Pack of 3', 'Durable']
+            },
+            {
+                id: '8',
+                name: 'Ceramic Spatula with Bamboo Handle',
+                category: 'Home',
+                price: 85,
+                oldPrice: null,
+                rating: 5,
+                reviews: 54,
+                badge: null,
+                image: 'photo_for_products/Ceramic Spatula with Bamboo Handle.jfif',
+                description: 'A heat-resistant ceramic spatula with a bamboo handle for sustainable cooking and delicate stir-frying.',
+                features: ['Non-stick safe', 'Comfort grip', 'Durable ceramic head', 'Eco-friendly materials'],
+                tags: ['Heat-Resistant', 'Non-Stick Safe', 'Eco-Friendly']
+            },
+            {
+                id: '9',
+                name: 'Handcrafted Wooden Dining Set',
+                category: 'Home',
+                price: 220,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 41,
+                badge: null,
+                image: 'photo_for_products/Handcrafted Wooden Dining Set.jfif',
+                description: 'A refined wooden dining set crafted for sustainable tableware and premium meal presentation.',
+                features: ['Artisan-crafted', 'Natural finish', '12 pieces included', 'Elegant gift bundle'],
+                tags: ['Artisan Made', '12 Pieces', 'Natural Wood']
+            },
+            {
+                id: '10',
+                name: 'Natural Eco-Friendly Cleaning Bundle',
+                category: 'Home',
+                price: 155,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 78,
+                badge: null,
+                image: 'photo_for_products/Natural Eco-Friendly Cleaning Bundle.jfif',
+                description: 'A bundle of natural cleaning essentials made without harsh chemicals for a gentle, effective home clean.',
+                features: ['Chemical-free', 'Reusable bottles', 'Multi-surface safe', 'Fresh scent'],
+                tags: ['Chemical-Free', '5 Products', 'Biodegradable']
+            },
+            {
+                id: '11',
+                name: 'Eco Bamboo Coffee Cup Set',
+                category: 'Home',
+                price: 110,
+                oldPrice: null,
+                rating: 5,
+                reviews: 143,
+                badge: 'Bestseller',
+                image: 'photos/images (8).jpeg',
+                description: 'A stylish reusable coffee cup set combining bamboo and glass for sustainable daily drinkware.',
+                features: ['Insulated lid', 'Set of 2', 'Easy grip', 'Eco-conscious design'],
+                tags: ['Reusable', 'Set of 2', 'Insulated']
+            },
+            {
+                id: '12',
+                name: 'Reusable Eco Shopping Bags',
+                category: 'Home',
+                price: 125,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 102,
+                badge: null,
+                image: 'photos/download (1).jpeg',
+                description: 'Strong reusable shopping bags with eco-friendly materials for low-waste grocery runs.',
+                features: ['Pack of 2', 'Canvas & mesh', 'Machine washable', 'Compact storage'],
+                tags: ['Pack of 2', 'Canvas & Mesh', 'Durable']
+            },
+            {
+                id: '13',
+                name: 'Biodegradable Travel Cutlery Set',
+                category: 'Personal Care',
+                price: 95,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 55,
+                badge: null,
+                image: 'photo_for_products/Biodegradable Travel Cutlery Set.jfif',
+                description: 'A portable biodegradable cutlery set built for convenience and sustainable eating while traveling.',
+                features: ['Travel case included', 'Lightweight', 'Earth-friendly material', 'Complete utensils'],
+                tags: ['Portable', 'Eco-Friendly', 'Travel Case']
+            },
+            {
+                id: '14',
+                name: 'Organic Produce Mesh Bags Set',
+                category: 'Organic Food',
+                price: 65,
+                oldPrice: null,
+                rating: 5,
+                reviews: 126,
+                badge: 'Bestseller',
+                image: 'photos/images.jpeg',
+                description: 'A set of organic mesh bags ideal for fresh produce shopping without single-use plastic.',
+                features: ['Set of 3', 'Reusable', 'Breathable mesh', 'Washable'],
+                tags: ['Set of 3', 'Plastic-Free', 'Reusable']
+            },
+            {
+                id: '15',
+                name: 'Eco Cosmetic Pouch',
+                category: 'Personal Care',
+                price: 55,
+                oldPrice: null,
+                rating: 4.5,
+                reviews: 68,
+                badge: null,
+                image: 'photo_for_products/Eco Cosmetic Pouch.jfif',
+                description: 'A compact and stylish cosmetic pouch made from sustainable materials for everyday essentials.',
+                features: ['Organic fabric', 'Zip closure', 'Lightweight', 'Travel-ready'],
+                tags: ['Organic Fabric', 'Compact', 'Sustainable']
+            },
+            {
+                id: '16',
+                name: 'Premium Eco Beverage Cups',
+                category: 'Home',
+                price: 135,
+                oldPrice: null,
+                rating: 5,
+                reviews: 89,
+                badge: 'New',
+                image: 'photos/images (10).jpeg',
+                description: 'A premium glass beverage cup set with bamboo lids for elegant and sustainable drinkware.',
+                features: ['Borosilicate glass', 'Set of 4', 'Temperature safe', 'Bamboo lid'],
+                tags: ['Borosilicate Glass', 'Set of 4', 'Temperature Safe']
+            }
+        ];
+
+        function getQueryParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        function formatCurrency(value) {
+            return `EGP ${Number(value).toFixed(0)}`;
+        }
+
+        function buildStars(rating) {
+            const full = Math.floor(rating);
+            const half = rating % 1 >= 0.5;
+            let html = '';
+            for (let i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
+            if (half) html += '<i class="fas fa-star-half-alt"></i>';
+            while (html.replace(/<[^>]+>/g, '').length < 5) html += '<i class="far fa-star"></i>';
+            return html;
+        }
+
+        function renderNotFound() {
+            const wrapper = document.getElementById('productDetailWrapper');
+            wrapper.innerHTML = `
+                <div class="col-12 not-found">
+                    <h3 data-en="Product not found" data-ar="المنتج غير موجود">Product not found</h3>
+                    <p data-en="Please go back to the products page to choose another item." data-ar="يرجى العودة إلى صفحة المنتجات لاختيار عنصر آخر.">Please go back to the products page to choose another item.</p>
+                    <a href="products.html" class="btn btn-primary-fill mt-3" data-en="Back to Products" data-ar="العودة إلى المنتجات">Back to Products</a>
+                </div>`;
+        }
+
+        function renderProductDetail(product) {
+            const wrapper = document.getElementById('productDetailWrapper');
+            const badgeHtml = product.badge ? `<span class="detail-category">${product.badge}</span>` : `<span class="detail-category">${product.category}</span>`;
+            const oldPriceHtml = product.oldPrice ? `<span class="detail-old-price">${formatCurrency(product.oldPrice)}</span>` : '';
+            const tagsHtml = product.tags.map(tag => `<span class="detail-tag">${tag}</span>`).join('');
+            const featuresHtml = product.features.map(feature => `<li>${feature}</li>`).join('');
+
+            wrapper.innerHTML = `
+                <div class="col-lg-6">
+                    <div class="detail-card">
+                        <div class="detail-image">
+                            <img src="${product.image}" alt="${product.name}" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="detail-card detail-content">
+                        ${badgeHtml}
+                        <h2 class="detail-title">${product.name}</h2>
+                        <div class="detail-pricing">
+                            <div class="detail-price">${formatCurrency(product.price)}</div>
+                            ${oldPriceHtml}
+                            <div class="rating-badge">
+                                <span>${product.rating.toFixed(1)}</span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span>(${product.reviews} reviews)</span>
+                            </div>
+                        </div>
+                        <div class="detail-tags">${tagsHtml}</div>
+                        <p class="detail-description">${product.description}</p>
+                        <div class="detail-actions">
+                            <button class="btn-primary-fill" onclick="addToCart('${product.name}', ${product.price});">Add to Cart</button>
+                            <button class="btn-outline-dark" onclick="buyNow('${product.id}');">Buy Now</button>
+                        </div>
+                        <div class="detail-footer">
+                            <span><i class="fas fa-check-circle"></i> Free eco-friendly packaging</span>
+                            <span><i class="fas fa-shipping-fast"></i> Fast delivery across Egypt</span>
+                        </div>
+                        <div class="mt-4">
+                            <h5 data-en="Product details" data-ar="تفاصيل المنتج">Product details</h5>
+                            <ul>${featuresHtml}</ul>
+                        </div>
+                        <a href="products.html" class="btn btn-link mt-4" data-en="Back to Products" data-ar="العودة إلى المنتجات">← Back to Products</a>
+                    </div>
+                </div>
+                <div class="col-12 related-products">
+                    <h3 class="related-title" data-en="You may also like" data-ar="قد يعجبك أيضًا">You may also like</h3>
+                    <div class="row g-4" id="relatedProducts"></div>
+                </div>`;
+
+            renderRelated(product);
+        }
+
+        function renderRelated(current) {
+            const related = productData.filter(item => item.id !== current.id).slice(0, 4);
+            const relatedEl = document.getElementById('relatedProducts');
+            relatedEl.innerHTML = related.map(item => `
+                <div class="col-md-6 col-lg-3">
+                    <article class="related-card" onclick="navigateToProduct('${item.id}')" style="cursor:pointer;">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy">
+                        <div class="related-body">
+                            <h6>${item.name}</h6>
+                            <div class="price">${formatCurrency(item.price)}</div>
+                        </div>
+                    </article>
+                </div>`).join('');
+        }
+
+        function navigateToProduct(productId) {
+            window.location.href = `product-detail.html?id=${productId}`;
+        }
+
+        function addToCart(name, price) {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty = Math.min(10, existing.qty + 1);
+            } else {
+                cart.push({ id, name, price: Number(price), qty: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showToast(`\"${name}\" added to cart! 🛒`, 'success');
+        }
+
+        function buyNow(productId) {
+            const product = productData.find(item => item.id === productId);
+            if (!product) return;
+            addToCart(product.name, product.price);
+            window.location.href = 'checkout.html';
+        }
+
+        function getCartCount() {
+            return JSON.parse(localStorage.getItem('cart') || '[]').reduce((total, item) => total + (item.qty || 0), 0);
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartCount');
+            if (badge) badge.textContent = getCartCount();
+        }
+
+        function showToast(message, type = 'info') {
+            const icons = { success: 'check-circle', error: 'times-circle', warning: 'exclamation-triangle', info: 'info-circle' };
+            const toast = document.createElement('div');
+            toast.className = `eco-toast eco-toast-${type}`;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '1.5rem';
+            toast.style.right = '1.5rem';
+            toast.style.background = 'white';
+            toast.style.borderRadius = '1rem';
+            toast.style.boxShadow = '0 20px 60px rgba(26, 58, 42, .16)';
+            toast.style.padding = '0.85rem 1.15rem';
+            toast.style.display = 'flex';
+            toast.style.alignItems = 'center';
+            toast.style.gap = '0.75rem';
+            toast.style.zIndex = 9999;
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type]}" style="color:${type === 'success' ? '#22c55e' : type === 'error' ? '#ef4444' : type === 'warning' ? '#f59e0b' : '#3b82f6'}"></i>
+                <span style="font-size:0.95rem;color:#16382e;">${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showToast('Thanks for subscribing! 🌿', 'success');
+            e.target.reset();
+        }
+
+        function updateLoginUI() {
+            const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userName = localStorage.getItem('userName') || 'Account';
+            const set = (id, show) => { const el = document.getElementById(id); if (el) el.style.display = show ? 'block' : 'none'; };
+            set('accountLink', loggedIn);
+            set('loginLink', !loggedIn);
+            set('registerLink', !loggedIn);
+            set('logoutDivider', loggedIn);
+            set('logoutLink', loggedIn);
+            const label = document.getElementById('accountBtnLabel');
+            if (label) label.textContent = loggedIn ? userName : 'Account';
+        }
+
+        function logout(e) {
+            e.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            updateLoginUI();
+            showToast('Logged out successfully.', 'info');
+            setTimeout(() => window.location.href = 'login.html', 1200);
+        }
+
+        function translatePage(lang) {
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                if (!el.querySelector('*')) el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+            });
+            document.getElementById('translateBtnText').textContent = lang === 'en' ? 'AR' : 'EN';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            currentLang = lang;
+        }
+
+        let currentLang = 'en';
+        document.getElementById('translateBtn').addEventListener('click', () => translatePage(currentLang === 'en' ? 'ar' : 'en'));
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (!navbar) return;
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+        }, { passive: true });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartBadge();
+            updateLoginUI();
+            const id = getQueryParam('id');
+            const product = productData.find(item => item.id === String(id));
+            if (!product) {
+                renderNotFound();
+                return;
+            }
+            renderProductDetail(product);
+        });
+    </script>
+<script src="marketplace-enhancements.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Eco Life Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        :root {
+            --deep: #0a1a0f;
+            --forest: #1a3a2a;
+            --moss: #2d5a3d;
+            --sage: #4e8c62;
+            --mint: #7bbf8a;
+            --lime: #a8d5b5;
+            --cream: #f5f0e8;
+            --sand: #e8dfc8;
+            --warm: #f9f6f0;
+            --text: #1a2e1e;
+            --muted: #5a7060;
+            --gold: #c8a84b;
+            --gold2: #e8c86a;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --r: 0.75rem;
+            --r2: 1.5rem;
+            --shadow-sm: 0 4px 16px rgba(26, 58, 42, .10);
+            --shadow-md: 0 8px 32px rgba(26, 58, 42, .14);
+            --shadow-lg: 0 20px 60px rgba(26, 58, 42, .18);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.15);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* ─── Page Transition ─── */
+        .page-transition {
+            position: fixed;
+            inset: 0;
+            background: var(--deep);
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        /* ─── Animated Background ─── */
+        .bg-blobs {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.18;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--sage);
+            top: -100px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--mint);
+            bottom: -80px;
+            right: -100px;
+            animation-delay: 4s;
+        }
+
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--gold);
+            top: 40%;
+            left: 60%;
+            animation-delay: 8s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        /* ─── NAVBAR ─── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 26, 15, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.3s;
+        }
+
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.45rem;
+            color: var(--cream);
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .navbar-brand .gold-line {
+            color: var(--gold);
+        }
+
+        /* Desktop nav links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            list-style: none;
+            margin: 0 auto;
+        }
+
+        .nav-links a {
+            color: rgba(245, 240, 232, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.45rem 0.85rem;
+            border-radius: var(--r);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--mint);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--cream);
+        }
+
+        .nav-links a:hover::after {
+            width: 60%;
+        }
+
+        /* Nav actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .nav-icon-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.25s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            color: var(--mint);
+            transform: translateY(-1px);
+        }
+
+        .cart-btn {
+            position: relative;
+            background: linear-gradient(135deg, var(--sage), var(--moss));
+            border: none;
+            border-radius: 50px;
+            padding: 0.45rem 1rem;
+            color: var(--cream);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.25s ease;
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 140, 98, .4);
+            color: var(--cream);
+        }
+
+        .cart-badge {
+            background: var(--gold);
+            color: var(--deep);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--r);
+            cursor: pointer;
+            padding: 8px;
+            transition: background 0.2s;
+        }
+
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            background: var(--cream);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Mobile Drawer */
+        .mobile-drawer {
+            position: fixed;
+            top: 68px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 26, 15, 0.97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 999;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .mobile-drawer.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .mobile-drawer-inner {
+            padding: 1.25rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .mobile-drawer a {
+            color: rgba(245, 240, 232, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--r);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-drawer a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-drawer a:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--mint);
+        }
+
+        .mobile-drawer a i {
+            width: 20px;
+            text-align: center;
+            color: var(--mint);
+        }
+
+        .drawer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 0.5rem 0;
+        }
+
+        .drawer-actions {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem 0;
+        }
+
+        .drawer-actions a {
+            flex: 1;
+            text-align: center;
+            justify-content: center;
+            padding: 0.65rem;
+            border-bottom: none !important;
+        }
+
+        .drawer-cart-btn {
+            background: linear-gradient(135deg, var(--sage), var(--moss)) !important;
+            color: var(--cream) !important;
+        }
+
+        /* ─── MAIN ─── */
+        main {
+            flex: 1;
+            padding-top: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── LOGIN CARD ─── */
+        .login-wrapper {
+            display: flex;
+            align-items: stretch;
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            width: 100%;
+            max-width: 860px;
+            margin: 2rem 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Sidebar panel */
+        .login-side {
+            width: 280px;
+            flex-shrink: 0;
+            background: linear-gradient(160deg, var(--forest) 0%, var(--deep) 100%);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-side::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(123, 191, 138, 0.2) 0%, transparent 70%);
+            top: -80px;
+            left: -80px;
+        }
+
+        .login-side::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(200, 168, 75, 0.15) 0%, transparent 70%);
+            bottom: -40px;
+            right: -40px;
+        }
+
+        .side-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            animation: pulse-icon 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-icon {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(123, 191, 138, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 0 12px rgba(123, 191, 138, 0.15);
+            }
+        }
+
+        .side-title {
+            font-size: 1.6rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .side-text {
+            color: rgba(245, 240, 232, 0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .side-leaf {
+            font-size: 5rem;
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            opacity: 0.07;
+            line-height: 1;
+        }
+
+        .side-features {
+            margin-top: 2rem;
+            list-style: none;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .side-features li {
+            color: rgba(245, 240, 232, 0.7);
+            font-size: 0.82rem;
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .side-features li i {
+            color: var(--mint);
+            font-size: 0.8rem;
+        }
+
+        /* Form panel */
+        .login-form-panel {
+            flex: 1;
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-header {
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+        }
+
+        .login-header p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* Form fields */
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: var(--text);
+            transition: color 0.2s;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.75rem;
+            border: 2px solid var(--sand);
+            border-radius: var(--r);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.25s ease;
+            background: var(--warm);
+            color: var(--text);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--sage);
+            box-shadow: 0 0 0 4px rgba(78, 140, 98, 0.1);
+            background: white;
+        }
+
+        .form-control.error {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-control.success {
+            border-color: var(--success);
+        }
+
+        .form-group:focus-within .input-icon {
+            color: var(--sage);
+        }
+
+        .form-group:focus-within .form-label {
+            color: var(--sage);
+        }
+
+        /* Password toggle */
+        .pw-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            padding: 0.2rem;
+        }
+
+        .pw-toggle:hover {
+            color: var(--sage);
+        }
+
+        /* Validation message */
+        .field-msg {
+            font-size: 0.775rem;
+            margin-top: 0.35rem;
+            display: none;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .field-msg.show {
+            display: flex;
+        }
+
+        .field-msg.error-msg {
+            color: var(--danger);
+        }
+
+        .field-msg.success-msg {
+            color: var(--success);
+        }
+
+        /* Strength bar */
+        .strength-bar-wrap {
+            height: 4px;
+            background: var(--sand);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            display: none;
+        }
+
+        .strength-bar-wrap.show {
+            display: block;
+        }
+
+        .strength-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            width: 0;
+        }
+
+        .strength-weak {
+            background: var(--danger);
+            width: 25%;
+        }
+
+        .strength-fair {
+            background: var(--warning, #f59e0b);
+            width: 55%;
+        }
+
+        .strength-good {
+            background: var(--gold);
+            width: 75%;
+        }
+
+        .strength-strong {
+            background: var(--success);
+            width: 100%;
+        }
+
+        /* Row: remember + forgot */
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-check-input {
+            width: 17px;
+            height: 17px;
+            border: 2px solid var(--sand);
+            border-radius: 4px;
+            cursor: pointer;
+            accent-color: var(--sage);
+            flex-shrink: 0;
+        }
+
+        .form-check-label {
+            font-size: 0.875rem;
+            color: var(--muted);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .forgot-link {
+            color: var(--sage);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .forgot-link:hover {
+            color: var(--mint);
+        }
+
+        /* Submit button */
+        .btn-login {
+            background: linear-gradient(135deg, var(--sage) 0%, var(--moss) 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 0.9rem 1.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--cream);
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--mint), var(--sage));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-login:hover::before {
+            opacity: 1;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(78, 140, 98, .35);
+            color: var(--deep);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login span,
+        .btn-login i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-login.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--sand);
+        }
+
+        /* Social buttons */
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            border: 2px solid var(--sand);
+            background: white;
+            border-radius: var(--r);
+            padding: 0.7rem;
+            text-align: center;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .social-btn:hover {
+            border-color: var(--sage);
+            background: var(--warm);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+            color: var(--text);
+        }
+
+        .social-btn .fab.fa-google {
+            color: #ea4335;
+        }
+
+        .social-btn .fab.fa-facebook {
+            color: #1877f2;
+        }
+
+        /* Footer */
+        .login-footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        .login-footer a {
+            color: var(--sage);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .login-footer a:hover {
+            color: var(--mint);
+        }
+
+        /* ─── SITE FOOTER ─── */
+        .site-footer {
+            background: linear-gradient(135deg, var(--forest), var(--deep));
+            color: rgba(245, 240, 232, 0.5);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.875rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── TOAST ─── */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .toast {
+            background: white;
+            border-radius: var(--r);
+            box-shadow: var(--shadow-lg);
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            min-width: 260px;
+            max-width: 340px;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .toast-icon {
+            font-size: 1.1rem;
+        }
+
+        .toast-success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast-error .toast-icon {
+            color: var(--danger);
+        }
+
+        .toast-msg {
+            font-size: 0.9rem;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1399px) {
+            .login-wrapper {
+                max-width: 750px;
+            }
+
+            .login-side {
+                padding: 2rem 1.75rem;
+            }
+
+            .login-form-panel {
+                padding: 2.75rem 2.5rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .login-wrapper {
+                max-width: 720px;
+            }
+
+            .login-side {
+                width: 220px;
+                padding: 2rem 1.5rem;
+            }
+
+            .login-form-panel {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .login-wrapper {
+                max-width: 700px;
+            }
+
+            .login-side {
+                width: 200px;
+                padding: 2rem 1.5rem;
+            }
+
+            .side-title {
+                font-size: 1.4rem;
+            }
+
+            .login-form-panel {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-actions .cart-btn span:not(.cart-badge) {
+                display: none;
+            }
+
+            .login-side {
+                display: none;
+            }
+
+            .login-wrapper {
+                max-width: 100%;
+                margin: 1rem;
+                width: calc(100% - 2rem);
+                flex-direction: column;
+            }
+
+            .login-form-panel {
+                padding: 2.5rem 2rem;
+                width: 100%;
+            }
+
+            .login-header h1 {
+                font-size: clamp(1.5rem, 4vw, 1.75rem);
+            }
+
+            .login-header p {
+                font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+            }
+
+            .form-label {
+                font-size: clamp(0.8rem, 1.2vw, 0.875rem);
+            }
+
+            .form-control {
+                padding: 0.75rem 1rem;
+                font-size: 16px;
+            }
+
+            .input-wrapper {
+                position: relative;
+            }
+
+            .btn-login {
+                padding: 0.8rem 1.5rem;
+                font-size: clamp(0.9rem, 1.5vw, 0.95rem);
+            }
+
+            .social-login {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .social-btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .form-footer {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .form-footer a {
+                font-size: 0.85rem;
+            }
+
+            .forgot-link {
+                margin: 0;
+            }
+
+            main {
+                padding-top: 68px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .login-wrapper {
+                margin: 0.75rem;
+                width: calc(100% - 1.5rem);
+                border-radius: 16px;
+            }
+
+            .login-form-panel {
+                padding: 1.75rem 1rem;
+            }
+
+            .login-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .login-header h1 {
+                font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+                margin-bottom: 0.25rem;
+            }
+
+            .login-header p {
+                font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .form-label {
+                font-size: 0.8rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .form-control {
+                padding: 0.7rem 0.9rem;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            .input-wrapper {
+                margin-bottom: 0.75rem;
+            }
+
+            .input-icon {
+                left: 0.75rem;
+                font-size: 0.85rem;
+            }
+
+            .btn-login {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+                margin-top: 0.75rem;
+            }
+
+            .checkbox-group {
+                gap: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .checkbox-input {
+                width: 16px;
+                height: 16px;
+                margin-top: 1px;
+            }
+
+            .checkbox-label {
+                font-size: 0.75rem;
+            }
+
+            .social-login {
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .social-btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .form-divider {
+                margin: 1rem 0;
+                font-size: 0.85rem;
+            }
+
+            .form-footer {
+                gap: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .signup-link,
+            .forgot-link {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding-top: 60px;
+            }
+
+            .login-wrapper {
+                margin: 0.5rem;
+                width: calc(100% - 1rem);
+            }
+
+            .login-form-panel {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .login-header {
+                margin-bottom: 1rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .form-control {
+                padding: 0.65rem 0.8rem;
+                font-size: 16px;
+            }
+
+            .btn-login {
+                padding: 0.65rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-login,
+            .social-btn,
+            .form-control,
+            button,
+            a {
+                min-height: 48px;
+                min-width: 48px;
+            }
+
+            .form-control {
+                padding: 0.9rem 1rem;
+                min-height: 48px;
+            }
+        }
+
+        /* Landscape mode optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .login-wrapper {
+                margin: 0.5rem;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+            }
+
+            .login-form-panel {
+                padding: 1.5rem;
+            }
+        }
+
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .toast-container {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+            }
+
+            .toast {
+                min-width: unset;
+                max-width: 100%;
+            }
+        }
+    </style>
+<style id="eco-marketplace-style">
+/* Marketplace additions — deliberately reuse the original Eco Life palette */
+.market-search-wrap{width:min(1180px,calc(100% - 32px));margin:92px auto 18px;position:relative;z-index:20}
+.market-search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand,#e8dfc8);border-radius:999px;padding:8px 10px 8px 18px;box-shadow:var(--shadow-sm);}
+.market-search input{border:0;outline:0;min-width:0;flex:1;padding:10px 4px;color:var(--text);background:transparent;font:inherit}
+.market-search button{border:0;border-radius:999px;background:var(--sage);color:var(--cream);font-weight:700;padding:11px 22px;white-space:nowrap}
+.market-search button:hover{background:var(--moss)}
+.market-trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.82rem;margin:10px 0 0}
+.market-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 22px;padding:14px;background:#fff;border:1px solid var(--sand);border-radius:var(--r2)}
+.market-tools input,.market-tools select{border:1px solid var(--sand);border-radius:10px;padding:10px 12px;background:var(--warm);color:var(--text);min-width:170px}
+.market-tools input{flex:1}
+.market-tools .market-count{color:var(--muted);font-size:.9rem;margin-inline-start:auto}
+.market-extra-card .product-image{height:220px;background:linear-gradient(135deg,var(--lime),var(--mint));}
+.market-extra-card .product-image img{width:100%;height:100%;object-fit:cover}
+.market-extra-card .product-info{padding:1.25rem;display:flex;flex-direction:column;flex:1}
+.market-extra-card .product-title{min-height:48px}
+.market-extra-card .product-price{color:var(--sage);font-weight:800;font-size:1.15rem}
+.market-extra-card .market-rating{color:var(--gold);font-size:.9rem;margin:4px 0 10px}
+.market-extra-card .product-actions{margin-top:auto;padding-top:12px}
+.market-extra-card .btn-add-cart{border:0;border-radius:10px;padding:10px 12px;background:var(--sage);color:white;font-weight:700;width:100%}
+.market-extra-card .market-tag{display:inline-block;background:var(--lime);color:var(--moss);border-radius:30px;padding:4px 9px;font-size:.72rem;margin:2px}
+.market-no-results{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+@media(max-width:600px){.market-search-wrap{margin-top:82px}.market-search{border-radius:16px;padding:7px}.market-search button{padding:10px 14px}.market-tools>*{width:100%;min-width:0!important}.market-tools .market-count{margin:0}}
+</style>
+
+<style id="eco-amazon-sections-style">
+.eco-category-strip{background:var(--deep,#0a1a0f);border-top:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.12);width:100%;position:relative;z-index:20}
+.eco-category-inner{max-width:1320px;margin:auto;padding:0 18px;display:flex;align-items:center;gap:5px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.eco-cat-link{display:inline-flex;align-items:center;gap:7px;padding:12px 13px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;border:1px solid transparent;border-radius:5px;transition:background .2s,border-color .2s}
+.eco-cat-link:hover,.eco-cat-link:focus{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.eco-deal-link{color:#d9efb5}
+.eco-deals-section{padding:34px 0 12px}
+.eco-deals-banner{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:25px 30px;border-radius:14px;background:linear-gradient(110deg,var(--deep,#0a1a0f),var(--moss,#315b3d));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.eco-deals-banner h2{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;margin:0 0 7px}
+.eco-deals-banner p{margin:0;color:rgba(255,255,255,.83)}
+.eco-deals-banner .eco-deal-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;background:#fff;color:var(--deep,#0a1a0f);font-weight:800;text-decoration:none;white-space:nowrap}
+.eco-deals-banner .eco-deal-cta:hover{transform:translateY(-2px)}
+.eco-mini-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+.eco-mini-card{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.eco-mini-card:hover{transform:translateY(-4px);box-shadow:0 9px 24px rgba(0,0,0,.12);color:inherit}
+.eco-mini-card img{width:100%;height:150px;object-fit:cover;display:block;background:#eef3ec}
+.eco-mini-card .eco-mini-info{padding:12px}
+.eco-mini-card h3{font-size:.96rem;font-weight:700;margin:0 0 7px}
+.eco-mini-card .eco-mini-price{font-weight:800;color:var(--sage,#4e8c62)}
+.eco-mini-label{display:inline-block;font-size:.7rem;font-weight:800;background:rgba(78,140,98,.13);color:var(--moss,#315b3d);padding:4px 7px;border-radius:20px;margin-bottom:7px}
+.eco-best-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:30px 0 15px}
+.eco-best-heading h2{font-size:1.55rem;font-weight:800;margin:0;color:var(--text,#203126)}
+.eco-best-heading a{color:var(--sage,#4e8c62);font-weight:700;text-decoration:none}
+@media(max-width:767px){.eco-category-inner{padding:0 10px}.eco-cat-link{padding:10px 11px;font-size:.82rem}.eco-deals-banner{align-items:flex-start;flex-direction:column;padding:22px}.eco-mini-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.eco-mini-card img{height:125px}.eco-best-heading h2{font-size:1.25rem}}
+</style>
+
+
+<style id="eco-amazon-mobile-layout">
+/* Amazon-inspired shopping layout, retaining Eco Life Store colors */
+.eco-delivery-bar{min-height:42px;background:#20382b;color:#f5f0e8;display:flex;align-items:center;gap:9px;padding:8px max(16px,calc((100% - 1280px)/2));font-size:.88rem;position:relative;z-index:15}
+.eco-delivery-bar>i{font-size:1.12rem;color:var(--mint,#7bbf8a)}
+.eco-delivery-bar strong{font-weight:700}
+.eco-delivery-bar a{margin-inline-start:auto;color:#d8eadb;text-decoration:none;font-size:.8rem;white-space:nowrap}
+.eco-delivery-bar a:hover{color:#fff;text-decoration:underline}
+.eco-category-strip{z-index:16}
+.navbar{z-index:1050}
+.eco-smart-search{box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.eco-smart-search:focus-within{outline:2px solid var(--mint,#7bbf8a);outline-offset:1px}
+.eco-smart-search button{font-size:1.08rem}
+.eco-amazon-promo{width:100%;padding:16px 0 4px;background:var(--warm,#f9f6f0);overflow:hidden}
+.eco-promo-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px 12px}
+.eco-promo-track::-webkit-scrollbar{display:none}
+.eco-promo-card{position:relative;flex:0 0 min(78vw,440px);min-height:310px;border-radius:18px;overflow:hidden;scroll-snap-align:center;background:linear-gradient(135deg,#dcebdc,#a8c8ad);color:#173322;text-decoration:none;display:flex;align-items:center;box-shadow:0 7px 22px rgba(18,48,29,.13)}
+.eco-promo-card:nth-child(2){background:linear-gradient(135deg,#efe8d5,#d6c49a)}
+.eco-promo-card:nth-child(3){background:linear-gradient(135deg,#d9e9df,#9cbca4)}
+.eco-promo-copy{position:relative;z-index:2;padding:25px;width:56%}
+.eco-promo-copy small{display:block;font-weight:700;letter-spacing:.04em;margin-bottom:10px;color:#365d43}
+.eco-promo-copy h2{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.15;margin:0 0 12px;color:#173322}
+.eco-promo-copy span{display:inline-block;background:#173322;color:#fff;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.85rem}
+.eco-promo-card img{position:absolute;right:0;bottom:0;width:53%;height:88%;object-fit:contain;mix-blend-mode:multiply}
+.eco-promo-dots{display:flex;justify-content:center;gap:7px;padding:0 0 8px}
+.eco-promo-dots button{width:7px;height:7px;border:0;border-radius:50%;background:#b8c8ba;padding:0}
+.eco-promo-dots button.active{width:22px;border-radius:8px;background:var(--sage,#4e8c62)}
+@media(max-width:991.98px){
+ .navbar{padding:8px 0!important}
+ .navbar>.container{display:flex;align-items:center;gap:8px}
+ .navbar-brand{font-size:1.15rem;order:1;margin:0;white-space:nowrap}
+ .navbar-toggler{order:2;margin-inline-start:auto}
+ .eco-smart-search{order:3;flex:1 0 100%;width:100%;margin:5px 0 2px;height:46px;border:0;border-radius:9px}
+ .eco-smart-search select{display:none}
+ .eco-smart-search input{padding-inline:14px;font-size:1rem}
+ .eco-smart-search button{width:52px;flex-basis:52px;background:var(--gold,#c8a84b);color:var(--deep,#0a1a0f);border-radius:0 8px 8px 0}
+ .navbar .navbar-collapse{order:4;flex-basis:100%;background:var(--deep,#0a1a0f);padding:8px 12px 12px;border-radius:0 0 12px 12px}
+ .navbar .navbar-nav{gap:2px}
+ .eco-promo-card{flex-basis:84vw;min-height:300px}
+}
+@media(max-width:480px){
+ .eco-delivery-bar{font-size:.82rem;min-height:40px;padding:8px 13px}
+ .eco-delivery-bar a{font-size:.72rem}
+ .eco-amazon-promo{padding-top:12px}
+ .eco-promo-track{gap:10px;padding-inline:12px}
+ .eco-promo-card{flex-basis:86vw;min-height:285px;border-radius:15px}
+ .eco-promo-copy{padding:17px;width:59%}
+ .eco-promo-copy h2{font-size:1.45rem}
+ .eco-promo-copy small{font-size:.73rem}
+ .eco-promo-copy span{font-size:.75rem;padding:8px 11px}
+ .eco-promo-card img{width:53%;height:82%}
+}
+</style>
+
+
+<style id="eco-global-header-search-fix">
+/* Keep the complete header in normal document flow so category/navigation bars sit below it */
+.navbar{position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:1050!important;width:100%}
+.eco-category-strip{position:relative!important;z-index:20!important;clear:both}
+.eco-delivery-bar{position:relative!important;z-index:10!important;clear:both}
+.navbar .eco-global-search{position:relative;display:flex;align-items:stretch;flex:0 1 360px;width:min(360px,32vw);min-width:190px;height:42px;margin:0 14px;border:2px solid var(--sage,#4e8c62);border-radius:9px;background:#fff;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.navbar .eco-global-search input{flex:1;min-width:0;width:100%;border:0;outline:0;background:#fff;color:#26352a;padding:0 13px;font-size:.9rem}
+.navbar .eco-global-search input::placeholder{color:#858585}
+.navbar .eco-global-search button{width:48px;flex:0 0 48px;border:0;border-radius:0;background:var(--sage,#4e8c62);color:#fff;font-size:1.05rem}
+.navbar .eco-global-search button:hover{background:var(--moss,#315b3d)}
+@media(min-width:992px){
+ .navbar .container,.navbar .navbar-inner{display:flex;align-items:center;flex-wrap:nowrap;gap:8px}
+ .navbar .eco-global-search{order:2}
+ .navbar .navbar-collapse{flex:1 1 auto;min-width:0}
+}
+@media(max-width:991.98px){
+ .navbar .container,.navbar .navbar-inner{display:flex;flex-wrap:wrap;align-items:center}
+ .navbar .eco-global-search{order:5;flex:1 0 100%;width:100%;max-width:none;min-width:0;margin:7px 0 2px;height:44px}
+ .navbar .eco-global-search button{width:52px;flex-basis:52px}
+ .navbar .navbar-collapse{order:6;flex-basis:100%}
+}
+@media(max-width:480px){
+ .navbar .eco-global-search{height:43px}
+ .navbar .eco-global-search input{font-size:.86rem}
+}
+</style>
+<script id="eco-global-search-handler">
+(function(){
+ const form=document.getElementById('ecoMarketSearchForm');
+ const input=document.getElementById('ecoMarketSearchInput');
+ if(!form||!input)return;
+ const params=new URLSearchParams(location.search);
+ input.value=params.get('q')||'';
+ form.addEventListener('submit',function(e){
+   e.preventDefault();
+   const q=input.value.trim();
+   location.href='products.html'+(q?'?q='+encodeURIComponent(q):'');
+ });
+})();
+</script>
+
+</head>
+
+<body>
+
+    <!-- Page Transition -->
+    <div class="page-transition" id="pageTransition"></div>
+
+    <!-- Background blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- ─── NAVBAR ─── -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-inner">
+            <!-- Brand -->
+            <a class="navbar-brand" href="index.html" aria-label="Eco Life Store home">
+                🌿 Eco<span class="gold-line">_Life</span> Store
+            </a>
+
+            <!-- Desktop links -->
+            <ul class="nav-links" role="list">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية"><i class="fas fa-home" style="margin-right:.3rem;font-size:.8rem"></i>Home</a>
+                </li>
+                <li><a href="products.html" data-en="Products" data-ar="المنتجات">Products</a></li>
+                <li><a href="about.html" data-en="About" data-ar="حول">About</a></li>
+                <li><a href="contact.html" data-en="Contact" data-ar="اتصل">Contact</a></li>
+            </ul>
+
+            <!-- Desktop actions -->
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon-btn" title="Wishlist" aria-label="Wishlist">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <!-- Hamburger -->
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"
+                    aria-controls="mobileDrawer">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+<div class="eco-category-strip" aria-label="Shop categories">
+  <div class="eco-category-inner">
+    <a href="products.html" class="eco-cat-link"><i class="fas fa-th-large"></i> All products</a>
+    <a href="products.html?category=home" class="eco-cat-link">Home & Kitchen</a>
+    <a href="products.html?category=personal" class="eco-cat-link">Personal Care</a>
+    <a href="products.html?category=fashion" class="eco-cat-link">Fashion</a>
+    <a href="products.html?category=energy" class="eco-cat-link">Solar & Energy</a>
+    <a href="products.html?category=food" class="eco-cat-link">Organic Food</a>
+    <a href="products.html?category=garden" class="eco-cat-link">Garden</a>
+    <a href="products.html?category=cleaning" class="eco-cat-link">Cleaning</a>
+    <a href="index.html#daily-deals" class="eco-cat-link eco-deal-link"><i class="fas fa-tags"></i> Today's deals</a>
+  </div>
+</div>
+<div class="market-search-wrap" id="ecoMarketSearch">
+<form class="eco-smart-search eco-global-search" id="ecoMarketSearchForm" role="search" autocomplete="off">
+  <label class="visually-hidden" for="ecoMarketSearchInput">Search Eco Life Store</label>
+  <input id="ecoMarketSearchInput" type="search" placeholder="Search Eco Life Store..." aria-label="Search Eco Life Store">
+  <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+</form>
+<div class="market-trust"><span><i class="fas fa-leaf"></i> Sustainable choices</span><span><i class="fas fa-recycle"></i> Reusable & recyclable</span><span><i class="fas fa-truck"></i> Easy shopping</span></div></div>
+
+    <!-- ─── MOBILE DRAWER ─── -->
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+        <div class="mobile-drawer-inner">
+            <a href="index.html" data-en="Home" data-ar="الرئيسية"><i class="fas fa-home"></i> Home</a>
+            <a href="products.html" data-en="Products" data-ar="المنتجات"><i class="fas fa-leaf"></i> Products</a>
+            <a href="about.html" data-en="About" data-ar="حول"><i class="fas fa-seedling"></i> About</a>
+            <a href="contact.html" data-en="Contact" data-ar="اتصل"><i class="fas fa-envelope"></i> Contact</a>
+            <div class="drawer-divider"></div>
+            <div class="drawer-actions">
+                <a href="wishlist.html" style="border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);">
+                    <i class="fas fa-heart"></i> Wishlist
+                </a>
+                <a href="cart.html" class="drawer-cart-btn" style="border-radius:var(--r);">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                </a>
+                <button class="btn rounded-pill" id="translateBtn" style="font-size:.85rem;padding:.4rem .85rem;border-color:rgba(255,255,255,0.35)!important;color:var(--cream)!important;">
+                    <i class="fas fa-language"></i>
+                    <span id="translateBtnText">EN</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── MAIN ─── -->
+    
+<div class="eco-delivery-bar" aria-label="Delivery location">
+  <i class="fas fa-location-dot"></i>
+  <span><strong>التوصيل إلى</strong> <span class="eco-delivery-city">مصر</span></span>
+  <a href="contact.html" aria-label="تغيير موقع التوصيل">تغيير الموقع <i class="fas fa-chevron-down"></i></a>
+</div>
+
+<main>
+        <div class="login-wrapper" id="loginWrapper">
+
+            <!-- Side panel -->
+            <div class="login-side">
+                <div class="side-icon">🌿</div>
+                <h2 class="side-title">Welcome Back!</h2>
+                <p class="side-text">Sign in to continue your eco-friendly journey with us.</p>
+                <ul class="side-features">
+                    <li><i class="fas fa-check-circle"></i> Track your orders</li>
+                    <li><i class="fas fa-check-circle"></i> Save your wishlist</li>
+                    <li><i class="fas fa-check-circle"></i> Exclusive eco rewards</li>
+                    <li><i class="fas fa-check-circle"></i> Fast checkout</li>
+                </ul>
+                <div class="side-leaf">🍃</div>
+            </div>
+
+            <!-- Form panel -->
+            <div class="login-form-panel">
+                <div class="login-header">
+                    <h1>Sign In</h1>
+                    <p>Login to your Eco Life account</p>
+                </div>
+
+                <form id="loginForm" novalidate>
+
+                    <!-- Email -->
+                    <div class="form-group" id="emailGroup">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="you@example.com" autocomplete="email" required>
+                        </div>
+                        <div class="field-msg error-msg" id="emailError">
+                            <i class="fas fa-exclamation-circle"></i> <span></span>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group" id="passwordGroup">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Enter your password" autocomplete="current-password" required>
+                            <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password">
+                                <i class="fas fa-eye" id="pwToggleIcon"></i>
+                            </button>
+                        </div>
+                        <div class="strength-bar-wrap" id="strengthWrap">
+                            <div class="strength-bar" id="strengthBar"></div>
+                        </div>
+                        <div class="field-msg error-msg" id="passwordError">
+                            <i class="fas fa-exclamation-circle"></i> <span></span>
+                        </div>
+                    </div>
+
+                    <!-- Remember + Forgot -->
+                    <div class="form-row">
+                        <label class="form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <span class="form-check-label">Remember me</span>
+                        </label>
+                        <a href="#forgot" class="forgot-link">Forgot Password?</a>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn-login" id="loginBtn">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="divider">Or continue with</div>
+
+
+
+                <div class="login-footer">
+                    Don't have an account? <a href="register.html">Sign up here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <p>&copy; <span id="copyrightYear"></span> Eco Life Store. Made with 💚 for a better planet.</p>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="auth.js"></script>
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // SECTION A: SHARED HELPERS - Used in ALL pages
+        // ═══════════════════════════════════════════════════════════════
+
+        // Cart Management
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateAllBadges();
+        }
+
+        function addItemToCart(item) {
+            const cart = getCart();
+            const existing = cart.find(i => i.id === item.id);
+            if (existing) {
+                existing.qty += item.qty || 1;
+            } else {
+                cart.push(item);
+            }
+            saveCart(cart);
+        }
+
+        function removeItemFromCart(itemId) {
+            const cart = getCart().filter(i => i.id !== itemId);
+            saveCart(cart);
+        }
+
+        function clearCart() {
+            localStorage.setItem('cart', '[]');
+            updateAllBadges();
+        }
+
+        // Wishlist Management
+        function getWishlist() {
+            return JSON.parse(localStorage.getItem('wishlist') || '[]');
+        }
+
+        function saveWishlist(wishlist) {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            updateAllBadges();
+        }
+
+        function isInWishlist(itemId) {
+            return getWishlist().some(i => i.id === itemId);
+        }
+
+        function toggleWishlistItem(item) {
+            const wishlist = getWishlist();
+            const index = wishlist.findIndex(i => i.id === item.id);
+            if (index > -1) {
+                wishlist.splice(index, 1);
+            } else {
+                wishlist.push(item);
+            }
+            saveWishlist(wishlist);
+            return index === -1;
+        }
+
+        // Badge Update
+        function updateAllBadges() {
+            const cartCount = getCart().reduce((sum, item) => sum + (item.qty || 1), 0);
+            document.querySelectorAll('#cartBadge, #cartBadgeNav, #cartCount, .cart-badge, .cart-badge-nav').forEach(el => {
+                if (el) el.textContent = cartCount;
+            });
+
+            const wishlistCount = getWishlist().length;
+            document.querySelectorAll('#wishlistBadge, .wishlist-badge').forEach(el => {
+                if (el) el.textContent = wishlistCount;
+            });
+        }
+
+        // Slugify Helper
+        function slugify(str) {
+            return str.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+        }
+
+        // Auth Check
+        function isLoggedIn() {
+            return localStorage.getItem('isLoggedIn') === 'true';
+        }
+
+        // Initialize badges on page load
+        document.addEventListener('DOMContentLoaded', updateAllBadges);
+
+        // ═══════════════════════════════════════════════════════════════
+        // SECTION D: LOGIN PAGE LOGIC
+        // ═══════════════════════════════════════════════════════════════
+
+        // D2: Redirect if already logged in (at start of script)
+        if (isLoggedIn()) {
+            window.location.href = 'account.html';
+        }
+
+        // D4: Pre-fill email if rememberedEmail exists
+        window.addEventListener('DOMContentLoaded', () => {
+            const emailInput = document.getElementById('email');
+            const rememberedEmail = localStorage.getItem('rememberedEmail');
+            if (rememberedEmail && emailInput) {
+                emailInput.value = rememberedEmail;
+            }
+        });
+
+        // ─── Page Transition ───
+        gsap.to("#pageTransition", {
+            y: "-100%", duration: 0.7, ease: "power3.out", delay: 0.05,
+            onComplete: () => document.getElementById('pageTransition').style.display = 'none'
+        });
+
+        // ─── Card entrance ───
+        gsap.to("#loginWrapper", {
+            opacity: 1, y: 0, duration: 0.7, ease: "power3.out", delay: 0.3
+        });
+
+        // ─── Hamburger / Mobile Drawer ───
+        const hamburger = document.getElementById('hamburger');
+        const drawer = document.getElementById('mobileDrawer');
+        let drawerOpen = false;
+
+        function toggleDrawer(state) {
+            drawerOpen = (state !== undefined) ? state : !drawerOpen;
+            hamburger.classList.toggle('active', drawerOpen);
+            drawer.classList.toggle('open', drawerOpen);
+            hamburger.setAttribute('aria-expanded', drawerOpen);
+            drawer.setAttribute('aria-hidden', !drawerOpen);
+            document.body.style.overflow = drawerOpen ? 'hidden' : '';
+        }
+
+        hamburger.addEventListener('click', () => toggleDrawer());
+
+        // Close drawer on link click
+        drawer.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => toggleDrawer(false));
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (drawerOpen && !drawer.contains(e.target) && !hamburger.contains(e.target)) {
+                toggleDrawer(false);
+            }
+        });
+
+        // Close on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && drawerOpen) toggleDrawer(false);
+        });
+
+        // SECTION B4: Set active nav link based on current page
+        const currentFile = window.location.pathname.split('/').pop() || 'login.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+
+        // ─── Password Toggle ───
+        const pwToggle = document.getElementById('pwToggle');
+        const pwInput = document.getElementById('password');
+        const pwToggleIcon = document.getElementById('pwToggleIcon');
+        const strengthWrap = document.getElementById('strengthWrap');
+        const strengthBar = document.getElementById('strengthBar');
+
+        pwToggle.addEventListener('click', () => {
+            const isPassword = pwInput.type === 'password';
+            pwInput.type = isPassword ? 'text' : 'password';
+            pwToggleIcon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+        });
+
+        // ─── Password Strength ───
+        function getStrength(pw) {
+            let score = 0;
+            if (pw.length >= 8) score++;
+            if (/[A-Z]/.test(pw)) score++;
+            if (/[0-9]/.test(pw)) score++;
+            if (/[^A-Za-z0-9]/.test(pw)) score++;
+            return score;
+        }
+
+        pwInput.addEventListener('input', () => {
+            const val = pwInput.value;
+            if (val.length > 0) {
+                strengthWrap.classList.add('show');
+                const score = getStrength(val);
+                strengthBar.className = 'strength-bar';
+                if (score <= 1) strengthBar.classList.add('strength-weak');
+                else if (score === 2) strengthBar.classList.add('strength-fair');
+                else if (score === 3) strengthBar.classList.add('strength-good');
+                else strengthBar.classList.add('strength-strong');
+            } else {
+                strengthWrap.classList.remove('show');
+            }
+        });
+
+        // ─── Validation Helpers ───
+        function showError(groupId, msgId, msg) {
+            const group = document.getElementById(groupId);
+            const ctrl = group.querySelector('.form-control');
+            const msgEl = document.getElementById(msgId);
+            ctrl.classList.add('error');
+            ctrl.classList.remove('success');
+            msgEl.querySelector('span').textContent = msg;
+            msgEl.classList.add('show');
+        }
+
+        function showSuccess(groupId, msgId) {
+            const group = document.getElementById(groupId);
+            const ctrl = group.querySelector('.form-control');
+            const msgEl = document.getElementById(msgId);
+            ctrl.classList.remove('error');
+            ctrl.classList.add('success');
+            msgEl.classList.remove('show');
+        }
+
+        function clearField(groupId, msgId) {
+            const group = document.getElementById(groupId);
+            const ctrl = group.querySelector('.form-control');
+            const msgEl = document.getElementById(msgId);
+            ctrl.classList.remove('error', 'success');
+            msgEl.classList.remove('show');
+        }
+
+        function validateEmail(val) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        }
+
+        // Live validation
+        document.getElementById('email').addEventListener('blur', function () {
+            if (!this.value) showError('emailGroup', 'emailError', 'Email is required.');
+            else if (!validateEmail(this.value)) showError('emailGroup', 'emailError', 'Please enter a valid email address.');
+            else showSuccess('emailGroup', 'emailError');
+        });
+        document.getElementById('email').addEventListener('input', function () {
+            if (this.classList.contains('error')) clearField('emailGroup', 'emailError');
+        });
+
+        document.getElementById('password').addEventListener('blur', function () {
+            if (!this.value) showError('passwordGroup', 'passwordError', 'Password is required.');
+            else if (this.value.length < 6) showError('passwordGroup', 'passwordError', 'Password must be at least 6 characters.');
+            else showSuccess('passwordGroup', 'passwordError');
+        });
+        document.getElementById('password').addEventListener('input', function () {
+            if (this.classList.contains('error')) clearField('passwordGroup', 'passwordError');
+        });
+
+        // ─── Form Submit ───
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            let valid = true;
+
+            // Validate email
+            if (!email) {
+                showError('emailGroup', 'emailError', 'Email is required.'); valid = false;
+            } else if (!validateEmail(email)) {
+                showError('emailGroup', 'emailError', 'Please enter a valid email.'); valid = false;
+            } else {
+                showSuccess('emailGroup', 'emailError');
+            }
+
+            // Validate password
+            if (!password) {
+                showError('passwordGroup', 'passwordError', 'Password is required.'); valid = false;
+            } else if (password.length < 6) {
+                showError('passwordGroup', 'passwordError', 'Password must be at least 6 characters.'); valid = false;
+            } else {
+                showSuccess('passwordGroup', 'passwordError');
+            }
+
+            if (!valid) {
+                gsap.to('#loginWrapper', { x: [-8, 8, -6, 6, -4, 4, 0], duration: 0.4, ease: "power2.out" });
+                return;
+            }
+
+            // Loading state
+            loginBtn.classList.add('loading');
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Signing in…</span>';
+
+            // D1: Real localStorage auth check using shared auth utilities
+            setTimeout(() => {
+                const user = auth.getUserData();
+                if (!user) {
+                    loginBtn.classList.remove('loading');
+                    loginBtn.innerHTML = '<span>Sign In</span><i class="fas fa-arrow-right"></i>';
+                    showToast('No account found. Please register first.', 'error');
+                    return;
+                }
+
+                const res = auth.loginUser(email, password, rememberMe);
+                if (res.ok) {
+                    loginBtn.innerHTML = '<i class="fas fa-check"></i> <span>Success!</span>';
+                    loginBtn.style.background = 'linear-gradient(135deg, var(--success), #16a34a)';
+                    showToast('Login successful! Redirecting…', 'success');
+                    setTimeout(() => { window.location.href = 'account.html'; }, 1200);
+                } else {
+                    loginBtn.classList.remove('loading');
+                    loginBtn.innerHTML = '<span>Sign In</span><i class="fas fa-arrow-right"></i>';
+                    showToast(res.msg || 'Invalid email or password.', 'error');
+                    gsap.to('#loginWrapper', { x: [-8, 8, -6, 6, -4, 4, 0], duration: 0.4, ease: "power2.out" });
+                }
+            }, 1200);
+        });
+
+        // ─── Toast ───
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+            toast.innerHTML = `
+                <i class="fas fa-${icon} toast-icon"></i>
+                <span class="toast-msg">${message}</span>
+            `;
+            container.appendChild(toast);
+            requestAnimationFrame(() => { requestAnimationFrame(() => { toast.classList.add('show'); }); });
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
+    
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+        function translatePage(lang) {
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                if (!el.querySelector('*')) {
+                    el.textContent = el.getAttribute('data-' + lang) || el.textContent;
+                }
+            });
+            const btn = document.getElementById('translateBtnText');
+            if (btn) btn.textContent = lang === 'en' ? 'AR' : 'EN';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('siteLang', lang);
+            currentLang = lang;
+        }
+        const translateBtn = document.getElementById('translateBtn');
+        if (translateBtn) {
+            translateBtn.addEventListener('click', () => translatePage(currentLang === 'en' ? 'ar' : 'en'));
+        }
+        translatePage(currentLang);
+</script>
+
+<script src="marketplace-enhancements.js"></script>
+</body>
+
+</html>

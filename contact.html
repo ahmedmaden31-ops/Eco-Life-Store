@@ -1,0 +1,1958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Eco Life Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- ✅ FIX: All scripts moved to end of body -->
+    <style>
+        :root {
+            --deep: #0a1a0f;
+            --forest: #1a3a2a;
+            --moss: #2d5a3d;
+            --sage: #4e8c62;
+            --mint: #7bbf8a;
+            --lime: #a8d5b5;
+            --cream: #f5f0e8;
+            --sand: #e8dfc8;
+            --warm: #f9f6f0;
+            --text: #1a2e1e;
+            --muted: #5a7060;
+            --gold: #c8a84b;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --r: 0.75rem;
+            --r2: 1.5rem;
+            --shadow-sm: 0 4px 16px rgba(26, 58, 42, .10);
+            --shadow-lg: 0 20px 60px rgba(26, 58, 42, .18);
+            --shadow-xl: 0 32px 80px rgba(26, 58, 42, .22);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-blur: blur(20px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            display: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: absolute;
+            top: -4px;
+            left: -4px;
+        }
+
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--sage);
+            border-radius: 50%;
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            transition: all 0.3s ease;
+        }
+
+        .cursor-hover .cursor-ring {
+            width: 52px;
+            height: 52px;
+            top: -26px;
+            left: -26px;
+            background: rgba(78, 140, 98, 0.2);
+        }
+
+        /* Page Transition */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep);
+            z-index: 10000;
+        }
+
+        /* ✅ FIX: Navbar consistent with index.html — navbar-expand-lg */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: rgba(10, 26, 15, 0.92);
+            backdrop-filter: blur(24px);
+            padding: 0.75rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--cream) !important;
+            text-decoration: none;
+        }
+
+        .navbar-brand .gold-line {
+            color: var(--gold);
+        }
+
+        /* ✅ FIX: Toggler visible on dark background */
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            padding: 0.4rem 0.6rem;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 240, 232, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .nav-link {
+            color: rgba(245, 240, 232, 0.85) !important;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0.75rem;
+            width: 0;
+            height: 2px;
+            background: var(--mint);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: calc(100% - 1.5rem);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mint) !important;
+        }
+
+        .cart-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--cream) !important;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--deep);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .translate-btn {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            color: var(--cream) !important;
+            transition: all 0.3s;
+        }
+
+        .translate-btn:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* ✅ FIX: Mobile navbar collapse background */
+        @media (max-width: 1399px) {
+            .contact-section {
+                padding: 4rem 0;
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 2rem;
+            }
+
+            .card-section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(10, 26, 15, 0.97);
+                padding: 1rem;
+                border-radius: 0 0 1rem 1rem;
+                margin-top: 0.5rem;
+            }
+
+            .hero-section {
+                padding: 7rem 0 4rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 4vw, 2.8rem);
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            }
+
+            .contact-section {
+                padding: 3.5rem 0;
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 1.75rem;
+            }
+
+            .card-section-title {
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .form-label {
+                font-size: 0.85rem;
+            }
+
+            .form-control,
+            .form-select {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.9rem;
+            }
+
+            textarea.form-control {
+                min-height: 120px;
+            }
+
+            .btn-submit {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.95rem;
+            }
+
+            .info-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+
+            .map-wrapper {
+                height: 320px;
+            }
+
+            .faq-section {
+                padding: 3.5rem 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero-badge {
+                font-size: 0.8rem;
+                padding: 0.35rem 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+                margin-bottom: 0.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+                max-width: 90%;
+                line-height: 1.6;
+            }
+
+            .contact-section {
+                padding: 2.5rem 0;
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .card-section-title {
+                font-size: clamp(1.2rem, 2.5vw, 1.3rem);
+                margin-bottom: 1.25rem;
+            }
+
+            .form-label {
+                font-size: 0.8rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .form-control,
+            .form-select {
+                padding: 0.65rem 0.85rem;
+                font-size: 16px;
+                border-radius: 6px;
+            }
+
+            textarea.form-control {
+                min-height: 110px;
+            }
+
+            .btn-submit {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+            }
+
+            .info-item {
+                gap: 0.8rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .info-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 0.95rem;
+            }
+
+            .info-content h4 {
+                font-size: 0.95rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .info-content p {
+                font-size: 0.85rem;
+            }
+
+            .map-section {
+                padding: 0 0 3rem;
+            }
+
+            .map-wrapper {
+                height: 280px;
+            }
+
+            .map-fallback i {
+                font-size: 2.5rem;
+            }
+
+            .faq-section {
+                padding: 2.5rem 0;
+            }
+
+            .accordion-button {
+                padding: 1rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .accordion-body {
+                padding: 1rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                padding: 3rem 0 1.5rem;
+            }
+
+            .footer-logo {
+                font-size: 1.3rem;
+            }
+
+            .social-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 0.8rem;
+            }
+
+            .footer h5 {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+
+            .footer-links a {
+                font-size: 0.85rem;
+            }
+
+            .footer-copyright {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-section {
+                padding: 5rem 0.75rem 2.5rem;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.8rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .hero-title {
+                font-size: clamp(1.3rem, 3vw, 1.8rem);
+                margin-bottom: 0.6rem;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+            }
+
+            .contact-section {
+                padding: 2rem 0;
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 1.25rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .card-section-title {
+                font-size: clamp(1.1rem, 2.2vw, 1.2rem);
+                margin-bottom: 1rem;
+            }
+
+            .form-label {
+                font-size: 0.75rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .form-control,
+            .form-select {
+                padding: 0.6rem 0.8rem;
+                font-size: 16px;
+            }
+
+            textarea.form-control {
+                min-height: 100px;
+            }
+
+            .btn-submit {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .info-item {
+                gap: 0.7rem;
+                margin-bottom: 1.25rem;
+                padding-bottom: 1.25rem;
+            }
+
+            .info-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 0.85rem;
+            }
+
+            .info-content h4 {
+                font-size: 0.9rem;
+            }
+
+            .info-content p {
+                font-size: 0.8rem;
+            }
+
+            .map-wrapper {
+                height: 250px;
+            }
+
+            .faq-section {
+                padding: 2rem 0;
+            }
+
+            .accordion-item {
+                margin-bottom: 0.6rem;
+            }
+
+            .accordion-button {
+                padding: 0.9rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .accordion-body {
+                padding: 0.9rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+
+            .footer-logo {
+                font-size: 1.1rem;
+            }
+
+            .footer h5 {
+                font-size: 0.9rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .footer-links a {
+                font-size: 0.8rem;
+            }
+
+            .social-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 0.75rem;
+            }
+
+            .footer-copyright {
+                padding-top: 1.5rem;
+                margin-top: 1.5rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 4.5rem 0.5rem 2rem;
+            }
+
+            .hero-badge {
+                font-size: 0.7rem;
+                padding: 0.25rem 0.7rem;
+            }
+
+            .hero-title {
+                font-size: 1.2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .contact-section {
+                padding: 1.5rem 0;
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .card-section-title {
+                font-size: 1.05rem;
+                margin-bottom: 0.85rem;
+            }
+
+            .form-label {
+                font-size: 0.7rem;
+            }
+
+            .form-control,
+            .form-select {
+                padding: 0.55rem 0.7rem;
+                font-size: 16px;
+            }
+
+            textarea.form-control {
+                min-height: 90px;
+            }
+
+            .btn-submit {
+                padding: 0.65rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .info-item {
+                gap: 0.6rem;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            .info-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 0.8rem;
+            }
+
+            .info-content h4 {
+                font-size: 0.85rem;
+            }
+
+            .info-content p {
+                font-size: 0.75rem;
+            }
+
+            .map-wrapper {
+                height: 220px;
+            }
+
+            .map-fallback i {
+                font-size: 2rem;
+            }
+
+            .faq-section {
+                padding: 1.5rem 0;
+            }
+
+            .accordion-button {
+                padding: 0.8rem 0.9rem;
+                font-size: 0.8rem;
+            }
+
+            .accordion-body {
+                padding: 0.8rem 0.9rem;
+                font-size: 0.75rem;
+            }
+
+            .footer {
+                padding: 1.5rem 0 0.75rem;
+            }
+
+            .footer-logo {
+                font-size: 1rem;
+            }
+
+            .footer-tagline {
+                font-size: 0.8rem;
+            }
+
+            .footer h5 {
+                font-size: 0.85rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .footer-links li {
+                margin-bottom: 0.25rem;
+            }
+
+            .footer-links a {
+                font-size: 0.75rem;
+            }
+
+            .social-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+
+            .footer-copyright {
+                padding-top: 1rem;
+                margin-top: 1rem;
+                font-size: 0.7rem;
+            }
+
+            .toast-container {
+                bottom: 1rem;
+                right: 0.5rem;
+                left: 0.5rem;
+            }
+
+            .eco-toast {
+                min-width: auto;
+                max-width: 100%;
+            }
+        }
+
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-submit,
+            .form-control,
+            .form-select,
+            a,
+            button,
+            .accordion-button {
+                min-height: 48px;
+            }
+
+            .info-item {
+                min-height: 50px;
+            }
+        }
+
+        /* Landscape mode optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero-section {
+                padding: 3rem 0 2rem;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .contact-section {
+                padding: 1.5rem 0;
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                max-height: calc(100vh - 150px);
+                overflow-y: auto;
+            }
+
+            .map-wrapper {
+                height: 180px;
+            }
+
+            .faq-section {
+                padding: 1rem 0;
+            }
+        }
+        .hero-section {
+            background: linear-gradient(135deg, var(--deep) 0%, var(--forest) 100%);
+            color: var(--cream);
+            padding: 9rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(78, 140, 98, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(200, 168, 75, 0.15) 0%, transparent 50%);
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 560px;
+            margin: 0 auto;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+        }
+
+        .contact-form-card {
+            background: white;
+            border-radius: var(--r2);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--sand);
+            height: 100%;
+        }
+
+        .contact-info-card {
+            background: var(--cream);
+            border-radius: var(--r2);
+            padding: 2.5rem;
+            border: 1px solid var(--sand);
+            height: 100%;
+        }
+
+        .card-section-title {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+            display: block;
+            color: var(--text);
+        }
+
+        .form-control,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--sand);
+            border-radius: var(--r);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--warm);
+            color: var(--text);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--sage);
+            box-shadow: 0 0 0 3px rgba(78, 140, 98, 0.12);
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--danger);
+        }
+
+        .form-control.is-valid {
+            border-color: var(--success);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .btn-submit {
+            background: var(--sage);
+            border: none;
+            border-radius: 50px;
+            padding: 0.9rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--cream);
+            width: 100%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-submit:hover {
+            background: var(--moss);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(45, 90, 61, 0.3);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Info Items */
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.75rem;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 46px;
+            height: 46px;
+            background: var(--lime);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sage);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .info-content p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .info-content a {
+            color: var(--sage);
+            text-decoration: none;
+        }
+
+        .info-content a:hover {
+            color: var(--mint);
+        }
+
+        /* Map */
+        .map-section {
+            padding: 0 0 5rem;
+        }
+
+        .map-wrapper {
+            border-radius: var(--r2);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            height: 380px;
+            position: relative;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ✅ Fallback if iframe blocked */
+        .map-fallback {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--lime) 0%, var(--mint) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .map-fallback:hover {
+            filter: brightness(0.95);
+        }
+
+        .map-fallback i {
+            font-size: 3.5rem;
+            color: var(--sage);
+            margin-bottom: 0.75rem;
+        }
+
+        .map-fallback h3 {
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        .map-fallback p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 0 0 5rem;
+            background: var(--cream);
+            padding-top: 5rem;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-section .faq-sub {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 3rem;
+        }
+
+        .accordion-item {
+            background: white;
+            border: 1px solid var(--sand) !important;
+            border-radius: var(--r) !important;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .accordion-button {
+            background: var(--warm) !important;
+            color: var(--text) !important;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            padding: 1.25rem 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: var(--lime) !important;
+            color: var(--text) !important;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none !important;
+        }
+
+        .accordion-button::after {
+            filter: invert(30%) sepia(30%) saturate(400%) hue-rotate(100deg);
+        }
+
+        .accordion-body {
+            padding: 1.25rem 1.5rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--deep) 100%);
+            color: var(--cream);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-logo .gold-line {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--deep);
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+
+        .footer h5 {
+            color: var(--cream);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-links a {
+            color: rgba(245, 240, 232, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--mint);
+        }
+
+        .footer-contact p {
+            color: rgba(245, 240, 232, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-copyright {
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(245, 240, 232, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9998;
+        }
+
+        .eco-toast {
+            background: white;
+            border-radius: var(--r);
+            box-shadow: var(--shadow-xl);
+            padding: 1rem 1.25rem;
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 280px;
+            max-width: 340px;
+            transform: translateX(110%);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eco-toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .eco-toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .eco-toast-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .eco-toast-warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .eco-toast-info {
+            border-left: 4px solid var(--info);
+        }
+
+        .eco-toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gold);
+            animation: progressBar 3s linear forwards;
+        }
+
+        @keyframes progressBar {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+    </style>
+<style id="eco-marketplace-style">
+/* Marketplace additions — deliberately reuse the original Eco Life palette */
+.market-search-wrap{width:min(1180px,calc(100% - 32px));margin:92px auto 18px;position:relative;z-index:20}
+.market-search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand,#e8dfc8);border-radius:999px;padding:8px 10px 8px 18px;box-shadow:var(--shadow-sm);}
+.market-search input{border:0;outline:0;min-width:0;flex:1;padding:10px 4px;color:var(--text);background:transparent;font:inherit}
+.market-search button{border:0;border-radius:999px;background:var(--sage);color:var(--cream);font-weight:700;padding:11px 22px;white-space:nowrap}
+.market-search button:hover{background:var(--moss)}
+.market-trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.82rem;margin:10px 0 0}
+.market-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 22px;padding:14px;background:#fff;border:1px solid var(--sand);border-radius:var(--r2)}
+.market-tools input,.market-tools select{border:1px solid var(--sand);border-radius:10px;padding:10px 12px;background:var(--warm);color:var(--text);min-width:170px}
+.market-tools input{flex:1}
+.market-tools .market-count{color:var(--muted);font-size:.9rem;margin-inline-start:auto}
+.market-extra-card .product-image{height:220px;background:linear-gradient(135deg,var(--lime),var(--mint));}
+.market-extra-card .product-image img{width:100%;height:100%;object-fit:cover}
+.market-extra-card .product-info{padding:1.25rem;display:flex;flex-direction:column;flex:1}
+.market-extra-card .product-title{min-height:48px}
+.market-extra-card .product-price{color:var(--sage);font-weight:800;font-size:1.15rem}
+.market-extra-card .market-rating{color:var(--gold);font-size:.9rem;margin:4px 0 10px}
+.market-extra-card .product-actions{margin-top:auto;padding-top:12px}
+.market-extra-card .btn-add-cart{border:0;border-radius:10px;padding:10px 12px;background:var(--sage);color:white;font-weight:700;width:100%}
+.market-extra-card .market-tag{display:inline-block;background:var(--lime);color:var(--moss);border-radius:30px;padding:4px 9px;font-size:.72rem;margin:2px}
+.market-no-results{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+@media(max-width:600px){.market-search-wrap{margin-top:82px}.market-search{border-radius:16px;padding:7px}.market-search button{padding:10px 14px}.market-tools>*{width:100%;min-width:0!important}.market-tools .market-count{margin:0}}
+</style>
+
+<style id="eco-amazon-sections-style">
+.eco-category-strip{background:var(--deep,#0a1a0f);border-top:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.12);width:100%;position:relative;z-index:20}
+.eco-category-inner{max-width:1320px;margin:auto;padding:0 18px;display:flex;align-items:center;gap:5px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.eco-cat-link{display:inline-flex;align-items:center;gap:7px;padding:12px 13px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;border:1px solid transparent;border-radius:5px;transition:background .2s,border-color .2s}
+.eco-cat-link:hover,.eco-cat-link:focus{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.eco-deal-link{color:#d9efb5}
+.eco-deals-section{padding:34px 0 12px}
+.eco-deals-banner{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:25px 30px;border-radius:14px;background:linear-gradient(110deg,var(--deep,#0a1a0f),var(--moss,#315b3d));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.eco-deals-banner h2{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;margin:0 0 7px}
+.eco-deals-banner p{margin:0;color:rgba(255,255,255,.83)}
+.eco-deals-banner .eco-deal-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;background:#fff;color:var(--deep,#0a1a0f);font-weight:800;text-decoration:none;white-space:nowrap}
+.eco-deals-banner .eco-deal-cta:hover{transform:translateY(-2px)}
+.eco-mini-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+.eco-mini-card{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.eco-mini-card:hover{transform:translateY(-4px);box-shadow:0 9px 24px rgba(0,0,0,.12);color:inherit}
+.eco-mini-card img{width:100%;height:150px;object-fit:cover;display:block;background:#eef3ec}
+.eco-mini-card .eco-mini-info{padding:12px}
+.eco-mini-card h3{font-size:.96rem;font-weight:700;margin:0 0 7px}
+.eco-mini-card .eco-mini-price{font-weight:800;color:var(--sage,#4e8c62)}
+.eco-mini-label{display:inline-block;font-size:.7rem;font-weight:800;background:rgba(78,140,98,.13);color:var(--moss,#315b3d);padding:4px 7px;border-radius:20px;margin-bottom:7px}
+.eco-best-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:30px 0 15px}
+.eco-best-heading h2{font-size:1.55rem;font-weight:800;margin:0;color:var(--text,#203126)}
+.eco-best-heading a{color:var(--sage,#4e8c62);font-weight:700;text-decoration:none}
+@media(max-width:767px){.eco-category-inner{padding:0 10px}.eco-cat-link{padding:10px 11px;font-size:.82rem}.eco-deals-banner{align-items:flex-start;flex-direction:column;padding:22px}.eco-mini-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.eco-mini-card img{height:125px}.eco-best-heading h2{font-size:1.25rem}}
+</style>
+
+
+<style id="eco-amazon-mobile-layout">
+/* Amazon-inspired shopping layout, retaining Eco Life Store colors */
+.eco-delivery-bar{min-height:42px;background:#20382b;color:#f5f0e8;display:flex;align-items:center;gap:9px;padding:8px max(16px,calc((100% - 1280px)/2));font-size:.88rem;position:relative;z-index:15}
+.eco-delivery-bar>i{font-size:1.12rem;color:var(--mint,#7bbf8a)}
+.eco-delivery-bar strong{font-weight:700}
+.eco-delivery-bar a{margin-inline-start:auto;color:#d8eadb;text-decoration:none;font-size:.8rem;white-space:nowrap}
+.eco-delivery-bar a:hover{color:#fff;text-decoration:underline}
+.eco-category-strip{z-index:16}
+.navbar{z-index:1050}
+.eco-smart-search{box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.eco-smart-search:focus-within{outline:2px solid var(--mint,#7bbf8a);outline-offset:1px}
+.eco-smart-search button{font-size:1.08rem}
+.eco-amazon-promo{width:100%;padding:16px 0 4px;background:var(--warm,#f9f6f0);overflow:hidden}
+.eco-promo-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px 12px}
+.eco-promo-track::-webkit-scrollbar{display:none}
+.eco-promo-card{position:relative;flex:0 0 min(78vw,440px);min-height:310px;border-radius:18px;overflow:hidden;scroll-snap-align:center;background:linear-gradient(135deg,#dcebdc,#a8c8ad);color:#173322;text-decoration:none;display:flex;align-items:center;box-shadow:0 7px 22px rgba(18,48,29,.13)}
+.eco-promo-card:nth-child(2){background:linear-gradient(135deg,#efe8d5,#d6c49a)}
+.eco-promo-card:nth-child(3){background:linear-gradient(135deg,#d9e9df,#9cbca4)}
+.eco-promo-copy{position:relative;z-index:2;padding:25px;width:56%}
+.eco-promo-copy small{display:block;font-weight:700;letter-spacing:.04em;margin-bottom:10px;color:#365d43}
+.eco-promo-copy h2{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.15;margin:0 0 12px;color:#173322}
+.eco-promo-copy span{display:inline-block;background:#173322;color:#fff;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.85rem}
+.eco-promo-card img{position:absolute;right:0;bottom:0;width:53%;height:88%;object-fit:contain;mix-blend-mode:multiply}
+.eco-promo-dots{display:flex;justify-content:center;gap:7px;padding:0 0 8px}
+.eco-promo-dots button{width:7px;height:7px;border:0;border-radius:50%;background:#b8c8ba;padding:0}
+.eco-promo-dots button.active{width:22px;border-radius:8px;background:var(--sage,#4e8c62)}
+@media(max-width:991.98px){
+ .navbar{padding:8px 0!important}
+ .navbar>.container{display:flex;align-items:center;gap:8px}
+ .navbar-brand{font-size:1.15rem;order:1;margin:0;white-space:nowrap}
+ .navbar-toggler{order:2;margin-inline-start:auto}
+ .eco-smart-search{order:3;flex:1 0 100%;width:100%;margin:5px 0 2px;height:46px;border:0;border-radius:9px}
+ .eco-smart-search select{display:none}
+ .eco-smart-search input{padding-inline:14px;font-size:1rem}
+ .eco-smart-search button{width:52px;flex-basis:52px;background:var(--gold,#c8a84b);color:var(--deep,#0a1a0f);border-radius:0 8px 8px 0}
+ .navbar .navbar-collapse{order:4;flex-basis:100%;background:var(--deep,#0a1a0f);padding:8px 12px 12px;border-radius:0 0 12px 12px}
+ .navbar .navbar-nav{gap:2px}
+ .eco-promo-card{flex-basis:84vw;min-height:300px}
+}
+@media(max-width:480px){
+ .eco-delivery-bar{font-size:.82rem;min-height:40px;padding:8px 13px}
+ .eco-delivery-bar a{font-size:.72rem}
+ .eco-amazon-promo{padding-top:12px}
+ .eco-promo-track{gap:10px;padding-inline:12px}
+ .eco-promo-card{flex-basis:86vw;min-height:285px;border-radius:15px}
+ .eco-promo-copy{padding:17px;width:59%}
+ .eco-promo-copy h2{font-size:1.45rem}
+ .eco-promo-copy small{font-size:.73rem}
+ .eco-promo-copy span{font-size:.75rem;padding:8px 11px}
+ .eco-promo-card img{width:53%;height:82%}
+}
+</style>
+
+</head>
+
+<body>
+
+    <div class="page-transition" id="pageTransition"></div>
+
+    <div class="cursor" id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- ✅ FIX: Single navbar system using Bootstrap — removed custom mobile-menu overlay -->
+    <!-- ✅ FIX: navbar-expand-lg (was navbar-expand-md) -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                🌿 Eco<span class="gold-line">_Life</span> Store
+            </a>
+
+            <!-- ✅ FIX: Bootstrap toggler (was custom mobile-menu-toggle button) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html" data-en="Products" data-ar="المنتجات">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html" data-en="About" data-ar="حول">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- ✅ Active set here since this is the contact page -->
+                        <a class="nav-link active" href="contact.html" data-en="Contact" data-ar="اتصل">Contact</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <a href="wishlist.html" class="btn btn-link text-white p-0" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    <!-- ✅ FIX: Cart reads from localStorage via updateCartBadge() -->
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+
+                    <div class="dropdown">
+                        <button class="btn rounded-pill translate-btn dropdown-toggle" type="button"
+                            id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="accountBtnLabel">Account</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="account.html" id="accountLink" style="display:none;">
+                                    <i class="fas fa-user me-2"></i>My Account
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="login.html" id="loginLink">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="register.html" id="registerLink">
+                                    <i class="fas fa-user-plus me-2"></i>Register
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" id="logoutDivider" style="display:none;">
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" id="logoutLink" style="display:none;"
+                                    onclick="logout(event)">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div class="eco-category-strip" aria-label="Shop categories">
+  <div class="eco-category-inner">
+    <a href="products.html" class="eco-cat-link"><i class="fas fa-th-large"></i> All products</a>
+    <a href="products.html?category=home" class="eco-cat-link">Home & Kitchen</a>
+    <a href="products.html?category=personal" class="eco-cat-link">Personal Care</a>
+    <a href="products.html?category=fashion" class="eco-cat-link">Fashion</a>
+    <a href="products.html?category=energy" class="eco-cat-link">Solar & Energy</a>
+    <a href="products.html?category=food" class="eco-cat-link">Organic Food</a>
+    <a href="products.html?category=garden" class="eco-cat-link">Garden</a>
+    <a href="products.html?category=cleaning" class="eco-cat-link">Cleaning</a>
+    <a href="index.html#daily-deals" class="eco-cat-link eco-deal-link"><i class="fas fa-tags"></i> Today's deals</a>
+  </div>
+</div>
+<div class="market-search-wrap" id="ecoMarketSearch"><div class="market-trust"><span><i class="fas fa-leaf"></i> Sustainable choices</span><span><i class="fas fa-recycle"></i> Reusable & recyclable</span><span><i class="fas fa-truck"></i> Easy shopping</span></div></div>
+
+    <!-- Hero -->
+    
+<div class="eco-delivery-bar" aria-label="Delivery location">
+  <i class="fas fa-location-dot"></i>
+  <span><strong>التوصيل إلى</strong> <span class="eco-delivery-city">مصر</span></span>
+  <a href="contact.html" aria-label="تغيير موقع التوصيل">تغيير الموقع <i class="fas fa-chevron-down"></i></a>
+</div>
+
+<section class="hero-section">
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fas fa-leaf" style="color:var(--mint);font-size:12px;"></i>
+                Eco Life Store
+            </div>
+            <h1 class="hero-title">Get In Touch</h1>
+            <p class="hero-subtitle">Have questions about our sustainable products? We're here to help you make
+                eco-friendly choices.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <!-- ✅ FIX: Using Bootstrap row/col instead of CSS Grid for proper responsiveness -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="row g-4 align-items-start">
+                <!-- Contact Form -->
+                <div class="col-lg-7">
+                    <div class="contact-form-card">
+                        <h2 class="card-section-title">Send us a Message</h2>
+                        <form id="contactForm" novalidate>
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label for="name" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="John Doe"
+                                        required>
+                                    <div class="invalid-feedback">Please enter your name.</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="john@example.com" required>
+                                    <div class="invalid-feedback">Please enter a valid email.</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject *</label>
+                                <select class="form-control form-select" id="subject" name="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="products">Product Information</option>
+                                    <option value="orders">Order Support</option>
+                                    <option value="returns">Returns & Exchanges</option>
+                                    <option value="sustainability">Sustainability Questions</option>
+                                    <option value="partnership">Partnership Opportunities</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a subject.</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea class="form-control" id="message" name="message" rows="5"
+                                    placeholder="Tell us how we can help..." required></textarea>
+                                <div class="invalid-feedback">Please enter your message.</div>
+                            </div>
+                            <button type="submit" class="btn-submit" id="submitBtn">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="col-lg-5">
+                    <div class="contact-info-card">
+                        <h2 class="card-section-title">Contact Information</h2>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-content">
+                                <h4>Visit Our Store</h4>
+                                <p>123 Green Street, Cairo, Egypt 11511</p>
+                                <p class="mt-1">Mon–Fri: 9AM–8PM &nbsp;|&nbsp; Sat–Sun: 10AM–6PM</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-phone"></i></div>
+                            <div class="info-content">
+                                <h4>Call Us</h4>
+                                <p><a href="tel:+201234567890">+20 123 456 7890</a></p>
+                                <p>Available Mon–Fri, 9AM–6PM</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-content">
+                                <h4>Email Us</h4>
+                                <p><a href="mailto:hello@ecolifestore.com">hello@ecolifestore.com</a></p>
+                                <p><a href="mailto:support@ecolifestore.com">support@ecolifestore.com</a></p>
+                                <p>We respond within 24 hours</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-share-alt"></i></div>
+                            <div class="info-content">
+                                <h4>Follow Us</h4>
+                                <div class="d-flex gap-2 mt-2">
+                                    <a href="https://facebook.com" target="_blank" rel="noopener"></a>
+                                    <a href="https://instagram.com" target="_blank" rel="noopener"></a>
+                                    <a href="https://tiktok.com" target="_blank" rel="noopener"></a>
+                                    <a href="https://youtube.com" target="_blank" rel="noopener"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <!-- ✅ FIX: Real Google Maps embed with a fallback overlay -->
+            <div class="map-wrapper" id="mapWrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110502.48219038658!2d31.18395!3d30.06263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa60b21beeb%3A0x79dfb296e8423bba!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1700000000000!5m2!1sen!2seg"
+                    title="Our Store Location" allowfullscreen loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" style="display:block;">
+                </iframe>
+                <div class="map-fallback" id="mapFallback" style="display:none;"
+                    onclick="window.open('https://maps.google.com/?q=Cairo,Egypt','_blank')">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Find Us in Cairo</h3>
+                    <p>123 Green Street, Cairo, Egypt</p>
+                    <p class="mt-1" style="font-size:0.8rem;">Click to open in Google Maps ↗</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <p class="faq-sub">Quick answers to common questions</p>
+
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1"
+                            aria-expanded="true">
+                            How do I know if your products are truly sustainable?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We carefully vet all our suppliers and products. Each item comes with detailed information
+                            about its environmental impact, materials used, and certifications. We prioritize products
+                            with third-party certifications like GOTS, Fair Trade, and FSC.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq2">
+                            What is your return policy?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We offer a 30-day return policy for unused items in their original packaging. Returns are
+                            free for defective items. For other returns, customers pay shipping costs. All returns must
+                            be approved before shipping.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq3">
+                            Do you ship internationally?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by
+                            location. We use eco-friendly packaging and carbon-neutral shipping partners whenever
+                            possible.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq4">
+                            How can I track my order?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Once your order ships, you'll receive a tracking number via email. You can also track your
+                            order by logging into your account and viewing your order history.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#faq5">
+                            Can I modify or cancel my order?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Orders can be modified or cancelled within 2 hours of placement. After that, please contact
+                            us immediately. Once an order ships, it cannot be cancelled but can be returned per our
+                            return policy.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo">🌿 Eco<span class="gold-line">_Life</span> Store</div>
+                    <p class="footer-tagline">Sustainable living for a better planet</p>
+                    <div class="social-icons">
+    <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-youtube"></i>
+    </a>
+</div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Shop</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">منتجات المنزل</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">العناية الشخصية</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">الغذاء العضوي</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">الأزياء المستدامة</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">الحديقة</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Our Mission</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Sustainability</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Careers</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Help</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">FAQ</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Shipping</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); alert('Coming soon!');" title="Coming soon">Returns</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Contact</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Cairo, Egypt</p>
+                        <p><i class="fas fa-phone me-2"></i>+20 123 456 7890</p>
+                        <p><i class="fas fa-envelope me-2"></i>hello@ecolifestore.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="copyrightYear"></span> Eco Life Store. Made with 💚 for a better planet.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ✅ FIX: All scripts at end of body -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // ✅ FIX: Register plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Page Transition
+        gsap.to("#pageTransition", { y: "-100%", duration: 0.6, ease: "power2.out", delay: 0.1 });
+
+        // ─────────────────────────────────────────
+        // Cursor (desktop only)
+        // ─────────────────────────────────────────
+        const cursor = document.getElementById('cursor');
+        if (window.matchMedia('(pointer: fine)').matches) {
+            cursor.style.display = 'block';
+            document.addEventListener('mousemove', (e) => {
+                gsap.to('.cursor-dot', { x: e.clientX, y: e.clientY, duration: 0 });
+                gsap.to('.cursor-ring', { x: e.clientX, y: e.clientY, duration: 0.3, ease: "power2.out" });
+            });
+            document.querySelectorAll('a, button, .accordion-button').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
+        }
+
+        // ─────────────────────────────────────────
+        // Login UI
+        // ─────────────────────────────────────────
+        function updateLoginUI() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userName = localStorage.getItem('userName') || 'Account';
+
+            const set = (id, show) => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = show ? 'block' : 'none';
+            };
+
+            set('accountLink', isLoggedIn);
+            set('loginLink', !isLoggedIn);
+            set('registerLink', !isLoggedIn);
+            set('logoutDivider', isLoggedIn);
+            set('logoutLink', isLoggedIn);
+
+            const label = document.getElementById('accountBtnLabel');
+            if (label) label.textContent = isLoggedIn ? userName : 'Account';
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            updateLoginUI();
+            showToast('Logged out successfully', 'info');
+            setTimeout(() => window.location.href = 'login.html', 1200);
+        }
+
+        updateLoginUI();
+
+        // ─────────────────────────────────────────
+        // ✅ FIX: Cart from localStorage
+        // ─────────────────────────────────────────
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const total = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        updateCartBadge();
+
+        // ─────────────────────────────────────────
+        // Contact Form — improved validation + UX
+        // ─────────────────────────────────────────
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value.trim();
+
+            // Clear previous states
+            contactForm.querySelectorAll('.form-control, .form-select').forEach(el => {
+                el.classList.remove('is-invalid', 'is-valid');
+            });
+
+            let valid = true;
+
+            if (!name) {
+                document.getElementById('name').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('name').classList.add('is-valid');
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                document.getElementById('email').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('email').classList.add('is-valid');
+            }
+
+            if (!subject) {
+                document.getElementById('subject').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('subject').classList.add('is-valid');
+            }
+
+            if (!message || message.length < 10) {
+                document.getElementById('message').classList.add('is-invalid');
+                valid = false;
+            } else {
+                document.getElementById('message').classList.add('is-valid');
+            }
+
+            if (!valid) {
+                showToast('Please fill in all required fields correctly.', 'error');
+                return;
+            }
+
+            // Simulate sending
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+
+            await new Promise(r => setTimeout(r, 1500));
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Message Sent!';
+            showToast('Thank you! We\'ll get back to you within 24 hours. 🌿', 'success');
+
+            contactForm.reset();
+            contactForm.querySelectorAll('.form-control, .form-select').forEach(el => el.classList.remove('is-valid'));
+
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Send Message';
+            }, 3000);
+        });
+
+        // ─────────────────────────────────────────
+        // Map — show fallback if iframe fails
+        // ─────────────────────────────────────────
+        const mapIframe = document.querySelector('.map-wrapper iframe');
+        mapIframe.addEventListener('error', () => {
+            mapIframe.style.display = 'none';
+            document.getElementById('mapFallback').style.display = 'flex';
+        });
+
+        // ─────────────────────────────────────────
+        // Scroll Reveal
+        // ─────────────────────────────────────────
+        gsap.utils.toArray('.contact-form-card, .contact-info-card, .accordion-item').forEach((el, i) => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: "top 85%" },
+                y: 30,
+                opacity: 0,
+                duration: 0.55,
+                delay: (i % 3) * 0.1
+            });
+        });
+
+        // ─────────────────────────────────────────
+        // Toast
+        // ─────────────────────────────────────────
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = { success: 'check-circle', error: 'times-circle', warning: 'exclamation-triangle', info: 'info-circle' };
+            const colors = { success: 'var(--success)', error: 'var(--danger)', warning: 'var(--warning)', info: 'var(--info)' };
+
+            const toast = document.createElement('div');
+            toast.className = `eco-toast eco-toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type]}" style="color:${colors[type]};font-size:16px;flex-shrink:0;"></i>
+                <span style="flex:1;font-size:0.9rem;">${message}</span>
+                <div class="eco-toast-progress"></div>
+            `;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3200);
+        }
+    
+        let currentLang = localStorage.getItem('siteLang') || 'en';
+        function translatePage(lang) {
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                if (!el.querySelector('*')) {
+                    el.textContent = el.getAttribute('data-' + lang) || el.textContent;
+                }
+            });
+            const btn = document.getElementById('translateBtnText');
+            if (btn) btn.textContent = lang === 'en' ? 'AR' : 'EN';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('siteLang', lang);
+            currentLang = lang;
+        }
+        const translateBtn = document.getElementById('translateBtn');
+        if (translateBtn) {
+            translateBtn.addEventListener('click', () => translatePage(currentLang === 'en' ? 'ar' : 'en'));
+        }
+        translatePage(currentLang);
+</script>
+<script src="marketplace-enhancements.js"></script>
+</body>
+
+</html>

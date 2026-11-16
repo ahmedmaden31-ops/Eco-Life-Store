@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Life Store - Premium Eco-Friendly E-Commerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- ✅ FIX: GSAP scripts moved to end of body — loading in <head> can block rendering -->
+    <style>
+        :root {
+            --deep: #0a1a0f;
+            --forest: #1a3a2a;
+            --moss: #2d5a3d;
+            --sage: #4e8c62;
+            --mint: #7bbf8a;
+            --lime: #a8d5b5;
+            --cream: #f5f0e8;
+            --sand: #e8dfc8;
+            --warm: #f9f6f0;
+            --text: #1a2e1e;
+            --muted: #5a7060;
+            --gold: #c8a84b;
+            --gold2: #e8c86a;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --r: 0.75rem;
+            --r2: 1.5rem;
+            --r3: 2rem;
+            --shadow-sm: 0 4px 16px rgba(26, 58, 42, .10);
+            --shadow-md: 0 8px 32px rgba(26, 58, 42, .14);
+            --shadow-lg: 0 20px 60px rgba(26, 58, 42, .18);
+            --shadow-xl: 0 32px 80px rgba(26, 58, 42, .22);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-blur: blur(20px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            display: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: absolute;
+            top: -4px;
+            left: -4px;
+        }
+
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--sage);
+            border-radius: 50%;
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            transition: all 0.3s ease;
+        }
+
+        .cursor-hover .cursor-ring {
+            width: 52px;
+            height: 52px;
+            top: -26px;
+            left: -26px;
+            background: rgba(78, 140, 98, 0.2);
+        }
+
+        /* Page Transition */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep);
+            z-index: 10000;
+        }
+
+        /* ✅ FIX: navbar-expand-lg instead of navbar-expand-sm */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 26, 15, 0.92);
+            backdrop-filter: blur(24px);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--cream) !important;
+            text-decoration: none;
+        }
+
+        .navbar-brand .gold-line {
+            color: var(--gold);
+        }
+
+        /* ✅ FIX: Custom toggler icon for dark navbar */
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            padding: 0.4rem 0.6rem;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 240, 232, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .nav-link {
+            color: rgba(245, 240, 232, 0.85) !important;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0.75rem;
+            width: 0;
+            height: 2px;
+            background: var(--mint);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--cream) !important;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: calc(100% - 1.5rem);
+        }
+
+        /* ✅ Active nav indicator */
+        .nav-link.active {
+            color: var(--mint) !important;
+        }
+
+        .cart-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--cream) !important;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--cream) !important;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--deep);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--deep) 0%, var(--forest) 100%);
+        }
+
+        .hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floating-blob {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(168, 213, 181, 0.1);
+            filter: blur(40px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-blob:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-blob:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-blob:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--cream);
+            z-index: 2;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            font-size: 0.9rem;
+        }
+
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.85);
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            color: var(--cream);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .btn-hero {
+            background: var(--sage);
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: var(--cream);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-hero:hover {
+            background: var(--mint);
+            transform: translateY(-3px);
+            color: var(--deep);
+            box-shadow: 0 10px 30px rgba(123, 191, 138, 0.4);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            margin-bottom: 0.75rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+        }
+
+        .section-header p {
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        /* Categories */
+        .categories {
+            background: var(--cream);
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--r2);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 1px solid var(--sand);
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--mint);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--sage);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .category-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* Products */
+        .products {
+            background: var(--warm);
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--r2);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 1px solid var(--sand);
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .product-image {
+            height: 220px;
+            background: linear-gradient(135deg, var(--lime) 0%, var(--mint) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-image i {
+            font-size: 3.5rem;
+            opacity: 0.7;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--sage);
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .product-tag {
+            background: var(--lime);
+            color: var(--moss);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .product-actions .btn-add-cart {
+            width: auto;
+            flex: 1;
+        }
+
+        .btn-add-cart {
+            background: var(--sage);
+            color: var(--cream);
+            border: none;
+            border-radius: 50px;
+            padding: 0.6rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--moss);
+            transform: translateY(-1px);
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--warm);
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--r2);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--sand);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--sage);
+            margin-bottom: 1rem;
+        }
+
+        /* ✅ FIX: stat-number now animated by JS counter */
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--moss) 0%, var(--forest) 100%);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .newsletter-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            color: var(--cream);
+            width: 100%;
+            margin-bottom: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(245, 240, 232, 0.6);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--cream);
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--r2);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--sand);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--muted);
+            position: relative;
+            padding-top: 1.5rem;
+            line-height: 1.7;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            font-size: 5rem;
+            color: var(--lime);
+            position: absolute;
+            top: -1.5rem;
+            left: -0.5rem;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .author-avatar {
+            width: 46px;
+            height: 46px;
+            background: var(--sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .author-title {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .testimonial-rating {
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        /* Blog */
+        .blog {
+            background: var(--warm);
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: var(--r2);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--sand);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .blog-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--lime), var(--sage));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease;
+            overflow: hidden;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-image i {
+            font-size: 2.5rem;
+            opacity: 0.7;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .blog-excerpt {
+            color: var(--muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .blog-link {
+            color: var(--sage);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .blog-link:hover {
+            color: var(--mint);
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, var(--moss) 0%, var(--forest) 100%);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--deep) 100%);
+            color: var(--cream);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .gold-line {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--deep);
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+
+        .footer h5 {
+            color: var(--cream);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(245, 240, 232, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--mint);
+        }
+
+        .footer-contact p {
+            color: rgba(245, 240, 232, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-copyright {
+            border-top: 1px solid rgba(245, 240, 232, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(245, 240, 232, 0.5);
+            font-size: 0.875rem;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9998;
+        }
+
+        .eco-toast {
+            background: white;
+            border-radius: var(--r);
+            box-shadow: var(--shadow-lg);
+            padding: 1rem 1.25rem;
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 280px;
+            max-width: 340px;
+            transform: translateX(110%);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eco-toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .eco-toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .eco-toast-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .eco-toast-warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .eco-toast-info {
+            border-left: 4px solid var(--info);
+        }
+
+        .eco-toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gold);
+            animation: progressBar 3s linear forwards;
+        }
+
+        @keyframes progressBar {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* Translate btn */
+        .translate-btn {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            color: var(--cream) !important;
+            transition: all 0.3s;
+        }
+
+        .translate-btn:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: var(--cream) !important;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Reduced motion support */
+        .reduced-motion * {
+            scroll-behavior: auto !important;
+        }
+
+        .reduced-motion .section,
+        .reduced-motion .floating-blob,
+        .reduced-motion .hero-badge .pulse {
+            transition: none !important;
+            animation: none !important;
+        }
+
+        /* Responsive - Mobile First */
+        @media (max-width: 1399px) {
+            .section {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(10, 26, 15, 0.97);
+                padding: 1rem;
+                border-radius: 0 0 1rem 1rem;
+                margin-top: 0.5rem;
+            }
+
+            .hero {
+                min-height: 80vh;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .category-card,
+            .product-card,
+            .stat-card,
+            .testimonial-card,
+            .blog-card {
+                padding: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: clamp(1.5rem, 2.5vw, 2rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 70vh;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 5vw, 2.8rem);
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.95rem, 2vw, 1.1rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .btn-hero {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 2.5rem 1rem;
+            }
+
+            .section-header {
+                margin-bottom: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: clamp(1.4rem, 4vw, 1.8rem);
+                margin-bottom: 0.5rem;
+            }
+
+            .section-header p {
+                font-size: clamp(0.9rem, 1.5vw, 1rem);
+            }
+
+            .row {
+                margin-right: -0.5rem;
+                margin-left: -0.5rem;
+            }
+
+            [class*="col-"] {
+                padding-right: 0.5rem;
+                padding-left: 0.5rem;
+            }
+
+            .category-card,
+            .product-card,
+            .stat-card,
+            .testimonial-card,
+            .blog-card {
+                padding: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .category-card h3,
+            .product-title {
+                font-size: clamp(1rem, 1.5vw, 1.15rem);
+            }
+
+            .product-image {
+                height: 180px;
+            }
+
+            .product-price {
+                font-size: clamp(1rem, 2vw, 1.25rem);
+            }
+
+            .stat-number {
+                font-size: clamp(1.8rem, 3vw, 2.2rem);
+            }
+
+            .newsletter-input {
+                margin-bottom: 0.75rem;
+                padding: 0.8rem 1rem;
+                font-size: 16px;
+            }
+
+            .btn-hero {
+                width: 100%;
+            }
+
+            .footer-links,
+            .footer-contact {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero {
+                min-height: 60vh;
+                padding: 0 1rem;
+            }
+
+            .hero-badge {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(1.6rem, 5vw, 2.4rem);
+                margin-bottom: 0.75rem;
+                line-height: 1.1;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+                max-width: 100%;
+                margin-bottom: 1.25rem;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .section-header h2 {
+                font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+            }
+
+            .section-header p {
+                font-size: clamp(0.85rem, 1.3vw, 0.9rem);
+            }
+
+            .category-icon,
+            .stat-icon {
+                font-size: 2rem;
+            }
+
+            .testimonial-content::before {
+                font-size: 3rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+
+            .footer-logo {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .social-icons {
+                margin-bottom: 1rem;
+                gap: 0.5rem;
+            }
+
+            .footer h5 {
+                font-size: 0.9rem;
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: clamp(1.4rem, 4vw, 2rem);
+            }
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .btn-hero {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .section {
+                padding: 1.5rem 0;
+            }
+
+            .section-header h2 {
+                font-size: clamp(1.2rem, 3vw, 1.4rem);
+                margin-bottom: 0.4rem;
+            }
+
+            .category-card,
+            .product-card,
+            .stat-card,
+            .testimonial-card,
+            .blog-card {
+                padding: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .product-image {
+                height: 150px;
+            }
+
+            .stat-number {
+                font-size: 1.6rem;
+            }
+
+            .footer {
+                padding: 1.5rem 0 0.75rem;
+            }
+
+            .footer-logo {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .cart-btn,
+            .btn-hero,
+            .category-card,
+            .product-card,
+            .testimonial-card,
+            .blog-card {
+                touch-action: manipulation;
+            }
+
+            button,
+            a {
+                min-height: 48px;
+                min-width: 48px;
+            }
+        }
+
+        /* Landscape mode for small devices */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero {
+                min-height: auto;
+                height: auto;
+            }
+
+            .hero-content {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+<style id="eco-marketplace-style">
+/* Marketplace additions — deliberately reuse the original Eco Life palette */
+.market-search-wrap{width:min(1180px,calc(100% - 32px));margin:92px auto 18px;position:relative;z-index:20}
+.market-search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand,#e8dfc8);border-radius:999px;padding:8px 10px 8px 18px;box-shadow:var(--shadow-sm);}
+.market-search input{border:0;outline:0;min-width:0;flex:1;padding:10px 4px;color:var(--text);background:transparent;font:inherit}
+.market-search button{border:0;border-radius:999px;background:var(--sage);color:var(--cream);font-weight:700;padding:11px 22px;white-space:nowrap}
+.market-search button:hover{background:var(--moss)}
+.market-trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.82rem;margin:10px 0 0}
+.market-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 22px;padding:14px;background:#fff;border:1px solid var(--sand);border-radius:var(--r2)}
+.market-tools input,.market-tools select{border:1px solid var(--sand);border-radius:10px;padding:10px 12px;background:var(--warm);color:var(--text);min-width:170px}
+.market-tools input{flex:1}
+.market-tools .market-count{color:var(--muted);font-size:.9rem;margin-inline-start:auto}
+.market-extra-card .product-image{height:220px;background:linear-gradient(135deg,var(--lime),var(--mint));}
+.market-extra-card .product-image img{width:100%;height:100%;object-fit:cover}
+.market-extra-card .product-info{padding:1.25rem;display:flex;flex-direction:column;flex:1}
+.market-extra-card .product-title{min-height:48px}
+.market-extra-card .product-price{color:var(--sage);font-weight:800;font-size:1.15rem}
+.market-extra-card .market-rating{color:var(--gold);font-size:.9rem;margin:4px 0 10px}
+.market-extra-card .product-actions{margin-top:auto;padding-top:12px}
+.market-extra-card .btn-add-cart{border:0;border-radius:10px;padding:10px 12px;background:var(--sage);color:white;font-weight:700;width:100%}
+.market-extra-card .market-tag{display:inline-block;background:var(--lime);color:var(--moss);border-radius:30px;padding:4px 9px;font-size:.72rem;margin:2px}
+.market-no-results{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+@media(max-width:600px){.market-search-wrap{margin-top:82px}.market-search{border-radius:16px;padding:7px}.market-search button{padding:10px 14px}.market-tools>*{width:100%;min-width:0!important}.market-tools .market-count{margin:0}}
+</style>
+<style id="eco-smart-header-style">
+.navbar{background:var(--deep,#0a1a0f)!important;padding:.72rem 0!important;box-shadow:0 2px 16px rgba(0,0,0,.18)}
+.navbar.scrolled{background:var(--deep,#0a1a0f)!important;padding:.62rem 0!important;backdrop-filter:none;box-shadow:0 2px 18px rgba(0,0,0,.24)}
+.eco-smart-search{position:relative;display:flex;align-items:stretch;flex:0 1 390px;min-width:230px;height:42px;margin:0 18px;border-radius:9px;background:#fff;border:2px solid var(--sage,#4e8c62);overflow:visible}
+.eco-smart-search select{max-width:112px;border:0;border-right:1px solid #ddd;background:#f2f2f2;color:#26352a;padding:0 9px;border-radius:7px 0 0 7px;font-size:.82rem;outline:0}
+.eco-smart-search input{flex:1;min-width:0;border:0;outline:0;padding:0 12px;color:#26352a;background:#fff;font-size:.92rem}
+.eco-smart-search button{width:48px;flex:0 0 48px;border:0;border-radius:0 6px 6px 0;background:var(--sage,#4e8c62);color:#fff;font-size:1rem}
+.eco-smart-search button:hover{background:var(--moss,#315b3d)}
+.eco-smart-suggestions{position:absolute;top:calc(100% + 7px);left:0;right:0;background:#fff;color:#26352a;border:1px solid #ddd;border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:3000;overflow:hidden}
+.eco-smart-suggestion{display:flex;align-items:center;gap:10px;width:100%;padding:10px 13px;border:0;border-bottom:1px solid #eee;background:#fff;color:#26352a;text-align:left;font-size:.9rem}
+.eco-smart-suggestion:last-child{border-bottom:0}.eco-smart-suggestion:hover,.eco-smart-suggestion:focus{background:#f1f6f1}.eco-smart-suggestion i{color:var(--sage,#4e8c62)}
+@media(min-width:992px){.navbar .container{gap:8px}.navbar .navbar-collapse{flex:1;min-width:0}.navbar .navbar-nav{margin-left:auto!important;margin-right:auto!important}}
+@media(max-width:991.98px){.eco-smart-search{order:3;flex:1 0 100%;width:100%;margin:12px 0 8px}.navbar .navbar-collapse{padding-top:8px}.navbar .navbar-nav{margin-left:0!important}.navbar .container{flex-wrap:wrap}}
+@media(max-width:420px){.eco-smart-search select{max-width:88px;padding:0 5px;font-size:.75rem}.eco-smart-search{height:40px}}
+</style>
+
+<style id="eco-amazon-sections-style">
+.eco-category-strip{background:var(--deep,#0a1a0f);border-top:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.12);width:100%;position:relative;z-index:20}
+.eco-category-inner{max-width:1320px;margin:auto;padding:0 18px;display:flex;align-items:center;gap:5px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.eco-cat-link{display:inline-flex;align-items:center;gap:7px;padding:12px 13px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;border:1px solid transparent;border-radius:5px;transition:background .2s,border-color .2s}
+.eco-cat-link:hover,.eco-cat-link:focus{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.eco-deal-link{color:#d9efb5}
+.eco-deals-section{padding:34px 0 12px}
+.eco-deals-banner{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:25px 30px;border-radius:14px;background:linear-gradient(110deg,var(--deep,#0a1a0f),var(--moss,#315b3d));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.eco-deals-banner h2{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;margin:0 0 7px}
+.eco-deals-banner p{margin:0;color:rgba(255,255,255,.83)}
+.eco-deals-banner .eco-deal-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;background:#fff;color:var(--deep,#0a1a0f);font-weight:800;text-decoration:none;white-space:nowrap}
+.eco-deals-banner .eco-deal-cta:hover{transform:translateY(-2px)}
+.eco-mini-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+.eco-mini-card{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.eco-mini-card:hover{transform:translateY(-4px);box-shadow:0 9px 24px rgba(0,0,0,.12);color:inherit}
+.eco-mini-card img{width:100%;height:150px;object-fit:cover;display:block;background:#eef3ec}
+.eco-mini-card .eco-mini-info{padding:12px}
+.eco-mini-card h3{font-size:.96rem;font-weight:700;margin:0 0 7px}
+.eco-mini-card .eco-mini-price{font-weight:800;color:var(--sage,#4e8c62)}
+.eco-mini-label{display:inline-block;font-size:.7rem;font-weight:800;background:rgba(78,140,98,.13);color:var(--moss,#315b3d);padding:4px 7px;border-radius:20px;margin-bottom:7px}
+.eco-best-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:30px 0 15px}
+.eco-best-heading h2{font-size:1.55rem;font-weight:800;margin:0;color:var(--text,#203126)}
+.eco-best-heading a{color:var(--sage,#4e8c62);font-weight:700;text-decoration:none}
+@media(max-width:767px){.eco-category-inner{padding:0 10px}.eco-cat-link{padding:10px 11px;font-size:.82rem}.eco-deals-banner{align-items:flex-start;flex-direction:column;padding:22px}.eco-mini-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.eco-mini-card img{height:125px}.eco-best-heading h2{font-size:1.25rem}}
+</style>
+
+
+<style id="eco-amazon-mobile-layout">
+/* Amazon-inspired shopping layout, retaining Eco Life Store colors */
+.eco-delivery-bar{min-height:42px;background:#20382b;color:#f5f0e8;display:flex;align-items:center;gap:9px;padding:8px max(16px,calc((100% - 1280px)/2));font-size:.88rem;position:relative;z-index:15}
+.eco-delivery-bar>i{font-size:1.12rem;color:var(--mint,#7bbf8a)}
+.eco-delivery-bar strong{font-weight:700}
+.eco-delivery-bar a{margin-inline-start:auto;color:#d8eadb;text-decoration:none;font-size:.8rem;white-space:nowrap}
+.eco-delivery-bar a:hover{color:#fff;text-decoration:underline}
+.eco-category-strip{z-index:16}
+.navbar{z-index:1050}
+.eco-smart-search{box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.eco-smart-search:focus-within{outline:2px solid var(--mint,#7bbf8a);outline-offset:1px}
+.eco-smart-search button{font-size:1.08rem}
+.eco-amazon-promo{width:100%;padding:16px 0 4px;background:var(--warm,#f9f6f0);overflow:hidden}
+.eco-promo-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px 12px}
+.eco-promo-track::-webkit-scrollbar{display:none}
+.eco-promo-card{position:relative;flex:0 0 min(78vw,440px);min-height:310px;border-radius:18px;overflow:hidden;scroll-snap-align:center;background:linear-gradient(135deg,#dcebdc,#a8c8ad);color:#173322;text-decoration:none;display:flex;align-items:center;box-shadow:0 7px 22px rgba(18,48,29,.13)}
+.eco-promo-card:nth-child(2){background:linear-gradient(135deg,#efe8d5,#d6c49a)}
+.eco-promo-card:nth-child(3){background:linear-gradient(135deg,#d9e9df,#9cbca4)}
+.eco-promo-copy{position:relative;z-index:2;padding:25px;width:56%}
+.eco-promo-copy small{display:block;font-weight:700;letter-spacing:.04em;margin-bottom:10px;color:#365d43}
+.eco-promo-copy h2{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.15;margin:0 0 12px;color:#173322}
+.eco-promo-copy span{display:inline-block;background:#173322;color:#fff;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.85rem}
+.eco-promo-card img{position:absolute;right:0;bottom:0;width:53%;height:88%;object-fit:contain;mix-blend-mode:multiply}
+.eco-promo-dots{display:flex;justify-content:center;gap:7px;padding:0 0 8px}
+.eco-promo-dots button{width:7px;height:7px;border:0;border-radius:50%;background:#b8c8ba;padding:0}
+.eco-promo-dots button.active{width:22px;border-radius:8px;background:var(--sage,#4e8c62)}
+@media(max-width:991.98px){
+ .navbar{padding:8px 0!important}
+ .navbar>.container{display:flex;align-items:center;gap:8px}
+ .navbar-brand{font-size:1.15rem;order:1;margin:0;white-space:nowrap}
+ .navbar-toggler{order:2;margin-inline-start:auto}
+ .eco-smart-search{order:3;flex:1 0 100%;width:100%;margin:5px 0 2px;height:46px;border:0;border-radius:9px}
+ .eco-smart-search select{display:none}
+ .eco-smart-search input{padding-inline:14px;font-size:1rem}
+ .eco-smart-search button{width:52px;flex-basis:52px;background:var(--gold,#c8a84b);color:var(--deep,#0a1a0f);border-radius:0 8px 8px 0}
+ .navbar .navbar-collapse{order:4;flex-basis:100%;background:var(--deep,#0a1a0f);padding:8px 12px 12px;border-radius:0 0 12px 12px}
+ .navbar .navbar-nav{gap:2px}
+ .eco-promo-card{flex-basis:84vw;min-height:300px}
+}
+@media(max-width:480px){
+ .eco-delivery-bar{font-size:.82rem;min-height:40px;padding:8px 13px}
+ .eco-delivery-bar a{font-size:.72rem}
+ .eco-amazon-promo{padding-top:12px}
+ .eco-promo-track{gap:10px;padding-inline:12px}
+ .eco-promo-card{flex-basis:86vw;min-height:285px;border-radius:15px}
+ .eco-promo-copy{padding:17px;width:59%}
+ .eco-promo-copy h2{font-size:1.45rem}
+ .eco-promo-copy small{font-size:.73rem}
+ .eco-promo-copy span{font-size:.75rem;padding:8px 11px}
+ .eco-promo-card img{width:53%;height:82%}
+}
+</style>
+
+
+<style id="eco-video-marketplace-style">
+.eco-desktop-market{display:none}
+@media(min-width:992px){
+  .eco-desktop-market{display:block;background:var(--warm,#f9f6f0);padding:22px 0 34px}
+  .eco-desktop-market .eco-market-wrap{max-width:1380px;margin:0 auto;padding:0 22px}
+  .eco-desktop-market .eco-market-hero{display:grid;grid-template-columns:1.15fr 1fr 1fr 1fr;gap:15px;align-items:stretch}
+  .eco-market-tile{position:relative;min-height:340px;overflow:hidden;border-radius:13px;background:var(--cream,#f5f0e8);border:1px solid rgba(26,58,42,.10);box-shadow:0 5px 18px rgba(10,26,15,.08);text-decoration:none;color:var(--text,#1a2e1e);display:flex;flex-direction:column}
+  .eco-market-tile:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(10,26,15,.14);color:var(--text,#1a2e1e)}
+  .eco-market-tile .eco-tile-copy{padding:20px 19px 8px;position:relative;z-index:2}
+  .eco-market-tile small{display:block;color:var(--sage,#4e8c62);font-weight:800;font-size:.78rem;margin-bottom:8px}
+  .eco-market-tile h2{font-size:1.35rem;line-height:1.25;font-weight:850;margin:0 0 9px;color:var(--deep,#0a1a0f)}
+  .eco-market-tile p{font-size:.88rem;color:var(--muted,#5a7060);margin:0}
+  .eco-market-tile img{width:100%;height:205px;object-fit:contain;margin-top:auto;padding:8px 14px 13px}
+  .eco-market-tile:first-child{background:linear-gradient(145deg,var(--deep,#0a1a0f),var(--forest,#1a3a2a));color:var(--cream,#f5f0e8)}
+  .eco-market-tile:first-child h2{color:var(--cream,#f5f0e8);font-size:1.75rem}
+  .eco-market-tile:first-child p{color:rgba(245,240,232,.82)}
+  .eco-market-tile:first-child small{color:var(--lime,#a8d5b5)}
+  .eco-market-tile:first-child img{height:190px;filter:drop-shadow(0 10px 15px rgba(0,0,0,.18))}
+  .eco-market-link{display:inline-flex;align-items:center;gap:7px;margin-top:13px;color:var(--sage,#4e8c62);font-size:.86rem;font-weight:800}
+  .eco-market-tile:first-child .eco-market-link{color:var(--gold2,#e8c86a)}
+  .eco-market-section{margin-top:25px;background:#fff;border:1px solid rgba(26,58,42,.09);border-radius:13px;padding:18px 19px 20px;box-shadow:0 4px 15px rgba(10,26,15,.045)}
+  .eco-market-section-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:15px}
+  .eco-market-section-head h2{margin:0;color:var(--deep,#0a1a0f);font-size:1.32rem;font-weight:850}
+  .eco-market-section-head a{color:var(--sage,#4e8c62);font-size:.88rem;font-weight:800;text-decoration:none;white-space:nowrap}
+  .eco-market-categories{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:15px}
+  .eco-market-category{min-width:0;text-decoration:none;color:var(--text,#1a2e1e);text-align:center;font-weight:750;font-size:.9rem}
+  .eco-market-category img{display:block;width:100%;height:145px;object-fit:contain;background:var(--warm,#f9f6f0);border-radius:10px;margin-bottom:9px;padding:10px}
+  .eco-market-category:hover{color:var(--sage,#4e8c62)}
+  .eco-market-products{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:17px}
+  .eco-market-product{min-width:0;text-decoration:none;color:var(--text,#1a2e1e);border:1px solid rgba(26,58,42,.10);border-radius:10px;padding:12px;display:flex;flex-direction:column;transition:.2s;background:#fff}
+  .eco-market-product:hover{border-color:var(--sage,#4e8c62);box-shadow:0 7px 18px rgba(10,26,15,.09);color:var(--text,#1a2e1e);transform:translateY(-2px)}
+  .eco-market-product img{width:100%;height:155px;object-fit:contain;margin-bottom:10px}
+  .eco-market-product strong{font-size:.88rem;line-height:1.35;min-height:2.5em}
+  .eco-market-product span{font-size:.78rem;color:var(--muted,#5a7060);margin-top:6px}
+  .eco-market-product b{color:var(--sage,#4e8c62);font-size:.95rem;margin-top:8px}
+  .eco-market-promo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
+  .eco-market-promo{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 20px;border-radius:12px;background:linear-gradient(120deg,var(--cream,#f5f0e8),var(--lime,#a8d5b5));color:var(--deep,#0a1a0f);text-decoration:none;min-height:118px}
+  .eco-market-promo:nth-child(2){background:linear-gradient(120deg,var(--sand,#e8dfc8),var(--cream,#f5f0e8))}
+  .eco-market-promo:nth-child(3){background:linear-gradient(120deg,var(--forest,#1a3a2a),var(--moss,#2d5a3d));color:var(--cream,#f5f0e8)}
+  .eco-market-promo h3{font-size:1.05rem;font-weight:850;margin:0 0 5px}
+  .eco-market-promo p{font-size:.8rem;margin:0;opacity:.8}
+  .eco-market-promo i{font-size:2rem;opacity:.78}
+  .eco-amazon-promo{display:none}
+  .hero{display:none!important}
+  .eco-deals-section{padding-top:26px}
+  .eco-deals-section>.container{max-width:1380px}
+  .eco-mini-products{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .footer{margin-top:28px}
+}
+@media(min-width:1200px){
+ .eco-desktop-market .eco-market-hero{grid-template-columns:1.18fr repeat(3,1fr)}
+ .eco-market-tile{min-height:365px}
+ .eco-market-tile img{height:225px}
+ .eco-market-categories{gap:20px}
+}
+</style>
+
+
+<style id="eco-global-header-search-fix">
+/* Keep the complete header in normal document flow so category/navigation bars sit below it */
+.navbar{position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:1050!important;width:100%}
+.eco-category-strip{position:relative!important;z-index:20!important;clear:both}
+.eco-delivery-bar{position:relative!important;z-index:10!important;clear:both}
+.navbar .eco-global-search{position:relative;display:flex;align-items:stretch;flex:0 1 360px;width:min(360px,32vw);min-width:190px;height:42px;margin:0 14px;border:2px solid var(--sage,#4e8c62);border-radius:9px;background:#fff;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.navbar .eco-global-search input{flex:1;min-width:0;width:100%;border:0;outline:0;background:#fff;color:#26352a;padding:0 13px;font-size:.9rem}
+.navbar .eco-global-search input::placeholder{color:#858585}
+.navbar .eco-global-search button{width:48px;flex:0 0 48px;border:0;border-radius:0;background:var(--sage,#4e8c62);color:#fff;font-size:1.05rem}
+.navbar .eco-global-search button:hover{background:var(--moss,#315b3d)}
+@media(min-width:992px){
+ .navbar .container,.navbar .navbar-inner{display:flex;align-items:center;flex-wrap:nowrap;gap:8px}
+ .navbar .eco-global-search{order:2}
+ .navbar .navbar-collapse{flex:1 1 auto;min-width:0}
+}
+@media(max-width:991.98px){
+ .navbar .container,.navbar .navbar-inner{display:flex;flex-wrap:wrap;align-items:center}
+ .navbar .eco-global-search{order:5;flex:1 0 100%;width:100%;max-width:none;min-width:0;margin:7px 0 2px;height:44px}
+ .navbar .eco-global-search button{width:52px;flex-basis:52px}
+ .navbar .navbar-collapse{order:6;flex-basis:100%}
+}
+@media(max-width:480px){
+ .navbar .eco-global-search{height:43px}
+ .navbar .eco-global-search input{font-size:.86rem}
+}
+</style>
+<script id="eco-global-search-handler">
+(function(){
+ const form=document.getElementById('ecoMarketSearchForm');
+ const input=document.getElementById('ecoMarketSearchInput');
+ if(!form||!input)return;
+ const params=new URLSearchParams(location.search);
+ input.value=params.get('q')||'';
+ form.addEventListener('submit',function(e){
+   e.preventDefault();
+   const q=input.value.trim();
+   location.href='products.html'+(q?'?q='+encodeURIComponent(q):'');
+ });
+})();
+</script>
+
+</head>
+
+<body>
+    <div class="page-transition" id="pageTransition"></div>
+
+    <div class="cursor" id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- ✅ FIX: navbar-expand-lg (was navbar-expand-sm) -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                🌿 Eco<span class="gold-line">_Life</span> Store
+            </a>
+
+            
+<form class="eco-smart-search eco-global-search" id="ecoMarketSearchForm" role="search" autocomplete="off">
+  <label class="visually-hidden" for="ecoMarketSearchInput">Search Eco Life Store</label>
+  <input id="ecoMarketSearchInput" type="search" placeholder="Search Eco Life Store..." aria-label="Search Eco Life Store">
+  <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+</form>
+
+
+            <!-- ✅ FIX: toggler now visible on dark bg via custom SVG icon in CSS -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" data-en="Home" data-ar="الرئيسية">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html" data-en="Products" data-ar="المنتجات">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html" data-en="About" data-ar="حول">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html" data-en="Contact" data-ar="اتصل">Contact</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <a href="wishlist.html" class="btn btn-link text-white p-0" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light rounded-pill dropdown-toggle translate-btn" type="button"
+                            id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="accountBtnLabel">Account</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li>
+                                <a class="dropdown-item" href="account.html" id="accountLink" style="display:none;">
+                                    <i class="fas fa-user me-2"></i>My Account
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="login.html" id="loginLink">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="register.html" id="registerLink">
+                                    <i class="fas fa-user-plus me-2"></i>Register
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" id="logoutDivider" style="display:none;">
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" id="logoutLink" style="display:none;"
+                                    onclick="logout(event)">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div class="eco-category-strip" aria-label="Shop categories">
+  <div class="eco-category-inner">
+    <a href="products.html" class="eco-cat-link"><i class="fas fa-th-large"></i> All products</a>
+    <a href="products.html?category=home" class="eco-cat-link">Home & Kitchen</a>
+    <a href="products.html?category=personal" class="eco-cat-link">Personal Care</a>
+    <a href="products.html?category=fashion" class="eco-cat-link">Fashion</a>
+    <a href="products.html?category=energy" class="eco-cat-link">Solar & Energy</a>
+    <a href="products.html?category=food" class="eco-cat-link">Organic Food</a>
+    <a href="products.html?category=garden" class="eco-cat-link">Garden</a>
+    <a href="products.html?category=cleaning" class="eco-cat-link">Cleaning</a>
+    <a href="index.html#daily-deals" class="eco-cat-link eco-deal-link"><i class="fas fa-tags"></i> Today's deals</a>
+  </div>
+</div>
+
+
+    <!-- Hero -->
+    
+<div class="eco-delivery-bar" aria-label="Delivery location">
+  <i class="fas fa-location-dot"></i>
+  <span><strong>التوصيل إلى</strong> <span class="eco-delivery-city">مصر</span></span>
+  <a href="contact.html" aria-label="تغيير موقع التوصيل">تغيير الموقع <i class="fas fa-chevron-down"></i></a>
+</div>
+
+
+
+<section class="eco-desktop-market" aria-label="Eco Life Store shopping homepage">
+ <div class="eco-market-wrap">
+  <div class="eco-market-hero">
+   <a class="eco-market-tile" href="products.html">
+    <div class="eco-tile-copy"><small>🌿 ECO LIFE STORE</small><h2>اختيارات أذكى لحياة أكثر استدامة</h2><p>كل احتياجاتك الصديقة للبيئة في مكان واحد</p><span class="eco-market-link">ابدأ التسوق <i class="fas fa-arrow-right"></i></span></div>
+    <img src="photo_for_products/Premium Reusable Water Bottles Set.jfif" alt="Reusable eco-friendly bottles">
+   </a>
+   <a class="eco-market-tile" href="products.html?category=home">
+    <div class="eco-tile-copy"><small>للمنزل والمطبخ</small><h2>خلي بيتك أكثر استدامة</h2><p>بدائل عملية بخامات طبيعية</p></div>
+    <img src="photo_for_products/Bamboo Cutting Board.jfif" alt="Bamboo cutting board">
+   </a>
+   <a class="eco-market-tile" href="products.html?category=personal">
+    <div class="eco-tile-copy"><small>العناية الشخصية</small><h2>اهتم بنفسك وبالكوكب</h2><p>منتجات لطيفة على البيئة</p></div>
+    <img src="photo_for_products/Natural Shampoo Bar.png" alt="Natural shampoo bar">
+   </a>
+   <a class="eco-market-tile" href="products.html?category=garden">
+    <div class="eco-tile-copy"><small>الزراعة والطاقة</small><h2>ابدأ تغييرك الأخضر</h2><p>حلول مستدامة لحياة يومية أفضل</p></div>
+    <img src="photo_for_products/Herb Garden Kit.jfif" alt="Herb garden kit">
+   </a>
+  </div>
+
+  <div class="eco-market-section">
+   <div class="eco-market-section-head"><h2>تسوق حسب القسم</h2><a href="products.html">كل المنتجات <i class="fas fa-arrow-right"></i></a></div>
+   <div class="eco-market-categories">
+    <a class="eco-market-category" href="products.html?category=home"><img src="photo_for_products/Eco Kitchen Essentials Bundle.jfif" alt="">المنزل والمطبخ</a>
+    <a class="eco-market-category" href="products.html?category=personal"><img src="photo_for_products/Bamboo Dental Care Kit.jfif" alt="">العناية الشخصية</a>
+    <a class="eco-market-category" href="products.html?category=fashion"><img src="photo_for_products/Reusable Eco Shopping Bags.jfif" alt="">الأزياء والحقائب</a>
+    <a class="eco-market-category" href="products.html?category=garden"><img src="photo_for_products/Herb Garden Kit.jfif" alt="">الحديقة والزراعة</a>
+    <a class="eco-market-category" href="products.html?category=cleaning"><img src="photo_for_products/Natural Eco-Friendly Cleaning Bundle.jfif" alt="">التنظيف الطبيعي</a>
+    <a class="eco-market-category" href="products.html?category=home"><img src="photo_for_products/Premium Reusable Water Bottles Set.jfif" alt="">منتجات قابلة لإعادة الاستخدام</a>
+   </div>
+  </div>
+
+  <div class="eco-market-promo-strip">
+   <a class="eco-market-promo" href="products.html?category=home"><div><h3>اختيارات صديقة للبيئة</h3><p>اكتشف بدائل يومية مستدامة</p></div><i class="fas fa-leaf"></i></a>
+   <a class="eco-market-promo" href="index.html#daily-deals"><div><h3>عروض Eco Life</h3><p>منتجات مختارة لحياة خضراء</p></div><i class="fas fa-tags"></i></a>
+   <a class="eco-market-promo" href="products.html"><div><h3>الأكثر طلبًا</h3><p>اكتشف المنتجات المفضلة</p></div><i class="fas fa-star"></i></a>
+  </div>
+
+  <div class="eco-market-section">
+   <div class="eco-market-section-head"><h2>منتجات مميزة لك</h2><a href="products.html">عرض الكل <i class="fas fa-arrow-right"></i></a></div>
+   <div class="eco-market-products">
+    <a class="eco-market-product" href="products.html?q=Bamboo%20Dental%20Care%20Kit"><img src="photo_for_products/Bamboo Dental Care Kit.jfif" alt="Bamboo dental care kit"><strong>طقم عناية بالأسنان من الخيزران</strong><span>اختيار مستدام للاستخدام اليومي</span><b>اكتشف المنتج</b></a>
+    <a class="eco-market-product" href="products.html?q=Reusable%20Bottles"><img src="photo_for_products/Premium Reusable Water Bottles Set.jfif" alt="Reusable water bottles"><strong>زجاجات مياه قابلة لإعادة الاستخدام</strong><span>قلل استخدام البلاستيك</span><b>اكتشف المنتج</b></a>
+    <a class="eco-market-product" href="products.html?q=Eco%20Shopping%20Bags"><img src="photo_for_products/Reusable Eco Shopping Bags.jfif" alt="Reusable shopping bags"><strong>أكياس تسوق صديقة للبيئة</strong><span>بديل عملي للأكياس البلاستيكية</span><b>اكتشف المنتج</b></a>
+    <a class="eco-market-product" href="products.html?q=Herb%20Garden%20Kit"><img src="photo_for_products/Herb Garden Kit.jfif" alt="Herb garden kit"><strong>مجموعة زراعة الأعشاب</strong><span>ازرع نباتاتك في المنزل</span><b>اكتشف المنتج</b></a>
+    <a class="eco-market-product" href="products.html?q=Natural%20Cleaning"><img src="photo_for_products/Natural Eco-Friendly Cleaning Bundle.jfif" alt="Natural cleaning bundle"><strong>مجموعة تنظيف طبيعية</strong><span>اختيارات ألطف على البيئة</span><b>اكتشف المنتج</b></a>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="eco-amazon-promo" aria-label="Featured eco-friendly offers">
+ <div class="eco-promo-track" id="ecoPromoTrack">
+  <a class="eco-promo-card" href="products.html?category=personal">
+   <div class="eco-promo-copy"><small>اختيارات صديقة للبيئة</small><h2>ابدأ تغييرك الأخضر من هنا</h2><span>اكتشف المنتجات</span></div>
+   <img src="photo_for_products/Natural Shampoo Bar.png" alt="Natural shampoo bar">
+  </a>
+  <a class="eco-promo-card" href="products.html?category=home">
+   <div class="eco-promo-copy"><small>لبيتك وحياتك اليومية</small><h2>بدائل مستدامة لكل يوم</h2><span>تسوق الآن</span></div>
+   <img src="photo_for_products/Bamboo Cutting Board.jfif" alt="Bamboo cutting board">
+  </a>
+  <a class="eco-promo-card" href="products.html?category=personal">
+   <div class="eco-promo-copy"><small>الأكثر اختيارًا</small><h2>منتجات قابلة لإعادة الاستخدام</h2><span>شاهد المجموعة</span></div>
+   <img src="photo_for_products/Premium Reusable Water Bottles Set.jfif" alt="Reusable water bottles">
+  </a>
+ </div>
+ <div class="eco-promo-dots" id="ecoPromoDots" aria-label="Promo slides">
+  <button class="active" aria-label="الشريحة الأولى"></button><button aria-label="الشريحة الثانية"></button><button aria-label="الشريحة الثالثة"></button>
+ </div>
+</section>
+<script>
+(function(){
+ const track=document.getElementById('ecoPromoTrack'), dots=document.querySelectorAll('#ecoPromoDots button');
+ if(!track||!dots.length)return;
+ const cards=[...track.children];
+ function activeDot(){
+   let center=track.scrollLeft+track.clientWidth/2, idx=0, best=Infinity;
+   cards.forEach((c,i)=>{let d=Math.abs(c.offsetLeft+c.offsetWidth/2-center);if(d<best){best=d;idx=i;}});
+   dots.forEach((b,i)=>b.classList.toggle('active',i===idx));
+ }
+ track.addEventListener('scroll',()=>requestAnimationFrame(activeDot),{passive:true});
+ dots.forEach((b,i)=>b.addEventListener('click',()=>cards[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})));
+ let timer=setInterval(()=>{if(document.hidden)return;let idx=Math.round(track.scrollLeft/(cards[0].offsetWidth+14));let next=(idx+1)%cards.length;cards[next].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});},5000);
+ window.addEventListener('beforeunload',()=>clearInterval(timer));
+})();
+</script>
+
+<section class="hero" id="home">
+        <canvas class="hero-canvas" id="heroCanvas"></canvas>
+        <div class="floating-blob"></div>
+        <div class="floating-blob"></div>
+        <div class="floating-blob"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <div class="pulse"></div>
+                <span data-en="Premium Eco-Friendly Products" data-ar="منتجات صديقة للبيئة فاخرة">
+                    Premium Eco-Friendly Products
+                </span>
+            </div>
+            <h1 class="hero-title" id="heroTitle" data-en="Sustainable Living Starts Here"
+                data-ar="الحياة المستدامة تبدأ هنا">
+                Sustainable Living Starts Here
+            </h1>
+            <p class="hero-subtitle"
+                data-en="Discover our curated collection of eco-friendly products that nurture both you and our planet."
+                data-ar="اكتشف مجموعتنا المختارة من المنتجات الصديقة للبيئة التي ترعى كلاً منك وكوكبنا.">
+                Discover our curated collection of eco-friendly products that nurture both you and our planet.
+            </p>
+            <a href="products.html" class="btn-hero">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="eco-deals-section" id="daily-deals">
+      <div class="container">
+        <div class="eco-deals-banner">
+          <div><h2><i class="fas fa-bolt"></i> Today's Eco Deals</h2>
+            <p>Discover featured sustainable essentials for a greener everyday life.</p></div>
+          <a class="eco-deal-cta" href="products.html"><i class="fas fa-shopping-bag"></i> Explore deals</a>
+        </div>
+        <div class="eco-mini-products">
+          <a class="eco-mini-card" href="products.html?q=Reusable%20Stainless%20Steel%20Bottle"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600" alt="Reusable stainless steel bottle"><div class="eco-mini-info"><span class="eco-mini-label">Eco favorite</span><h3>Reusable Steel Bottle</h3><span class="eco-mini-price">EGP 245</span></div></a>
+          <a class="eco-mini-card" href="products.html?q=Bamboo%20Toothbrush"><img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600" alt="Bamboo toothbrushes"><div class="eco-mini-info"><span class="eco-mini-label">Plastic-free</span><h3>Bamboo Toothbrush Set</h3><span class="eco-mini-price">EGP 120</span></div></a>
+          <a class="eco-mini-card" href="products.html?q=Organic%20Cotton%20Tote"><img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=600" alt="Organic cotton tote bag"><div class="eco-mini-info"><span class="eco-mini-label">Reusable</span><h3>Organic Cotton Tote</h3><span class="eco-mini-price">EGP 165</span></div></a>
+          <a class="eco-mini-card" href="products.html?q=Solar%20Garden%20Light"><img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600" alt="Solar garden light"><div class="eco-mini-info"><span class="eco-mini-label">Clean energy</span><h3>Solar Garden Light</h3><span class="eco-mini-price">EGP 390</span></div></a>
+        </div>
+        <div class="eco-best-heading"><h2><i class="fas fa-star"></i> Best Sellers</h2><a href="products.html">See all products <i class="fas fa-arrow-right"></i></a></div>
+        <div class="eco-mini-products">
+          <a class="eco-mini-card" href="products.html?q=Bamboo%20Kitchen"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=600" alt="Bamboo kitchen utensils"><div class="eco-mini-info"><span class="eco-mini-label">Popular choice</span><h3>Bamboo Kitchen Set</h3><span class="eco-mini-price">EGP 280</span></div></a>
+          <a class="eco-mini-card" href="products.html?q=Herb%20Growing%20Kit"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600" alt="Indoor herb growing kit"><div class="eco-mini-info"><span class="eco-mini-label">Garden favorite</span><h3>Indoor Herb Kit</h3><span class="eco-mini-price">EGP 210</span></div></a>
+          <a class="eco-mini-card" href="products.html?q=Natural%20Coconut%20Dish%20Soap"><img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=600" alt="Natural dish soap"><div class="eco-mini-info"><span class="eco-mini-label">Plant-based</span><h3>Natural Dish Soap</h3><span class="eco-mini-price">EGP 85</span></div></a>
+          <a class="eco-mini-card" href="products.html?q=Reusable%20Produce%20Mesh%20Bags"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600" alt="Reusable produce bags"><div class="eco-mini-info"><span class="eco-mini-label">Reusable</span><h3>Produce Mesh Bags</h3><span class="eco-mini-price">EGP 110</span></div></a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Categories -->
+    <section class="section categories" id="categories">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 data-en="Shop by Category" data-ar="تسوق حسب الفئة">Shop by Category</h2>
+                <p data-en="Explore our sustainable product categories" data-ar="استكشف فئات منتجاتنا المستدامة">
+                    Explore our sustainable product categories
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="category-card">
+                        <i class="fas fa-home category-icon"></i>
+                        <h3 data-en="Home Products" data-ar="منتجات المنزل">Home Products</h3>
+                        <p data-en="Sustainable materials for your home" data-ar="منتجات منزلية مصنوعة من مواد مستدامة">
+                            Sustainable materials for your home
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card">
+                        <i class="fas fa-spa category-icon"></i>
+                        <h3 data-en="Personal Care" data-ar="العناية الشخصية">Personal Care</h3>
+                        <p data-en="Natural and cruelty-free personal care"
+                            data-ar="عناصر العناية الشخصية الطبيعية والخالية من القسوة">
+                            Natural and cruelty-free personal care
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="category-card">
+                        <i class="fas fa-leaf category-icon"></i>
+                        <h3 data-en="Organic Food" data-ar="الغذاء العضوي">Organic Food</h3>
+                        <p data-en="Certified organic food for healthy living"
+                            data-ar="منتجات غذائية عضوية للحياة الصحية">
+                            Certified organic food for healthy living
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="section products" id="products">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 data-en="Featured Products" data-ar="المنتجات المميزة">Featured Products</h2>
+                <p data-en="Handpicked eco-friendly products for you" data-ar="منتجات صديقة للبيئة مختارة بعناية لك">
+                    Handpicked eco-friendly products for you
+                </p>
+            </div>
+            <div class="row g-4">
+                <!-- Homepage cards replaced with real products from products.html -->
+                <div class="col-md-4 product-col" data-name="Herb Garden Kit" data-product-id="4" data-product-page="product-detail.html" data-price="120">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="photo_for_products/Herb Garden Kit.jfif" alt="Herb Garden Kit" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Herb Garden Kit</h3>
+                            <p class="product-price">EGP 120</p>
+                            <div class="product-tags">
+                                <span class="product-tag">DIY</span>
+                                <span class="product-tag">Organic Seeds</span>
+                                <span class="product-tag">Educational</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" onclick="addToCart('Herb Garden Kit', 120); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                                <button class="btn-add-cart btn-buy" style="background:var(--gold);color:var(--deep);flex:0.95;" onclick="buyFromCard(4); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i>Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 product-col" data-name="Eco Kitchen Essentials Bundle" data-product-id="6" data-product-page="product-detail.html" data-price="245">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="photo_for_products/Eco Kitchen Essentials Bundle.jfif" alt="Eco Kitchen Essentials Bundle" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Eco Kitchen Essentials Bundle</h3>
+                            <p class="product-price">EGP 245</p>
+                            <div class="product-tags">
+                                <span class="product-tag">Bundle Deal</span>
+                                <span class="product-tag">Eco-Friendly</span>
+                                <span class="product-tag">5 Pieces</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" onclick="addToCart('Eco Kitchen Essentials Bundle', 245); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                                <button class="btn-add-cart btn-buy" style="background:var(--gold);color:var(--deep);flex:0.95;" onclick="buyFromCard(6); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i>Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 product-col" data-name="Eco Bamboo Coffee Cup Set" data-product-id="11" data-product-page="product-detail.html" data-price="110">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="photos/images (8).jpeg" alt="Eco Bamboo Coffee Cup Set" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Eco Bamboo Coffee Cup Set</h3>
+                            <p class="product-price">EGP 110</p>
+                            <div class="product-tags">
+                                <span class="product-tag">Reusable</span>
+                                <span class="product-tag">Set of 2</span>
+                                <span class="product-tag">Insulated</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart" onclick="addToCart('Eco Bamboo Coffee Cup Set', 110); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-2"></i>Add to Cart
+                                </button>
+                                <button class="btn-add-cart btn-buy" style="background:var(--gold);color:var(--deep);flex:0.95;" onclick="buyFromCard(11); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i>Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-center mt-4">
+                <a href="products.html" class="btn-hero" style="display:inline-flex;align-items:center;gap:.5rem;">
+                    <i class="fas fa-leaf"></i> View More Products
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Stats -->
+    <section class="section stats" id="stats">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 data-en="Our Impact" data-ar="تأثيرنا">Our Impact</h2>
+                <p data-en="Numbers that speak for our commitment" data-ar="أرقام تتحدث عن التزامنا بالاستدامة">
+                    Numbers that speak for our commitment
+                </p>
+            </div>
+            <div class="row g-4">
+                <!-- ✅ FIX: data-target + data-suffix added, animated by statsCounter() -->
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-number" data-target="50000" data-suffix="+">0</div>
+                        <div class="stat-label" data-en="Happy Customers" data-ar="عملاء سعداء">Happy Customers</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-leaf"></i></div>
+                        <div class="stat-number" data-target="100000" data-suffix="+">0</div>
+                        <div class="stat-label" data-en="Trees Planted" data-ar="أشجار مزروعة">Trees Planted</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-recycle"></i></div>
+                        <div class="stat-number" data-target="250000" data-suffix="+">0</div>
+                        <div class="stat-label" data-en="Plastic Bottles Saved" data-ar="زجاجات بلاستيكية محفوظة">
+                            Plastic Bottles Saved</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="stat-number" data-target="4.9" data-suffix="" data-decimal="1">0</div>
+                        <div class="stat-label" data-en="Average Rating" data-ar="متوسط التقييم">Average Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section newsletter">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <h2 class="mb-3" data-en="Join Our Community" data-ar="انضم إلى مجتمعنا">Join Our Community</h2>
+                    <p class="mb-4" data-en="Get exclusive offers and eco-tips in your inbox"
+                        data-ar="احصل على عروض حصرية ونصائح بيئية في بريدك الإلكتروني">
+                        Get exclusive offers and eco-tips in your inbox
+                    </p>
+                    <form id="newsletterForm">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address"
+                            data-en="Enter your email address" data-ar="أدخل عنوان بريدك الإلكتروني" required>
+                        <button type="submit" class="btn-hero w-100" data-en="Subscribe" data-ar="اشترك">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 data-en="What Our Customers Say" data-ar="ماذا يقول عملاؤنا">What Our Customers Say</h2>
+                <p data-en="Real stories from our eco-conscious community"
+                    data-ar="قصص حقيقية من مجتمعنا الواعي بيئياً">
+                    Real stories from our eco-conscious community
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            Eco Life Store has transformed my daily routine. Their products are not only sustainable
+                            but also incredibly effective. I feel good about every purchase!
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar"><i class="fas fa-user"></i></div>
+                            <div>
+                                <div class="author-name">Sarah Ahmed</div>
+                                <div class="author-title">Eco Enthusiast</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            The quality and sustainability of their products are unmatched. I've switched my entire
+                            household to Eco Life Store items.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar"><i class="fas fa-user"></i></div>
+                            <div>
+                                <div class="author-name">Mohamed Hassan</div>
+                                <div class="author-title">Family Man</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            Fast shipping, excellent customer service, and products that align with my values.
+                            What more could I ask for?
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar"><i class="fas fa-user"></i></div>
+                            <div>
+                                <div class="author-name">Fatima Omar</div>
+                                <div class="author-title">Business Owner</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="section blog">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 data-en="Eco Living Tips" data-ar="نصائح الحياة البيئية">Eco Living Tips</h2>
+                <p data-en="Learn how to live more sustainably" data-ar="تعلم كيف تعيش بشكل أكثر استدامة">
+                    Learn how to live more sustainably
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="blog-card">
+                        <div class="blog-image"><i class="fas fa-seedling text-white"></i></div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">10 Ways to Reduce Plastic Waste</h3>
+                            <p class="blog-excerpt">Simple changes in your daily routine that can make a big impact on
+                                the environment.</p>
+                            <a href="about.html" class="blog-link">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-card">
+                        <div class="blog-image"><i class="fas fa-home text-white"></i></div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Sustainable Home Cleaning</h3>
+                            <p class="blog-excerpt">Natural alternatives to chemical cleaners that are safe for your
+                                family and the planet.</p>
+                            <a href="about.html" class="blog-link">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="blog-card">
+                        <div class="blog-image"><i class="fas fa-utensils text-white"></i></div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">Organic Cooking Basics</h3>
+                            <p class="blog-excerpt">Essential tips for cooking with organic ingredients and maintaining
+                                nutritional value.</p>
+                            <a href="about.html" class="blog-link">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="mb-3" data-en="Ready to Make a Difference?" data-ar="جاهز لإحداث فرق؟">
+                        Ready to Make a Difference?
+                    </h2>
+                    <p class="mb-4" style="opacity:0.85;" data-en="Join thousands who chose sustainable living"
+                        data-ar="انضم إلى آلاف العملاء الذين اختاروا الحياة المستدامة">
+                        Join thousands who chose sustainable living
+                    </p>
+                    <a href="#products" class="btn-hero" data-en="Start Shopping Today" data-ar="ابدأ التسوق اليوم">
+                        Start Shopping Today
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo">🌿 Eco<span class="gold-line">_Life</span> Store</div>
+                    <p class="footer-tagline">Sustainable living for a better planet</p>
+                    <div class="social-icons">
+    <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon">
+        <i class="fab fa-youtube"></i>
+    </a>
+</div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Shop</h5>
+                    <ul class="footer-links">
+                        <li><a href="products.html#category=home">منتجات المنزل</a></li>
+                        <li><a href="products.html#category=personal">العناية الشخصية</a></li>
+                        <li><a href="products.html#category=food">الغذاء العضوي</a></li>
+                        <li><a href="products.html#category=fashion">الأزياء المستدامة</a></li>
+                        <li><a href="products.html#category=garden">الحديقة</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="about.html#mission">Our Mission</a></li>
+                        <li><a href="about.html#sustainability">Sustainability</a></li>
+                        <li><a href="about.html#careers">Careers</a></li>
+                        <li><a href="about.html#press">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Help</h5>
+                    <ul class="footer-links">
+                        <li><a href="contact.html#faq">FAQ</a></li>
+                        <li><a href="contact.html#shipping">Shipping</a></li>
+                        <li><a href="contact.html#returns">Returns</a></li>
+                        <li><a href="contact.html#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5>Contact</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Cairo, Egypt</p>
+                        <p><i class="fas fa-phone me-2"></i>+20 123 456 7890</p>
+                        <p><i class="fas fa-envelope me-2"></i>hello@ecolifestore.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; <span id="copyrightYear"></span> Eco Life Store. Made with 💚 for a better planet.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ✅ FIX: Scripts moved to end of body for performance -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+    <script>
+        // ✅ FIX: Register GSAP plugins before use
+        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+        // Reduced motion: disable cursor + canvas + GSAP entrance animations
+        const __prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.documentElement.classList.toggle('reduced-motion', __prefersReducedMotion);
+
+        // Page Transition
+        if (!__prefersReducedMotion) {
+            gsap.to("#pageTransition", { y: "-100%", duration: 0.6, ease: "power2.out", delay: 0.1 });
+        }
+
+
+        // ─────────────────────────────────────────
+        // Custom Cursor (desktop only)
+        // ─────────────────────────────────────────
+        const cursor = document.getElementById('cursor');
+        if (!__prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+            cursor.style.display = 'block';
+            document.addEventListener('mousemove', (e) => {
+                gsap.to('.cursor-dot', { x: e.clientX, y: e.clientY, duration: 0 });
+                gsap.to('.cursor-ring', { x: e.clientX, y: e.clientY, duration: 0.3, ease: "power2.out" });
+            });
+
+            document.querySelectorAll('a, button, .category-card, .product-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
+        }
+
+        // ─────────────────────────────────────────
+        // Navbar scroll + active link
+        // ─────────────────────────────────────────
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ✅ FIX: Set active nav link based on current page
+        const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === currentFile || (currentFile === '' && href === 'index.html'))) {
+                link.classList.add('active');
+            }
+        });
+
+        // ─────────────────────────────────────────
+        // Login UI — ✅ FIX: removed non-existent mobile element references
+        // ─────────────────────────────────────────
+        function updateLoginUI() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userName = localStorage.getItem('userName') || 'Account';
+
+            const set = (id, show) => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = show ? 'block' : 'none';
+            };
+
+            set('accountLink', isLoggedIn);
+            set('loginLink', !isLoggedIn);
+            set('registerLink', !isLoggedIn);
+            set('logoutDivider', isLoggedIn);
+            set('logoutLink', isLoggedIn);
+
+            const label = document.getElementById('accountBtnLabel');
+            if (label) label.textContent = isLoggedIn ? userName : 'Account';
+        }
+
+        function logout(event) {
+            event.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            updateLoginUI();
+            showToast('Logged out successfully', 'info');
+            setTimeout(() => window.location.href = 'login.html', 1200);
+        }
+
+        updateLoginUI();
+
+        // ─────────────────────────────────────────
+        // Cart (localStorage)
+        // ─────────────────────────────────────────
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const cart = getCart();
+            const total = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        function slugId(str) { return String(str).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
+        function normalizeCart(cart) {
+            return (Array.isArray(cart) ? cart : []).map(i => {
+                const name = i && i.name ? String(i.name) : 'Item';
+                const price = Number(i && i.price ? i.price : 0);
+                const qty = Math.max(1, Math.min(10, parseInt(i && i.qty ? i.qty : 1, 10) || 1));
+                const id = i && i.id ? String(i.id) : slugId(name);
+                return { id, name, price, qty };
+            });
+        }
+
+        function addToCart(name, price) {
+            const cart = normalizeCart(getCart());
+            const id = slugId(name);
+
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.qty = Math.min(10, existing.qty + 1);
+                existing.price = Number(price);
+                existing.name = String(name);
+            } else {
+                cart.push({ id, name, price: Number(price), qty: 1 });
+            }
+
+            saveCart(cart);
+            showToast(`"${name}" added to cart! 🛒`, 'success');
+        }
+
+        function buyFromCard(productId) {
+            const id = parseInt(productId, 10);
+            if (!Number.isFinite(id)) return;
+
+            const col = document.querySelector(`.product-col[data-product-id="${id}"]`);
+            if (!col) return;
+
+            const name = col.dataset.name;
+            const price = parseFloat(col.dataset.price);
+            if (!name || !Number.isFinite(price)) return;
+
+            addToCart(name, price);
+            window.location.href = 'checkout.html';
+        }
+
+        updateCartBadge();
+
+        function goToProductDetail(colEl) {
+            const id = colEl && colEl.dataset ? colEl.dataset.productId : null;
+            const page = colEl && colEl.dataset ? colEl.dataset.productPage : 'product-detail.html';
+            if (!id) return;
+            window.location.href = `${page}?id=${id}`;
+        }
+
+        document.querySelectorAll('.product-col').forEach(colEl => {
+            colEl.style.cursor = 'pointer';
+            colEl.addEventListener('click', (e) => {
+                if (e.target && (e.target.closest('.btn-add-cart') || e.target.closest('.btn-buy'))) return;
+                e.preventDefault();
+                e.stopPropagation();
+                goToProductDetail(colEl);
+            });
+        });
+
+        // ─────────────────────────────────────────
+        // Hero Particle Canvas — ✅ FIX: resize handler added
+        // ─────────────────────────────────────────
+        const canvas = document.getElementById('heroCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(168,213,181,0.35)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            if (__prefersReducedMotion) return; // stop animation loop
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(168,213,181,${(1 - d / 100) * 0.4})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // ─────────────────────────────────────────
+        // Hero text animation (GSAP TextPlugin)
+        // ─────────────────────────────────────────
+        if (!__prefersReducedMotion) {
+            gsap.from("#heroTitle", {
+                duration: 1.5,
+                text: { value: "" },
+                ease: "none",
+                delay: 0.7
+            });
+
+            // ─────────────────────────────────────────
+            // Scroll Reveal
+            // ─────────────────────────────────────────
+            gsap.utils.toArray('.section').forEach(section => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top 82%",
+                    onEnter: () => section.classList.add('revealed')
+                });
+            });
+
+            gsap.utils.toArray('.category-card, .product-card, .testimonial-card, .blog-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: { trigger: card, start: "top 85%" },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: (i % 3) * 0.1
+                });
+            });
+        }
+
+        // ─────────────────────────────────────────
+        // ✅ FIX: Stats Counter Animation
+        // ─────────────────────────────────────────
+        function animateCounter(el) {
+            const target = parseFloat(el.dataset.target);
+            const suffix = el.dataset.suffix || '';
+            const decimals = parseInt(el.dataset.decimal || '0');
+            const duration = 2000;
+            const start = performance.now();
+
+            function step(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = target * eased;
+
+                el.textContent = (decimals > 0
+                    ? current.toFixed(decimals)
+                    : Math.floor(current).toLocaleString()) + suffix;
+
+                if (progress < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-number[data-target]').forEach(el => {
+                        if (!el.dataset.animated) {
+                            el.dataset.animated = '1';
+                            animateCounter(el);
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statsSection = document.getElementById('stats');
+        if (statsSection) statsObserver.observe(statsSection);
+
+        // ─────────────────────────────────────────
+        // Toast Notifications
+        // ─────────────────────────────────────────
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const icons = { success: 'check-circle', error: 'times-circle', warning: 'exclamation-triangle', info: 'info-circle' };
+
+            toast.className = `eco-toast eco-toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type] || 'info-circle'}" style="color:var(--${type === 'success' ? 'success' : type === 'error' ? 'danger' : type === 'warning' ? 'warning' : 'info'})"></i>
+                <span style="flex:1;font-size:0.9rem;">${message}</span>
+                <div class="eco-toast-progress"></div>
+            `;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Thank you for subscribing! 🌿', 'success');
+            e.target.reset();
+        });
+
+        // ─────────────────────────────────────────
+        // ✅ FIX: Translation — uses data attributes safely, doesn't break icons
+        // ─────────────────────────────────────────
+        let currentLang = 'en';
+
+        function translatePage(lang) {
+            // Only translate leaf text nodes, skip elements with child elements
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                const hasChildren = el.querySelector('*');
+                if (!hasChildren) {
+                    el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+                }
+            });
+
+            document.getElementById('translateBtnText').textContent = lang === 'en' ? 'AR' : 'EN';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            currentLang = lang;
+        }
+    </script>
+<script src="marketplace-enhancements.js"></script>
+</body>
+
+</html>

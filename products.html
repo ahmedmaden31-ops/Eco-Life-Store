@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Eco Life Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --deep: #0a1a0f;
+            --forest: #1a3a2a;
+            --moss: #2d5a3d;
+            --sage: #4e8c62;
+            --mint: #7bbf8a;
+            --lime: #a8d5b5;
+            --cream: #f5f0e8;
+            --sand: #e8dfc8;
+            --warm: #f9f6f0;
+            --text: #1a2e1e;
+            --muted: #5a7060;
+            --gold: #c8a84b;
+            --gold2: #e8c86a;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --r: 0.75rem;
+            --r2: 1.5rem;
+            --shadow-sm: 0 4px 16px rgba(26, 58, 42, .10);
+            --shadow-md: 0 8px 32px rgba(26, 58, 42, .14);
+            --shadow-lg: 0 20px 60px rgba(26, 58, 42, .18);
+            --shadow-xl: 0 32px 80px rgba(26, 58, 42, .22);
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-blur: blur(20px);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* ── Cursor ── */
+        .cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            display: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: absolute;
+            top: -4px;
+            left: -4px;
+        }
+
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--sage);
+            border-radius: 50%;
+            position: absolute;
+            top: -18px;
+            left: -18px;
+            transition: width .3s, height .3s, top .3s, left .3s, background .3s;
+        }
+
+        .cursor.cursor-hover .cursor-ring {
+            width: 52px;
+            height: 52px;
+            top: -26px;
+            left: -26px;
+            background: rgba(78, 140, 98, 0.2);
+        }
+
+        /* ── Page Transition ── */
+        .page-transition {
+            position: fixed;
+            inset: 0;
+            background: var(--deep);
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        /* ── Navbar (matches index.html) ── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 26, 15, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--cream) !important;
+            text-decoration: none;
+        }
+
+        .navbar-brand .gold-line {
+            color: var(--gold);
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            padding: 0.4rem 0.6rem;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 240, 232, 0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+
+        .nav-link {
+            color: rgba(245, 240, 232, 0.85) !important;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0.75rem;
+            width: 0;
+            height: 2px;
+            background: var(--mint);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--cream) !important;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: calc(100% - 1.5rem);
+        }
+
+        .nav-link.active {
+            color: var(--mint) !important;
+        }
+
+        .cart-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--cream) !important;
+            position: relative;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--cream) !important;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--gold);
+            color: var(--deep);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .translate-btn {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            color: var(--cream) !important;
+            transition: all 0.3s;
+        }
+
+        .translate-btn:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            color: var(--cream) !important;
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(10, 26, 15, 0.97);
+                padding: 1rem;
+                border-radius: 0 0 1rem 1rem;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* ── Page Header ── */
+        .page-header {
+            background: linear-gradient(135deg, var(--deep) 0%, var(--forest) 100%);
+            color: var(--cream);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(78, 140, 98, 0.28) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(200, 168, 75, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .page-header .container {
+            position: relative;
+        }
+
+        .page-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(123, 191, 138, 0.15);
+            border: 1px solid rgba(123, 191, 138, 0.3);
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--mint);
+            margin-bottom: 1.25rem;
+        }
+
+        .page-title {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 560px;
+            margin: 0 auto;
+            opacity: 0.82;
+            line-height: 1.6;
+        }
+
+        /* ── Search + Sort bar ── */
+        .products-toolbar {
+            background: white;
+            border-bottom: 1px solid var(--sand);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toolbar-inner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            border: 1px solid var(--sand);
+            border-radius: 8px;
+            padding: 0.55rem 1rem 0.55rem 2.4rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: var(--text);
+            background: var(--warm);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--sage);
+        }
+
+        .search-wrap input::placeholder {
+            color: var(--muted);
+        }
+
+        .search-wrap i {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .sort-select {
+            border: 1px solid var(--sand);
+            border-radius: 8px;
+            padding: 0.55rem 2rem 0.55rem 0.85rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: var(--text);
+            background: var(--warm);
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a7060' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.6rem center;
+        }
+
+        .results-count {
+            font-size: 0.875rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        /* ── Filters ── */
+        .filters {
+            background: var(--cream);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--sand);
+            border-radius: 50px;
+            padding: 0.45rem 1.25rem;
+            margin: 0.25rem;
+            transition: all 0.25s ease;
+            color: var(--text);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--sage);
+            color: var(--sage);
+        }
+
+        .filter-btn.active {
+            background: var(--sage);
+            color: var(--cream);
+            border-color: var(--sage);
+            box-shadow: 0 2px 8px rgba(78, 140, 98, 0.3);
+        }
+
+        /* ── Products Grid ── */
+        .products-section {
+            padding: 3rem 0 4rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--r2);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--sand);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .product-image {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.04);
+        }
+
+        .product-image i {
+            font-size: 3.5rem;
+            opacity: 0.65;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.04);
+        }
+
+        /* Distinct gradient backgrounds per category */
+        .img-home {
+            background: linear-gradient(135deg, #d4e8c2, #a8d5b5);
+        }
+
+        .img-personal {
+            background: linear-gradient(135deg, #c2e0f0, #90c8e8);
+        }
+
+        .img-food {
+            background: linear-gradient(135deg, #fde8c2, #f5c890);
+        }
+
+        .img-fashion {
+            background: linear-gradient(135deg, #d0c8f0, #b0a0e0);
+        }
+
+        .img-garden {
+            background: linear-gradient(135deg, #c8f0d0, #90e0a8);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 0.85rem;
+            left: 0.85rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-new {
+            background: var(--gold);
+            color: var(--deep);
+        }
+
+        .badge-sale {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-bestseller {
+            background: var(--forest);
+            color: var(--cream);
+        }
+
+        /* Wishlist toggle on card */
+        .wishlist-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.88);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .wishlist-btn:hover,
+        .wishlist-btn.active {
+            color: var(--danger);
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.25rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .product-price {
+            color: var(--sage);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-old {
+            text-decoration: line-through;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-right: 4px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        .rating-count {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .product-tag {
+            background: var(--lime);
+            color: var(--moss);
+            padding: 0.2rem 0.55rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 500;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: var(--sage);
+            border: none;
+            border-radius: 50px;
+            padding: 0.6rem 1rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--cream);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .btn-add-cart:hover {
+            background: var(--moss);
+            transform: translateY(-1px);
+        }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--lime);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--muted);
+        }
+
+        /* ── Pagination ── */
+        .pagination {
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 4px;
+        }
+
+        .page-link {
+            color: var(--sage);
+            border-color: var(--sand);
+            border-radius: 8px !important;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .page-link:hover {
+            background: var(--sage);
+            color: var(--cream);
+            border-color: var(--sage);
+        }
+
+        .page-item.active .page-link {
+            background: var(--sage);
+            border-color: var(--sage);
+            color: white;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--deep) 100%);
+            color: var(--cream);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-logo .gold-line {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            color: rgba(245, 240, 232, 0.55);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--deep);
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+
+        .footer h5 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .footer h6 {
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(245, 240, 232, 0.65);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--mint);
+        }
+
+        .footer-contact p {
+            color: rgba(245, 240, 232, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-newsletter input[type="email"] {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            color: var(--cream);
+            padding: 0.5rem 0.75rem;
+            width: 100%;
+            font-family: inherit;
+            font-size: 0.875rem;
+            outline: none;
+            margin-bottom: 0.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .footer-newsletter input:focus {
+            border-color: rgba(123, 191, 138, 0.5);
+        }
+
+        .footer-newsletter input::placeholder {
+            color: rgba(245, 240, 232, 0.35);
+        }
+
+        .footer-newsletter .btn-sub {
+            background: var(--sage);
+            border: none;
+            border-radius: 6px;
+            color: var(--cream);
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .footer-newsletter .btn-sub:hover {
+            background: var(--moss);
+        }
+
+        .footer-copyright {
+            border-top: 1px solid rgba(245, 240, 232, 0.08);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(245, 240, 232, 0.4);
+            font-size: 0.875rem;
+        }
+
+        /* ── Toast ── */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .eco-toast {
+            background: white;
+            border-radius: var(--r);
+            box-shadow: var(--shadow-lg);
+            padding: 0.9rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 260px;
+            max-width: 340px;
+            transform: translateX(110%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eco-toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .eco-toast-success {
+            border-left: 4px solid var(--success);
+        }
+
+        .eco-toast-error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .eco-toast-warning {
+            border-left: 4px solid var(--warning);
+        }
+
+        .eco-toast-info {
+            border-left: 4px solid var(--info);
+        }
+
+        .eco-toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gold);
+            animation: toast-shrink 3s linear forwards;
+        }
+
+        @keyframes toast-shrink {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* ── Scroll to top ── */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 42px;
+            height: 42px;
+            background: var(--sage);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s, background 0.2s;
+            z-index: 800;
+            font-size: 14px;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--moss);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 1399px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            .page-header {
+                padding: 6rem 0 2.5rem;
+            }
+
+            .products-section {
+                padding: 3rem 0;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .page-header {
+                padding: 5rem 0 2.5rem;
+            }
+
+            .page-title {
+                font-size: clamp(2rem, 4vw, 2.5rem);
+            }
+
+            .page-subtitle {
+                font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .toolbar-inner {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .sort-select {
+                width: auto;
+                min-width: 180px;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .product-card {
+                padding: 1.25rem;
+            }
+
+            .scroll-top {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .navbar-collapse {
+                background: rgba(10, 26, 15, 0.97);
+                padding: 1rem;
+                border-radius: 0 0 1rem 1rem;
+                margin-top: 0.5rem;
+            }
+
+            .page-header {
+                padding: 4rem 0 2rem;
+            }
+
+            .page-title {
+                font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+            }
+
+            .page-subtitle {
+                font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+            }
+
+            .products-section {
+                padding: 2rem 0;
+            }
+
+            .toolbar-inner {
+                gap: 0.75rem;
+                flex-direction: column;
+            }
+
+            .toolbar-inner > * {
+                width: 100%;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+
+            .filter-btn {
+                width: 100%;
+                padding: 0.7rem 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 1rem;
+            }
+
+            .product-card {
+                padding: 1rem;
+            }
+
+            .product-image {
+                height: 150px;
+            }
+
+            .product-title {
+                font-size: clamp(0.9rem, 1.5vw, 1rem);
+            }
+
+            .product-price {
+                font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            }
+
+            .btn-add-cart {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .page-header {
+                padding: 3rem 1rem 1.5rem;
+            }
+
+            .page-title {
+                font-size: clamp(1.5rem, 3vw, 1.8rem);
+                margin-bottom: 0.5rem;
+            }
+
+            .page-subtitle {
+                font-size: clamp(0.8rem, 1.2vw, 0.85rem);
+            }
+
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
+            .products-section {
+                padding: 1.5rem 0;
+            }
+
+            .toolbar-inner {
+                gap: 0.75rem;
+            }
+
+            .toolbar-inner > * {
+                width: 100%;
+            }
+
+            .sort-select {
+                width: 100%;
+                padding: 0.65rem 0.8rem;
+                font-size: 14px;
+            }
+
+            .filter-btn {
+                width: 100%;
+                padding: 0.65rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .product-card {
+                padding: 0.8rem;
+                border-radius: 1rem;
+            }
+
+            .product-image {
+                height: 120px;
+            }
+
+            .product-info {
+                padding: 0.75rem;
+            }
+
+            .product-title {
+                font-size: 0.85rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .product-price {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .product-tags {
+                gap: 0.3rem;
+            }
+
+            .product-tag {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.5rem;
+            }
+
+            .btn-add-cart {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.75rem;
+                margin-top: 0.5rem;
+            }
+
+            .scroll-top {
+                width: 38px;
+                height: 38px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 2.5rem 1rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.4rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .products-section {
+                padding: 1rem 0;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .product-card {
+                padding: 0.65rem;
+            }
+
+            .product-image {
+                height: 100px;
+            }
+
+            .product-info {
+                padding: 0.6rem;
+            }
+
+            .product-title {
+                font-size: 0.8rem;
+            }
+
+            .product-price {
+                font-size: 0.9rem;
+            }
+
+            .btn-add-cart {
+                padding: 0.45rem 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .sort-select {
+                font-size: 13px;
+            }
+
+            .filter-btn {
+                font-size: 0.75rem;
+                padding: 0.6rem 0.7rem;
+            }
+        }
+
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+            .product-card,
+            .btn-add-cart,
+            button,
+            a {
+                min-height: 44px;
+            }
+
+            .sort-select,
+            .filter-btn {
+                min-height: 48px;
+            }
+        }
+
+        /* Landscape mode optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .page-header {
+                padding: 3rem 0 1.5rem;
+            }
+
+            .products-section {
+                padding: 1rem 0;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .product-card {
+                padding: 0.75rem;
+            }
+
+            .product-image {
+                height: 100px;
+            }
+        }
+    </style>
+<style id="eco-marketplace-style">
+/* Marketplace additions — deliberately reuse the original Eco Life palette */
+.market-search-wrap{width:min(1180px,calc(100% - 32px));margin:92px auto 18px;position:relative;z-index:20}
+.market-search{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--sand,#e8dfc8);border-radius:999px;padding:8px 10px 8px 18px;box-shadow:var(--shadow-sm);}
+.market-search input{border:0;outline:0;min-width:0;flex:1;padding:10px 4px;color:var(--text);background:transparent;font:inherit}
+.market-search button{border:0;border-radius:999px;background:var(--sage);color:var(--cream);font-weight:700;padding:11px 22px;white-space:nowrap}
+.market-search button:hover{background:var(--moss)}
+.market-trust{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:.82rem;margin:10px 0 0}
+.market-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 22px;padding:14px;background:#fff;border:1px solid var(--sand);border-radius:var(--r2)}
+.market-tools input,.market-tools select{border:1px solid var(--sand);border-radius:10px;padding:10px 12px;background:var(--warm);color:var(--text);min-width:170px}
+.market-tools input{flex:1}
+.market-tools .market-count{color:var(--muted);font-size:.9rem;margin-inline-start:auto}
+.market-extra-card .product-image{height:220px;background:linear-gradient(135deg,var(--lime),var(--mint));}
+.market-extra-card .product-image img{width:100%;height:100%;object-fit:cover}
+.market-extra-card .product-info{padding:1.25rem;display:flex;flex-direction:column;flex:1}
+.market-extra-card .product-title{min-height:48px}
+.market-extra-card .product-price{color:var(--sage);font-weight:800;font-size:1.15rem}
+.market-extra-card .market-rating{color:var(--gold);font-size:.9rem;margin:4px 0 10px}
+.market-extra-card .product-actions{margin-top:auto;padding-top:12px}
+.market-extra-card .btn-add-cart{border:0;border-radius:10px;padding:10px 12px;background:var(--sage);color:white;font-weight:700;width:100%}
+.market-extra-card .market-tag{display:inline-block;background:var(--lime);color:var(--moss);border-radius:30px;padding:4px 9px;font-size:.72rem;margin:2px}
+.market-no-results{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+@media(max-width:600px){.market-search-wrap{margin-top:82px}.market-search{border-radius:16px;padding:7px}.market-search button{padding:10px 14px}.market-tools>*{width:100%;min-width:0!important}.market-tools .market-count{margin:0}}
+</style>
+
+<style id="eco-amazon-sections-style">
+.eco-category-strip{background:var(--deep,#0a1a0f);border-top:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.12);width:100%;position:relative;z-index:20}
+.eco-category-inner{max-width:1320px;margin:auto;padding:0 18px;display:flex;align-items:center;gap:5px;overflow-x:auto;white-space:nowrap;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent}
+.eco-cat-link{display:inline-flex;align-items:center;gap:7px;padding:12px 13px;color:#fff;text-decoration:none;font-size:.88rem;font-weight:600;border:1px solid transparent;border-radius:5px;transition:background .2s,border-color .2s}
+.eco-cat-link:hover,.eco-cat-link:focus{color:#fff;background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25)}
+.eco-deal-link{color:#d9efb5}
+.eco-deals-section{padding:34px 0 12px}
+.eco-deals-banner{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:25px 30px;border-radius:14px;background:linear-gradient(110deg,var(--deep,#0a1a0f),var(--moss,#315b3d));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.eco-deals-banner h2{font-size:clamp(1.35rem,3vw,2rem);font-weight:800;margin:0 0 7px}
+.eco-deals-banner p{margin:0;color:rgba(255,255,255,.83)}
+.eco-deals-banner .eco-deal-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;background:#fff;color:var(--deep,#0a1a0f);font-weight:800;text-decoration:none;white-space:nowrap}
+.eco-deals-banner .eco-deal-cta:hover{transform:translateY(-2px)}
+.eco-mini-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:20px}
+.eco-mini-card{background:var(--card-bg,#fff);border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 16px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+.eco-mini-card:hover{transform:translateY(-4px);box-shadow:0 9px 24px rgba(0,0,0,.12);color:inherit}
+.eco-mini-card img{width:100%;height:150px;object-fit:cover;display:block;background:#eef3ec}
+.eco-mini-card .eco-mini-info{padding:12px}
+.eco-mini-card h3{font-size:.96rem;font-weight:700;margin:0 0 7px}
+.eco-mini-card .eco-mini-price{font-weight:800;color:var(--sage,#4e8c62)}
+.eco-mini-label{display:inline-block;font-size:.7rem;font-weight:800;background:rgba(78,140,98,.13);color:var(--moss,#315b3d);padding:4px 7px;border-radius:20px;margin-bottom:7px}
+.eco-best-heading{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:30px 0 15px}
+.eco-best-heading h2{font-size:1.55rem;font-weight:800;margin:0;color:var(--text,#203126)}
+.eco-best-heading a{color:var(--sage,#4e8c62);font-weight:700;text-decoration:none}
+@media(max-width:767px){.eco-category-inner{padding:0 10px}.eco-cat-link{padding:10px 11px;font-size:.82rem}.eco-deals-banner{align-items:flex-start;flex-direction:column;padding:22px}.eco-mini-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.eco-mini-card img{height:125px}.eco-best-heading h2{font-size:1.25rem}}
+</style>
+
+
+<style id="eco-amazon-mobile-layout">
+/* Amazon-inspired shopping layout, retaining Eco Life Store colors */
+.eco-delivery-bar{min-height:42px;background:#20382b;color:#f5f0e8;display:flex;align-items:center;gap:9px;padding:8px max(16px,calc((100% - 1280px)/2));font-size:.88rem;position:relative;z-index:15}
+.eco-delivery-bar>i{font-size:1.12rem;color:var(--mint,#7bbf8a)}
+.eco-delivery-bar strong{font-weight:700}
+.eco-delivery-bar a{margin-inline-start:auto;color:#d8eadb;text-decoration:none;font-size:.8rem;white-space:nowrap}
+.eco-delivery-bar a:hover{color:#fff;text-decoration:underline}
+.eco-category-strip{z-index:16}
+.navbar{z-index:1050}
+.eco-smart-search{box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.eco-smart-search:focus-within{outline:2px solid var(--mint,#7bbf8a);outline-offset:1px}
+.eco-smart-search button{font-size:1.08rem}
+.eco-amazon-promo{width:100%;padding:16px 0 4px;background:var(--warm,#f9f6f0);overflow:hidden}
+.eco-promo-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px 12px}
+.eco-promo-track::-webkit-scrollbar{display:none}
+.eco-promo-card{position:relative;flex:0 0 min(78vw,440px);min-height:310px;border-radius:18px;overflow:hidden;scroll-snap-align:center;background:linear-gradient(135deg,#dcebdc,#a8c8ad);color:#173322;text-decoration:none;display:flex;align-items:center;box-shadow:0 7px 22px rgba(18,48,29,.13)}
+.eco-promo-card:nth-child(2){background:linear-gradient(135deg,#efe8d5,#d6c49a)}
+.eco-promo-card:nth-child(3){background:linear-gradient(135deg,#d9e9df,#9cbca4)}
+.eco-promo-copy{position:relative;z-index:2;padding:25px;width:56%}
+.eco-promo-copy small{display:block;font-weight:700;letter-spacing:.04em;margin-bottom:10px;color:#365d43}
+.eco-promo-copy h2{font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.15;margin:0 0 12px;color:#173322}
+.eco-promo-copy span{display:inline-block;background:#173322;color:#fff;padding:9px 14px;border-radius:8px;font-weight:700;font-size:.85rem}
+.eco-promo-card img{position:absolute;right:0;bottom:0;width:53%;height:88%;object-fit:contain;mix-blend-mode:multiply}
+.eco-promo-dots{display:flex;justify-content:center;gap:7px;padding:0 0 8px}
+.eco-promo-dots button{width:7px;height:7px;border:0;border-radius:50%;background:#b8c8ba;padding:0}
+.eco-promo-dots button.active{width:22px;border-radius:8px;background:var(--sage,#4e8c62)}
+@media(max-width:991.98px){
+ .navbar{padding:8px 0!important}
+ .navbar>.container{display:flex;align-items:center;gap:8px}
+ .navbar-brand{font-size:1.15rem;order:1;margin:0;white-space:nowrap}
+ .navbar-toggler{order:2;margin-inline-start:auto}
+ .eco-smart-search{order:3;flex:1 0 100%;width:100%;margin:5px 0 2px;height:46px;border:0;border-radius:9px}
+ .eco-smart-search select{display:none}
+ .eco-smart-search input{padding-inline:14px;font-size:1rem}
+ .eco-smart-search button{width:52px;flex-basis:52px;background:var(--gold,#c8a84b);color:var(--deep,#0a1a0f);border-radius:0 8px 8px 0}
+ .navbar .navbar-collapse{order:4;flex-basis:100%;background:var(--deep,#0a1a0f);padding:8px 12px 12px;border-radius:0 0 12px 12px}
+ .navbar .navbar-nav{gap:2px}
+ .eco-promo-card{flex-basis:84vw;min-height:300px}
+}
+@media(max-width:480px){
+ .eco-delivery-bar{font-size:.82rem;min-height:40px;padding:8px 13px}
+ .eco-delivery-bar a{font-size:.72rem}
+ .eco-amazon-promo{padding-top:12px}
+ .eco-promo-track{gap:10px;padding-inline:12px}
+ .eco-promo-card{flex-basis:86vw;min-height:285px;border-radius:15px}
+ .eco-promo-copy{padding:17px;width:59%}
+ .eco-promo-copy h2{font-size:1.45rem}
+ .eco-promo-copy small{font-size:.73rem}
+ .eco-promo-copy span{font-size:.75rem;padding:8px 11px}
+ .eco-promo-card img{width:53%;height:82%}
+}
+</style>
+
+
+<style id="eco-global-header-search-fix">
+/* Keep the complete header in normal document flow so category/navigation bars sit below it */
+.navbar{position:sticky!important;top:0!important;left:auto!important;right:auto!important;z-index:1050!important;width:100%}
+.eco-category-strip{position:relative!important;z-index:20!important;clear:both}
+.eco-delivery-bar{position:relative!important;z-index:10!important;clear:both}
+.navbar .eco-global-search{position:relative;display:flex;align-items:stretch;flex:0 1 360px;width:min(360px,32vw);min-width:190px;height:42px;margin:0 14px;border:2px solid var(--sage,#4e8c62);border-radius:9px;background:#fff;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.navbar .eco-global-search input{flex:1;min-width:0;width:100%;border:0;outline:0;background:#fff;color:#26352a;padding:0 13px;font-size:.9rem}
+.navbar .eco-global-search input::placeholder{color:#858585}
+.navbar .eco-global-search button{width:48px;flex:0 0 48px;border:0;border-radius:0;background:var(--sage,#4e8c62);color:#fff;font-size:1.05rem}
+.navbar .eco-global-search button:hover{background:var(--moss,#315b3d)}
+@media(min-width:992px){
+ .navbar .container,.navbar .navbar-inner{display:flex;align-items:center;flex-wrap:nowrap;gap:8px}
+ .navbar .eco-global-search{order:2}
+ .navbar .navbar-collapse{flex:1 1 auto;min-width:0}
+}
+@media(max-width:991.98px){
+ .navbar .container,.navbar .navbar-inner{display:flex;flex-wrap:wrap;align-items:center}
+ .navbar .eco-global-search{order:5;flex:1 0 100%;width:100%;max-width:none;min-width:0;margin:7px 0 2px;height:44px}
+ .navbar .eco-global-search button{width:52px;flex-basis:52px}
+ .navbar .navbar-collapse{order:6;flex-basis:100%}
+}
+@media(max-width:480px){
+ .navbar .eco-global-search{height:43px}
+ .navbar .eco-global-search input{font-size:.86rem}
+}
+</style>
+<script id="eco-global-search-handler">
+(function(){
+ const form=document.getElementById('ecoMarketSearchForm');
+ const input=document.getElementById('ecoMarketSearchInput');
+ if(!form||!input)return;
+ const params=new URLSearchParams(location.search);
+ input.value=params.get('q')||'';
+ form.addEventListener('submit',function(e){
+   e.preventDefault();
+   const q=input.value.trim();
+   location.href='products.html'+(q?'?q='+encodeURIComponent(q):'');
+ });
+})();
+</script>
+
+</head>
+
+<body>
+    <div class="page-transition" id="pageTransition"></div>
+    <div class="cursor" id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- ── Navbar (matches index.html) ── -->
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌿 Eco<span class="gold-line">_Life</span> Store</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-en="Home"
+                            data-ar="الرئيسية">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="products.html" data-en="Products"
+                            data-ar="المنتجات">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html" data-en="About" data-ar="حول">About</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html" data-en="Contact"
+                            data-ar="اتصل">Contact</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <a href="wishlist.html" class="btn btn-link text-white p-0" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                    </a>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light rounded-pill dropdown-toggle translate-btn" type="button"
+                            id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="accountBtnLabel">Account</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="account.html" id="accountLink" style="display:none;"><i
+                                        class="fas fa-user me-2"></i>My Account</a></li>
+                            <li><a class="dropdown-item" href="login.html" id="loginLink"><i
+                                        class="fas fa-sign-in-alt me-2"></i>Login</a></li>
+                            <li><a class="dropdown-item" href="register.html" id="registerLink"><i
+                                        class="fas fa-user-plus me-2"></i>Register</a></li>
+                            <li>
+                                <hr class="dropdown-divider" id="logoutDivider" style="display:none;">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="#" id="logoutLink" style="display:none;"
+                                    onclick="logout(event)"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<div class="eco-category-strip" aria-label="Shop categories">
+  <div class="eco-category-inner">
+    <a href="products.html" class="eco-cat-link"><i class="fas fa-th-large"></i> All products</a>
+    <a href="products.html?category=home" class="eco-cat-link">Home & Kitchen</a>
+    <a href="products.html?category=personal" class="eco-cat-link">Personal Care</a>
+    <a href="products.html?category=fashion" class="eco-cat-link">Fashion</a>
+    <a href="products.html?category=energy" class="eco-cat-link">Solar & Energy</a>
+    <a href="products.html?category=food" class="eco-cat-link">Organic Food</a>
+    <a href="products.html?category=garden" class="eco-cat-link">Garden</a>
+    <a href="products.html?category=cleaning" class="eco-cat-link">Cleaning</a>
+    <a href="index.html#daily-deals" class="eco-cat-link eco-deal-link"><i class="fas fa-tags"></i> Today's deals</a>
+  </div>
+</div>
+<div class="market-search-wrap" id="ecoMarketSearch">
+<form class="eco-smart-search eco-global-search" id="ecoMarketSearchForm" role="search" autocomplete="off">
+  <label class="visually-hidden" for="ecoMarketSearchInput">Search Eco Life Store</label>
+  <input id="ecoMarketSearchInput" type="search" placeholder="Search Eco Life Store..." aria-label="Search Eco Life Store">
+  <button type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+</form>
+<div class="market-trust"><span><i class="fas fa-leaf"></i> Sustainable choices</span><span><i class="fas fa-recycle"></i> Reusable & recyclable</span><span><i class="fas fa-truck"></i> Easy shopping</span></div></div>
+
+    <!-- ── Page Header ── -->
+    
+<div class="eco-delivery-bar" aria-label="Delivery location">
+  <i class="fas fa-location-dot"></i>
+  <span><strong>التوصيل إلى</strong> <span class="eco-delivery-city">مصر</span></span>
+  <a href="contact.html" aria-label="تغيير موقع التوصيل">تغيير الموقع <i class="fas fa-chevron-down"></i></a>
+</div>
+
+<section class="page-header">
+        <div class="container">
+            <div class="page-header-badge"><i class="fas fa-leaf" style="font-size:11px;"></i> 100% Eco-Certified</div>
+            <h1 class="page-title" data-en="Our Products" data-ar="منتجاتنا">Our Products</h1>
+            <p class="page-subtitle" data-en="Discover our curated collection of premium eco-friendly products"
+                data-ar="اكتشف مجموعتنا المختارة من المنتجات الصديقة للبيئة الفاخرة">
+                Discover our curated collection of premium eco-friendly products
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Toolbar ── -->
+    <div class="products-toolbar">
+        <div class="container">
+            <div class="toolbar-inner">
+                <div class="search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="productSearch" placeholder="Search products..."
+                        aria-label="Search products">
+                </div>
+                <select class="sort-select" id="sortSelect" aria-label="Sort products">
+                    <option value="default">Sort: Default</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="rating">Top Rated</option>
+                </select>
+                <span class="results-count" id="resultsCount">Showing 6 products</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Filters ── -->
+    <section class="filters">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-center">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="home">Home</button>
+                <button class="filter-btn" data-filter="personal">Personal Care</button>
+                <button class="filter-btn" data-filter="food">Organic Food</button>
+                <button class="filter-btn" data-filter="fashion">Fashion</button>
+                <button class="filter-btn" data-filter="garden">Garden</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Products Grid ── -->
+    <section class="products-section">
+        <div class="container">
+            <div class="market-tools" id="ecoMarketTools"><input id="ecoCatalogSearch" type="search" placeholder="Find a product by name..." aria-label="Filter products"><select id="ecoCategoryFilter" aria-label="Filter category"><option value="all">All categories</option><option value="home">Eco home</option><option value="personal">Personal care</option><option value="food">Organic food</option><option value="fashion">Sustainable fashion</option><option value="garden">Garden</option><option value="energy">Clean energy</option><option value="cleaning">Natural cleaning</option></select><select id="ecoSort" aria-label="Sort products"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="rating">Top rated</option></select><span class="market-count" id="ecoProductCount">More sustainable choices</span></div>
+<div class="row g-4" id="productsContainer">
+
+                <!-- Product 1: Bamboo Cutting Board -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="180" data-rating="4.5"
+                    data-name="Bamboo Cutting Board" data-product-id="1" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photo_for_products/Bamboo Cutting Board.jfif"
+                                alt="Bamboo Cutting Board - Premium Kitchen Essential" loading="lazy">
+                            <span class="product-badge badge-new">New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Bamboo Cutting Board')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Bamboo Cutting Board</h3>
+                            <div class="product-price">EGP 180</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(24 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Bamboo</span>
+                                <span class="product-tag">Sustainable</span>
+                                <span class="product-tag">Kitchen</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Bamboo Cutting Board', 180); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(1); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Natural Shampoo Bar -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="personal" data-price="95" data-rating="5"
+                    data-name="Natural Shampoo Bar" data-product-id="2" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-personal">
+                            <img src="photo_for_products/Natural Shampoo Bar.png"
+                                alt="Natural Shampoo Bar - Eco-Friendly Hair Care" loading="lazy">
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Natural Shampoo Bar')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Natural Shampoo Bar</h3>
+                            <div class="product-price">EGP 95</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(156 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Cruelty-Free</span>
+                                <span class="product-tag">Vegan</span>
+                                <span class="product-tag">Plastic-Free</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Natural Shampoo Bar', 95); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(2); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Herb Garden Kit -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="garden" data-price="120" data-rating="4.5"
+                    data-name="Herb Garden Kit" data-product-id="4" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-garden">
+                            <img src="photo_for_products/Herb Garden Kit.jfif" alt="Herb Garden Kit - DIY Indoor Gardening"
+                                loading="lazy">
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Herb Garden Kit')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Herb Garden Kit</h3>
+                            <div class="product-price">EGP 120</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(43 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">DIY</span>
+                                <span class="product-tag">Organic Seeds</span>
+                                <span class="product-tag">Educational</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Herb Garden Kit', 120); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(4); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5: Bamboo Dental Care Kit -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="personal" data-price="75" data-rating="5"
+                    data-name="Bamboo Dental Care Kit" data-product-id="5" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-personal">
+                            <img src="photo_for_products/Bamboo Dental Care Kit.jfif"
+                                alt="Bamboo Dental Care Kit - Sustainable Oral Care" loading="lazy">
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Bamboo Dental Care Kit')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Bamboo Dental Care Kit</h3>
+                            <div class="product-price">EGP 75</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(98 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Biodegradable</span>
+                                <span class="product-tag">Organic Bristles</span>
+                                <span class="product-tag">Zero-Waste</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Bamboo Dental Care Kit', 75); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(5); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6: Eco Kitchen Essentials Bundle -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="245" data-rating="4.5"
+                    data-name="Eco Kitchen Essentials Bundle" data-product-id="6"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photo_for_products/Eco Kitchen Essentials Bundle.jfif"
+                                alt="Eco Kitchen Essentials Bundle - Complete Set" loading="lazy">
+                            <span class="product-badge badge-new">New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Eco Kitchen Essentials Bundle')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Eco Kitchen Essentials Bundle</h3>
+                            <div class="product-price">EGP 245</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(32 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Bundle Deal</span>
+                                <span class="product-tag">Eco-Friendly</span>
+                                <span class="product-tag">5 Pieces</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Eco Kitchen Essentials Bundle', 245); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(6); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7: Premium Reusable Water Bottles -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="320" data-rating="4.5"
+                    data-name="Premium Reusable Water Bottles Set" data-product-id="7"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photo_for_products/Premium Reusable Water Bottles Set.jfif"
+                                alt="Premium Reusable Water Bottles Set - Eco Collection" loading="lazy">
+                            <button class="wishlist-btn"
+                                onclick="toggleWishlist(this, 'Premium Reusable Water Bottles Set')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Premium Reusable Water Bottles Set</h3>
+                            <div class="product-price">EGP 320</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(67 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">BPA-Free</span>
+                                <span class="product-tag">Pack of 3</span>
+                                <span class="product-tag">Durable</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Premium Reusable Water Bottles Set', 320); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(7); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8: Ceramic Spatula with Bamboo Handle -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="85" data-rating="5"
+                    data-name="Ceramic Spatula with Bamboo Handle" data-product-id="8"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photo_for_products/Ceramic Spatula with Bamboo Handle.jfif"
+                                alt="Ceramic Spatula - Eco Kitchen Tools" loading="lazy">
+                            <button class="wishlist-btn"
+                                onclick="toggleWishlist(this, 'Ceramic Spatula with Bamboo Handle')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Ceramic Spatula with Bamboo Handle</h3>
+                            <div class="product-price">EGP 85</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(54 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Heat-Resistant</span>
+                                <span class="product-tag">Non-Stick Safe</span>
+                                <span class="product-tag">Eco-Friendly</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Ceramic Spatula with Bamboo Handle', 85); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(8); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 9: Handcrafted Wooden Dining Set -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="220" data-rating="4.5"
+                    data-name="Handcrafted Wooden Dining Set" data-product-id="9"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photo_for_products/Handcrafted Wooden Dining Set.jfif"
+                                alt="Handcrafted Wooden Dining Set - Premium Cutlery" loading="lazy">
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Handcrafted Wooden Dining Set')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Handcrafted Wooden Dining Set</h3>
+                            <div class="product-price">EGP 220</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(41 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Artisan Made</span>
+                                <span class="product-tag">12 Pieces</span>
+                                <span class="product-tag">Natural Wood</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Handcrafted Wooden Dining Set', 220); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(9); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 10: Natural Eco-Friendly Cleaning Bundle -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="155" data-rating="4.5"
+                    data-name="Natural Eco-Friendly Cleaning Bundle" data-product-id="10"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photo_for_products/Natural Eco-Friendly Cleaning Bundle.jfif" alt="Natural Eco-Friendly Cleaning Bundle - Chemical-Free"
+                                loading="lazy">
+                            <button class="wishlist-btn"
+                                onclick="toggleWishlist(this, 'Natural Eco-Friendly Cleaning Bundle')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Natural Eco-Friendly Cleaning Bundle</h3>
+                            <div class="product-price">EGP 155</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(78 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Chemical-Free</span>
+                                <span class="product-tag">5 Products</span>
+                                <span class="product-tag">Biodegradable</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Natural Eco-Friendly Cleaning Bundle', 155); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(10); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 11: Eco Bamboo Coffee Cup Set -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="110" data-rating="5"
+                    data-name="Eco Bamboo Coffee Cup Set" data-product-id="11" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photos/images (8).jpeg" alt="Eco Bamboo Coffee Cup Set - Sustainable Drinkware"
+                                loading="lazy">
+                            <span class="product-badge badge-bestseller">Bestseller</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Eco Bamboo Coffee Cup Set')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Eco Bamboo Coffee Cup Set</h3>
+                            <div class="product-price">EGP 110</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(143 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Reusable</span>
+                                <span class="product-tag">Set of 2</span>
+                                <span class="product-tag">Insulated</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Eco Bamboo Coffee Cup Set', 110); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(11); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 12: Reusable Eco Shopping Bags -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="125" data-rating="4.5"
+                    data-name="Reusable Eco Shopping Bags" data-product-id="12" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photos/download (1).jpeg" alt="Reusable Eco Shopping Bags - Sustainable Totes"
+                                loading="lazy">
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Reusable Eco Shopping Bags')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Reusable Eco Shopping Bags</h3>
+                            <div class="product-price">EGP 125</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(102 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Pack of 2</span>
+                                <span class="product-tag">Canvas & Mesh</span>
+                                <span class="product-tag">Durable</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Reusable Eco Shopping Bags', 125); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(12); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 13: Biodegradable Travel Cutlery Set -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="personal" data-price="95" data-rating="4.5"
+                    data-name="Biodegradable Travel Cutlery Set" data-product-id="13"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-personal">
+                            <img src="photo_for_products/Biodegradable Travel Cutlery Set.jfif"
+                                alt="Biodegradable Travel Cutlery Set - On-The-Go Dining" loading="lazy">
+                            <button class="wishlist-btn"
+                                onclick="toggleWishlist(this, 'Biodegradable Travel Cutlery Set')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Biodegradable Travel Cutlery Set</h3>
+                            <div class="product-price">EGP 95</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(55 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Portable</span>
+                                <span class="product-tag">Eco-Friendly</span>
+                                <span class="product-tag">Travel Case</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Biodegradable Travel Cutlery Set', 95); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(13); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 14: Organic Produce Mesh Bags Set -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="food" data-price="65" data-rating="5"
+                    data-name="Organic Produce Mesh Bags Set" data-product-id="14"
+                    data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-food">
+                            <img src="photos/images.jpeg" alt="Organic Produce Mesh Bags Set - Plastic-Free Shopping"
+                                loading="lazy">
+                            <span class="product-badge badge-bestseller">Bestseller</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Organic Produce Mesh Bags Set')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Organic Produce Mesh Bags Set</h3>
+                            <div class="product-price">EGP 65</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(126 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Set of 3</span>
+                                <span class="product-tag">Plastic-Free</span>
+                                <span class="product-tag">Reusable</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Organic Produce Mesh Bags Set', 65); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(14); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 15: Eco Cosmetic Pouch -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="personal" data-price="55" data-rating="4.5"
+                    data-name="Eco Cosmetic Pouch" data-product-id="15" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-personal">
+                            <img src="photo_for_products/Eco Cosmetic Pouch.jfif" alt="Eco Cosmetic Pouch - Sustainable Organizer"
+                                loading="lazy">
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Eco Cosmetic Pouch')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Eco Cosmetic Pouch</h3>
+                            <div class="product-price">EGP 55</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star-half-alt"></i></div>
+                                <span class="rating-count">(68 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Organic Fabric</span>
+                                <span class="product-tag">Compact</span>
+                                <span class="product-tag">Sustainable</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Eco Cosmetic Pouch', 55); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(15); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 16: Premium Eco Beverage Cups -->
+                <div class="col-lg-4 col-md-6 product-col" data-category="home" data-price="135" data-rating="5"
+                    data-name="Premium Eco Beverage Cups" data-product-id="16" data-product-page="product-detail.html">
+                    <div class="product-card">
+                        <div class="product-image img-home">
+                            <img src="photos/images (10).jpeg" alt="Premium Eco Beverage Cups - Glass with Bamboo Lid"
+                                loading="lazy">
+                            <span class="product-badge badge-new">New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this, 'Premium Eco Beverage Cups')"
+                                aria-label="Add to wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Premium Eco Beverage Cups</h3>
+                            <div class="product-price">EGP 135</div>
+                            <div class="product-rating">
+                                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(89 reviews)</span>
+                            </div>
+                            <div class="product-tags">
+                                <span class="product-tag">Borosilicate Glass</span>
+                                <span class="product-tag">Set of 4</span>
+                                <span class="product-tag">Temperature Safe</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart"
+                                    onclick="addToCart('Premium Eco Beverage Cups', 135); event.stopPropagation();">
+                                    <i class="fas fa-cart-plus me-1"></i> Add to Cart
+                                </button>
+                                <button class="btn-add-cart" style="background:var(--gold);color:var(--deep);flex:0.95;"
+                                    onclick="buyFromCard(16); event.stopPropagation();">
+                                    <i class="fas fa-bolt me-1"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Empty state -->
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-search"></i>
+                <h3>No products found</h3>
+                <p>Try a different search term or category.</p>
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Product pagination">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><i
+                                class="fas fa-chevron-left"></i></a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><i
+                                class="fas fa-chevron-right"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo">🌿 Eco<span class="gold-line">_Life</span> Store</div>
+                    <p class="footer-tagline">Sustainable living for a better planet</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-icon" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <h5>Shop</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Home Products</a></li>
+                        <li><a href="#">Personal Care</a></li>
+                        <li><a href="#">Organic Food</a></li>
+                        <li><a href="#">Sustainable Fashion</a></li>
+                        <li><a href="#">Garden</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <h5>Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-sm-6">
+                    <h5>Help</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h5>Contact</h5>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Cairo, Egypt</p>
+                        <p><i class="fas fa-phone me-2"></i>+20 123 456 7890</p>
+                        <p><i class="fas fa-envelope me-2"></i>hello@ecolifestore.com</p>
+                    </div>
+                    <h6 class="mt-3">Newsletter</h6>
+                    <form class="footer-newsletter mt-2" onsubmit="handleNewsletter(event)">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn-sub">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Eco Life Store. Made with 💚 for a better planet.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts at end of body -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* ── Page transition ── */
+        gsap.to('#pageTransition', { y: '-100%', duration: 0.6, ease: 'power2.out', delay: 0.1 });
+
+        /* ── Navbar scroll ── */
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+            document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+
+        /* ── Active nav link ── */
+        const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentFile || (currentFile === '' && href === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        /* ── Custom cursor ── */
+        const cursor = document.getElementById('cursor');
+        if (window.matchMedia('(pointer: fine)').matches) {
+            cursor.style.display = 'block';
+            document.addEventListener('mousemove', e => {
+                gsap.to('.cursor-dot', { x: e.clientX, y: e.clientY, duration: 0 });
+                gsap.to('.cursor-ring', { x: e.clientX, y: e.clientY, duration: 0.3, ease: 'power2.out' });
+            });
+            document.querySelectorAll('a, button, .product-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
+        }
+
+        /* ── Product click -> Product detail ── */
+        function goToProductDetail(colEl) {
+            const id = colEl && colEl.dataset ? colEl.dataset.productId : null;
+            const page = colEl && colEl.dataset ? colEl.dataset.productPage : 'product-detail.html';
+            if (!id) return;
+            window.location.href = `${page}?id=${id}`;
+        }
+
+        document.querySelectorAll('.product-col').forEach(colEl => {
+            colEl.style.cursor = 'pointer';
+            colEl.addEventListener('click', (e) => {
+                // If user clicked wishlist or add-to-cart, do NOT navigate.
+                if (e.target && e.target.closest('.wishlist-btn')) return;
+                if (e.target && e.target.closest('.btn-add-cart')) return;
+
+                // Always navigate for any other click inside the product
+                e.preventDefault();
+                e.stopPropagation();
+                goToProductDetail(colEl);
+            });
+        });
+
+
+
+
+        /* ── Cart ── */
+        function getCart() { return JSON.parse(localStorage.getItem('cart') || '[]'); }
+        function saveCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); updateCartBadge(); }
+        function updateCartBadge() {
+            const total = getCart().reduce((s, i) => s + i.qty, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+        function slugId(str) { return String(str).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
+        function normalizeCart(cart) {
+            return (Array.isArray(cart) ? cart : []).map(i => {
+                const name = i && i.name ? String(i.name) : 'Item';
+                const price = Number(i && i.price ? i.price : 0);
+                const qty = Math.max(1, Math.min(10, parseInt(i && i.qty ? i.qty : 1, 10) || 1));
+                const id = i && i.id ? String(i.id) : slugId(name);
+                return { id, name, price, qty };
+            });
+        }
+
+        function addToCart(name, price) {
+            const cart = normalizeCart(getCart());
+            const id = slugId(name);
+            const existing = cart.find(i => i.id === id);
+
+            if (existing) {
+                existing.qty = Math.min(10, existing.qty + 1);
+                existing.price = Number(price);
+                existing.name = String(name);
+            } else {
+                cart.push({ id, name, price: Number(price), qty: 1 });
+            }
+
+            saveCart(cart);
+            showToast(`"${name}" added to cart! 🛒`, 'success');
+        }
+        updateCartBadge();
+
+        /* ── Wishlist toggle ── */
+        function toggleWishlist(btn, name) {
+            const col = btn.closest('.product-col');
+            if (!col) return;
+
+            const productId = String(col.dataset.productId || '');
+            const price = Number(col.dataset.price || 0);
+            const category = col.dataset.category || 'General';
+            const rating = Number(col.dataset.rating || 4.5);
+            const iconEl = col.querySelector('.product-image i');
+            const icon = iconEl ? iconEl.className : 'fas fa-leaf';
+
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            const index = wishlist.findIndex(item => String(item.id) === productId);
+            const isAdded = index < 0;
+
+            if (isAdded) {
+                wishlist.push({
+                    id: productId,
+                    name,
+                    price,
+                    oldPrice: null,
+                    category,
+                    rating,
+                    reviews: 0,
+                    icon,
+                    badge: null
+                });
+                btn.classList.add('active');
+            } else {
+                wishlist.splice(index, 1);
+                btn.classList.remove('active');
+            }
+
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            showToast(isAdded ? `"${name}" added to wishlist ❤️` : `"${name}" removed from wishlist`, isAdded ? 'success' : 'warning');
+        }
+
+        (function restoreWishlistBtns() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+            wishlist.forEach(item => {
+                const btn = document.querySelector(`.product-col[data-product-id="${item.id}"] .wishlist-btn`);
+                if (btn) btn.classList.add('active');
+            });
+        })();
+
+        /* ── Filter + Search + Sort + Pagination ── */
+        let activeFilter = 'all';
+        let searchTerm = '';
+        let sortOrder = 'default';
+        let currentPage = 1;
+        const itemsPerPage = 9;
+
+        function applyFilters() {
+            const cols = [...document.querySelectorAll('.product-col')];
+
+            // filter
+            const filtered = cols.filter(col => {
+                const cat = col.dataset.category;
+                const name = (col.dataset.name || '').toLowerCase();
+                const matchCat = activeFilter === 'all' || cat === activeFilter;
+                const matchSearch = name.includes(searchTerm.toLowerCase());
+                return matchCat && matchSearch;
+            });
+
+            // sort
+            if (sortOrder === 'price-asc') filtered.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+            if (sortOrder === 'price-desc') filtered.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+            if (sortOrder === 'rating') filtered.sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating));
+
+            const total = filtered.length;
+            document.getElementById('resultsCount').textContent = `Showing ${total} product${total !== 1 ? 's' : ''}`;
+            document.getElementById('emptyState').style.display = total === 0 ? 'block' : 'none';
+
+            const totalPages = Math.max(1, Math.ceil(total / itemsPerPage));
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            renderPage(filtered, currentPage);
+            renderPagination(totalPages, currentPage);
+        }
+
+        function renderPage(filteredCols, page) {
+            const container = document.getElementById('productsContainer');
+            // hide all
+            document.querySelectorAll('.product-col').forEach(c => c.style.display = 'none');
+
+            const start = (page - 1) * itemsPerPage;
+            const slice = filteredCols.slice(start, start + itemsPerPage);
+            slice.forEach(col => {
+                col.style.display = '';
+                container.appendChild(col);
+            });
+        }
+
+        function renderPagination(totalPages, current) {
+            const pagWrap = document.querySelector('nav[aria-label="Product pagination"] .pagination');
+            if (!pagWrap) return;
+            pagWrap.innerHTML = '';
+
+            const add = (label, page, aria) => {
+                const li = document.createElement('li');
+                li.className = 'page-item' + (page === current ? ' active' : '');
+                const a = document.createElement('a');
+                a.className = 'page-link';
+                a.href = '#';
+                a.dataset.page = page;
+                if (aria) a.setAttribute('aria-label', aria);
+                a.innerHTML = label;
+                li.appendChild(a);
+                pagWrap.appendChild(li);
+            };
+
+            add('<i class="fas fa-chevron-left"></i>', Math.max(1, current - 1), 'Previous');
+
+            const range = 3;
+            let start = Math.max(1, current - range);
+            let end = Math.min(totalPages, current + range);
+            if (current <= range) end = Math.min(totalPages, 1 + range * 2);
+            if (current + range > totalPages) start = Math.max(1, totalPages - range * 2);
+            for (let p = start; p <= end; p++) add(p, p, null);
+
+            add('<i class="fas fa-chevron-right"></i>', Math.min(totalPages, current + 1), 'Next');
+
+            pagWrap.querySelectorAll('.page-link').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const p = parseInt(a.dataset.page, 10) || 1;
+                    if (p === currentPage) return;
+                    currentPage = p;
+                    applyFilters();
+                    window.scrollTo({ top: document.querySelector('.products-toolbar').offsetTop - 10, behavior: 'smooth' });
+                });
+            });
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.filter;
+                currentPage = 1;
+                applyFilters();
+            });
+        });
+
+        document.getElementById('productSearch').addEventListener('input', e => {
+            searchTerm = e.target.value;
+            currentPage = 1;
+            applyFilters();
+        });
+
+        document.getElementById('sortSelect').addEventListener('change', e => {
+            sortOrder = e.target.value;
+            currentPage = 1;
+            applyFilters();
+        });
+
+        // initial render
+        applyFilters();
+
+        /* ── Scroll reveal ── */
+        gsap.utils.toArray('.product-col').forEach((col, i) => {
+            gsap.from(col, {
+                scrollTrigger: { trigger: col, start: 'top 85%' },
+                y: 30, opacity: 0, duration: 0.5, delay: (i % 3) * 0.1
+            });
+        });
+
+        /* ── Hero entrance ── */
+        gsap.from('.page-header-badge', { opacity: 0, y: 20, duration: 0.5, delay: 0.6 });
+        gsap.from('.page-title', { opacity: 0, y: 30, duration: 0.6, delay: 0.75 });
+        gsap.from('.page-subtitle', { opacity: 0, y: 20, duration: 0.5, delay: 0.9 });
+
+        /* ── Toast ── */
+        function showToast(message, type = 'info') {
+            const icons = { success: 'check-circle', error: 'times-circle', warning: 'exclamation-triangle', info: 'info-circle' };
+            const toast = document.createElement('div');
+            toast.className = `eco-toast eco-toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${icons[type]}" style="color:var(--${type === 'success' ? 'success' : type === 'error' ? 'danger' : type === 'warning' ? 'warning' : 'info'})"></i>
+                <span style="flex:1;font-size:.9rem;">${message}</span>
+                <div class="eco-toast-progress"></div>`;
+            document.getElementById('toastContainer').appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 350); }, 3000);
+        }
+
+        /* ── Newsletter ── */
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showToast('Thanks for subscribing! 🌿', 'success');
+            e.target.reset();
+        }
+
+        /* ── Auth UI ── */
+        function updateLoginUI() {
+            const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const userName = localStorage.getItem('userName') || 'Account';
+            const set = (id, show) => { const el = document.getElementById(id); if (el) el.style.display = show ? 'block' : 'none'; };
+            set('accountLink', loggedIn);
+            set('loginLink', !loggedIn);
+            set('registerLink', !loggedIn);
+            set('logoutDivider', loggedIn);
+            set('logoutLink', loggedIn);
+            const label = document.getElementById('accountBtnLabel');
+            if (label) label.textContent = loggedIn ? userName : 'Account';
+        }
+        updateLoginUI();
+
+        /* ── Buy from product card (Buy button) ── */
+        function buyFromCard(productId) {
+            const id = parseInt(productId, 10);
+            if (!Number.isFinite(id)) return;
+
+            const col = document.querySelector(`.product-col[data-product-id="${id}"]`);
+            if (!col) return;
+
+            const name = col.dataset.name;
+            const price = parseFloat(col.dataset.price);
+
+            if (!name || !Number.isFinite(price)) return;
+
+            // Add exactly 1 item and redirect to checkout
+            addToCart(name, price);
+            // Ensure checkout flow is COD-focused (checkout page decides UI)
+            window.location.href = 'checkout.html';
+        }
+
+
+        function logout(e) {
+            e.preventDefault();
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            updateLoginUI();
+            showToast('Logged out successfully.', 'info');
+            setTimeout(() => window.location.href = 'login.html', 1200);
+        }
+
+        /* ── Translation ── */
+        let currentLang = 'en';
+        function translatePage(lang) {
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                if (!el.querySelector('*')) el.textContent = el.getAttribute(`data-${lang}`) || el.textContent;
+            });
+            document.getElementById('translateBtnText').textContent = lang === 'en' ? 'AR' : 'EN';
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            currentLang = lang;
+        }
+    </script>
+<script src="marketplace-enhancements.js"></script>
+</body>
+
+</html>

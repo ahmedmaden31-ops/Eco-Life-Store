@@ -1,0 +1,7 @@
+Eco Life Store — Marketplace additions
+
+This update keeps the original green, cream and gold theme and adds a shared product search bar, catalogue filtering/sorting, and 24 additional eco-friendly sample products to products.html. Existing pages, original product cards, and existing local cart/auth scripts are retained.
+
+Run locally: open the folder in VS Code and use Live Server, or deploy the folder to your static hosting provider. The existing project is HTML/CSS/JavaScript (not React).
+
+Product names, prices and image references are demo content and can be edited in marketplace-enhancements.js. Prices are sample EGP values, not live offers.
